@@ -1,4 +1,4 @@
-package com.github.MichielProost.Raytracing3DEngine.Raytracing3DEngine;
+package com.github.MichielProost.Raytracing3DEngine;
 
 import java.util.Arrays;
 
