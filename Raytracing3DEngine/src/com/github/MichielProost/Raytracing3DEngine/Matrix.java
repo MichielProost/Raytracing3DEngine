@@ -7,7 +7,7 @@ public class Matrix {
     int[][] arr;
 
     // Constructor.
-    Matrix()
+    public Matrix()
     {
         // Initialize a 4D array.
         arr = new int[][]{  {0, 0, 0, 0},
@@ -24,7 +24,7 @@ public class Matrix {
      * @param value The value to be set.
      * @return The matrix object.
      */
-    Matrix setValue(int x, int y, int value)
+    public Matrix setValue(int x, int y, int value)
     {
         arr[x][y] = value;
         return this;
