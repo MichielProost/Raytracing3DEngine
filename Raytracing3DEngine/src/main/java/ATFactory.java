@@ -1,17 +1,8 @@
-public class ATFactory {
+import Matrix.*;
+import interfaces.IATFactory;
 
-    enum RotationAxis{
-        X,
-        Y,
-        Z
-    }
-    /**
-     * Create a 4D translation matrix.
-     * @param x Translation amount in the x-direction.
-     * @param y Translation amount in the y-direction.
-     * @param z Translation amount in the z-direction.
-     * @return The resulting translation matrix.
-     */
+public class ATFactory implements IATFactory {
+
     public Matrix getTranslation(double x, double y, double z){
         return new Identity(4)
                 .put(0,3, x)
@@ -19,13 +10,6 @@ public class ATFactory {
                 .put(2,3, z);
     }
 
-    /**
-     * Create a 4D scaling matrix.
-     * @param x Scaling in the x-direction.
-     * @param y Scaling in the y-direction.
-     * @param z Scaling in the z-direction.
-     * @return The resulting scaling matrix.
-     */
     public Matrix getScaling(double x, double y, double z){
         return new Identity(4)
                 .put(0,0, x)
@@ -33,12 +17,6 @@ public class ATFactory {
                 .put(2,2, z);
     }
 
-    /**
-     * Create a 4D rotation matrix.
-     * @param axis The rotation axis.
-     * @param beta The rotation angle.
-     * @return The resulting rotation matrix.
-     */
     public Matrix getRotation(RotationAxis axis, double beta){
 
         Matrix matrix = new Identity(4);

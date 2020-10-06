@@ -1,3 +1,5 @@
+package Matrix;
+
 /**
  *  An identity matrix of size N.
  *  A N-by-N square matrix with ones on the main diagonal
