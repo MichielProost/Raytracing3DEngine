@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.Objects;
+package Matrix;
 
 /**
  * A rectangular array of numbers
