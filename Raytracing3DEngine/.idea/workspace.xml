@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d37922cf-94ee-4f43-9fa0-0da2fa26b736" name="Default Changelist" comment="" />
+    <list default="true" id="d37922cf-94ee-4f43-9fa0-0da2fa26b736" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +19,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1iTFVMNJP51CkByiriNFhstQxjI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -23,6 +31,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -35,7 +44,7 @@
   <component name="RunManager">
     <configuration name="RayTracing3DEngine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="RayTracing3DEngine" />
-      <module name="RayTracing3DEngine" />
+      <module name="Raytracing3DEngine" />
       <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -61,6 +70,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="360" y="4" key="#RayTracing3DEngine" timestamp="1601996836858">
+      <screen x="0" y="0" width="1280" height="690" />
+    </state>
+    <state x="360" y="4" key="#RayTracing3DEngine/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1601996836858" />
     <state x="1094" y="-901" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601987532133">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
@@ -97,10 +110,10 @@
       <screen x="0" y="0" width="1280" height="690" />
     </state>
     <state x="122" y="0" key="SettingsEditor/0.0.1280.690@0.0.1280.690" timestamp="1601923980155" />
-    <state x="339" y="169" key="com.intellij.ide.util.TipDialog" timestamp="1601994613519">
+    <state x="339" y="169" key="com.intellij.ide.util.TipDialog" timestamp="1601996779642">
       <screen x="0" y="0" width="1280" height="690" />
     </state>
-    <state x="339" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1601994613519" />
+    <state x="339" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1601996779642" />
     <state x="339" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1601983063377" />
     <state x="339" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.690@0.0.1280.690" timestamp="1601923702397" />
     <state x="1303" y="-853" width="672" height="678" key="search.everywhere.popup" timestamp="1601987994649">
