@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d37922cf-94ee-4f43-9fa0-0da2fa26b736" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/TestMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +21,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1iTFVMNJP51CkByiriNFhstQxjI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -31,9 +33,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -69,6 +73,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="234" y="4" key="#Project_Structure" timestamp="1602092237416">
+      <screen x="0" y="0" width="1280" height="690" />
+    </state>
+    <state x="234" y="4" key="#Project_Structure/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1602092237416" />
     <state x="360" y="4" key="#RayTracing3DEngine" timestamp="1601996836858">
       <screen x="0" y="0" width="1280" height="690" />
     </state>
@@ -106,9 +114,10 @@
     <state width="1237" height="219" key="GridCell.Tab.0.right/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1601993107329" />
     <state width="1877" height="193" key="GridCell.Tab.0.right/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1602003923727" />
     <state width="1237" height="213" key="GridCell.Tab.0.right/0.0.1280.690@0.0.1280.690" timestamp="1601927974034" />
-    <state x="122" y="0" key="SettingsEditor" timestamp="1601923980155">
+    <state x="122" y="0" key="SettingsEditor" timestamp="1602092065546">
       <screen x="0" y="0" width="1280" height="690" />
     </state>
+    <state x="122" y="0" key="SettingsEditor/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1602092065546" />
     <state x="122" y="0" key="SettingsEditor/0.0.1280.690@0.0.1280.690" timestamp="1601923980155" />
     <state x="339" y="169" key="com.intellij.ide.util.TipDialog" timestamp="1602090410321">
       <screen x="0" y="0" width="1280" height="690" />
