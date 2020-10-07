@@ -56,7 +56,7 @@ public class TestMatrix {
                 .put(1,0, 3).put(1,1, 7)
                 .put(2,0, 0).put(2,1,10);
 
-        assert((firstMatrix.plus(expectedMatrix)).equals(expectedMatrix));
+        assert((firstMatrix.plus(secondMatrix)).equals(expectedMatrix));
 
     }
 
