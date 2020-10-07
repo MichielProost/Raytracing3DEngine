@@ -8,6 +8,6 @@ public class RayTracing3DEngine {
      * @param args The input arguments.
      */
     public static void main (String[] args) {
-        //TODO. Implement main.
+        //TODO Implement main.
 ;    }
 }

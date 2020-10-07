@@ -22,4 +22,62 @@ public class TestMatrix {
 
         assert(!vector.equals(firstMatrix));
     }
+
+    @Test
+    public void testTranspose()
+    {
+        Vector vector = new Vector(5,10,15);
+
+        Matrix expectedMatrix = new Matrix(1,4)
+                .put(0,0, 5)
+                .put(0,1,10)
+                .put(0,2,15)
+                .put(0,3, 1);
+
+        assert(vector.transpose().equals(expectedMatrix));
+
+    }
+
+    @Test
+    public void testAddition()
+    {
+        Matrix firstMatrix      = new Matrix(3,2)
+                .put(0,0, 1).put(0,1, 1)
+                .put(1,0, 2).put(1,1, 4)
+                .put(2,0,-1).put(2,1, 5);
+
+        Matrix secondMatrix     = new Matrix(3,2)
+                .put(0,0, 6).put(0,1,-4)
+                .put(1,0, 1).put(1,1, 3)
+                .put(2,0, 1).put(2,1, 5);
+
+        Matrix expectedMatrix   = new Matrix(3,2)
+                .put(0,0, 7).put(0,1,-3)
+                .put(1,0, 3).put(1,1, 7)
+                .put(2,0, 0).put(2,1,10);
+
+        assert((firstMatrix.plus(expectedMatrix)).equals(expectedMatrix));
+
+    }
+
+    @Test
+    public void testMultiplication()
+    {
+        Matrix firstMatrix  =   new Matrix(new double[][]  {{6, 2, 0, 2},
+                                                            {3, 7, 8, 3},
+                                                            {4, 6, 8, 1},
+                                                            {9, 4, 7, 3}});
+
+        Matrix secondMatrix =   new Matrix(new double[][]  {{12,4,26, 5},
+                                                            {7, 3, 5, 4},
+                                                            {3, 4,45, 5},
+                                                            {7, 5, 3, 3}});
+
+        Matrix expectedMatrix = new Matrix(new double[][]{{100, 40,172, 44},
+                                                          {130, 80,482, 92},
+                                                          {121, 71,497, 87},
+                                                          {178, 91,578,105}});
+
+        assert((firstMatrix.times(secondMatrix)).equals(expectedMatrix));
+    }
 }
