@@ -90,4 +90,31 @@ public class TestMatrix {
 
         assert((firstMatrix.times(secondMatrix)).equals(expectedMatrix));
     }
+
+    @Test
+    public void testVector()
+    {
+        Matrix vector = new Vector(2, 8, 9);
+
+        Matrix expectedMatrix = new Matrix(4,1)
+                .put(0,0,2)
+                .put(1,0,8)
+                .put(2,0,9)
+                .put(3,0,1);
+
+        assert(vector.equals(expectedMatrix));
+    }
+
+    @Test
+    public void testIdentity()
+    {
+        Matrix identity = new Identity(3);
+
+        Matrix expectedMatrix = new Matrix(3,3)
+                .put(0,0,1)
+                .put(1,1,1)
+                .put(2,2,1);
+
+        assert(identity.equals(expectedMatrix));
+    }
 }
