@@ -24,6 +24,16 @@ public class TestMatrix {
     }
 
     @Test
+    public void testGetAndPut()
+    {
+        Matrix matrix = new Identity(2).put(0,0, 10);
+
+        double expected = 10;
+
+        assert(expected == matrix.get(0,0));
+    }
+
+    @Test
     public void testTranspose()
     {
         Vector vector = new Vector(5,10,15);
