@@ -1,5 +1,5 @@
-import Matrix.*;
 import org.junit.Test;
+import Matrix.*;
 
 public class TestMatrix {
 
@@ -117,4 +117,5 @@ public class TestMatrix {
 
         assert(identity.equals(expectedMatrix));
     }
+
 }
