@@ -1,3 +1,5 @@
+package RayTracing;
+
 public class RayTracer {
 
     int nCols;  // Screen width (number of pixels).
