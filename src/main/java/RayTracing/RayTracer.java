@@ -29,8 +29,14 @@ public class RayTracer {
             for (int c = 0; c < screen.getWidth(); c++)
             {
                 // Built the rc-th ray.
-                //Vector dirRay =
-                //Ray ray = new Ray(eye, )
+                Matrix normal = screen.getCenter().minus(eye);
+                Matrix centerToPix = screen.getPixelLeftCorner(c, r).minus(screen.getCenter());
+
+                Matrix dir = normal.plus(centerToPix);
+
+                screen.drawPoint(r,c);
+                Ray ray = new Ray(eye, dir);
+
                 // Find all the intersections of ray with objects in the scene.
                 // Identify the intersection that lies closest to, and in front of, the eye.
                 // Compute the hit point where the ray hits the object, and the normal vector at that point.

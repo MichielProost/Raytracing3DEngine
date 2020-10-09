@@ -12,7 +12,7 @@ public class Ray {
      * @param point The starting point.
      * @param vector The ray's direction.
      */
-    public Ray(Point point, Vector vector){
+    public Ray(Matrix point, Matrix vector){
         start = point;
         dir = vector;
     }

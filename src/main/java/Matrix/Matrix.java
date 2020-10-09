@@ -93,6 +93,24 @@ public class Matrix {
     }
 
     /**
+     * D = A - B.
+     * @param B The matrix to be subtracted from the original one.
+     * @return The resulting matrix D.
+     */
+    public Matrix minus(Matrix B){
+        Matrix A = this;
+        assert(B.R == A.R && B.C == A.C) : "Wrong matrix dimensions in addition.";
+        Matrix D = new Matrix(R, C);
+        for (int i=0; i<R; i++){
+            for (int j=0; j<C; j++)
+            {
+                D.values[i][j] = A.values[i][j] - B.values[i][j];
+            }
+        }
+        return D;
+    }
+
+    /**
      * D = A * B.
      * @param B The matrix to be multiplied with.
      * @return The resulting matrix D.
