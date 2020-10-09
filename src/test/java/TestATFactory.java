@@ -1,6 +1,6 @@
 import org.junit.Test;
 import Matrix.Matrix;
-import interfaces.IATFactory;
+import Interfaces.IATFactory;
 
 public class TestATFactory {
 

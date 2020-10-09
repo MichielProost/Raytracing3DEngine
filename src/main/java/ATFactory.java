@@ -1,5 +1,5 @@
 import Matrix.*;
-import interfaces.IATFactory;
+import Interfaces.IATFactory;
 
 public class ATFactory implements IATFactory {
 
