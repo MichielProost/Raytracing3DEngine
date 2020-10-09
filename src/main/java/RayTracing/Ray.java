@@ -3,8 +3,8 @@ import Matrix.*;
 
 public class Ray {
 
-    public Matrix start;
-    public Matrix dir;
+    public Matrix start;    // The starting point of the vector.
+    public Matrix dir;      // The direction of the vector.
 
     /**
      * Create a ray object starting from a point
