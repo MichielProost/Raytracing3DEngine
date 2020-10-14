@@ -47,10 +47,18 @@ public class Matrix{
         return values[r][c];
     }
 
+    /**
+     * Get the number of rows in this matrix.
+     * @return The number of rows.
+     */
     public int getR(){
         return R;
     }
 
+    /**
+     * Get the number of columns in this matrix.
+     * @return The number of columns.
+     */
     public int getC(){
         return C;
     }
@@ -87,17 +95,19 @@ public class Matrix{
      * @param B The matrix to be added.
      * @return The resulting matrix D.
      */
-    public Matrix plus(Matrix B){
+    public <T extends Matrix> T plus(T B){
         Matrix A = this;
-        assert(B.R == A.R && B.C == A.C) : "Wrong matrix dimensions in addition.";
+        assert(B.getR() == A.getR() && B.getC() == A.getC()) : "Wrong matrix dimensions in addition.";
         Matrix D = new Matrix(R, C);
-        for (int i=0; i<R; i++){
-            for (int j=0; j<C; j++)
+        for (int i=0; i<getR(); i++){
+            for (int j=0; j<getC(); j++)
             {
-                D.values[i][j] = A.values[i][j] + B.values[i][j];
+                D.put(i,j,A.get(i,j) + B.get(i,j));
             }
         }
-        return D;
+
+        D = toCorrectMatrixClass(D, B.getClass());
+        return (T) D;
     }
 
     /**
@@ -105,17 +115,19 @@ public class Matrix{
      * @param B The matrix to be subtracted from the original one.
      * @return The resulting matrix D.
      */
-    public Matrix minus(Matrix B){
+    public <T extends Matrix> T minus(T B){
         Matrix A = this;
-        assert(B.R == A.R && B.C == A.C) : "Wrong matrix dimensions in addition.";
+        assert(B.getR() == A.getR() && B.getC() == A.getR()) : "Wrong matrix dimensions in addition.";
         Matrix D = new Matrix(R, C);
-        for (int i=0; i<R; i++){
-            for (int j=0; j<C; j++)
+        for (int i=0; i<getR(); i++){
+            for (int j=0; j<getC(); j++)
             {
-                D.values[i][j] = A.values[i][j] - B.values[i][j];
+                D.put(i,j,A.get(i,j) - B.get(i,j));
             }
         }
-        return D;
+
+        D = toCorrectMatrixClass(D, B.getClass());
+        return (T) D;
     }
 
     /**
@@ -140,14 +152,20 @@ public class Matrix{
         return (T) D;
     }
 
-    Matrix toCorrectMatrixClass(Matrix matrix, Class cls){
-        if (cls == Vector.class){
-            matrix = new Vector(matrix.get(0,0), matrix.get(1,0), matrix.get(2,0));
+    /**
+     * Convert a general matrix to a specific (child) class.
+     * @param M The matrix to be converted.
+     * @param C The class to which the matrix should be converted.
+     * @return The converted matrix.
+     */
+    Matrix toCorrectMatrixClass(Matrix M, Class C){
+        if (C == Vector.class){
+            M = new Vector(M.get(0,0), M.get(1,0), M.get(2,0));
         }
-        if (cls == Point.class){
-            matrix = new Point(matrix.get(0,0), matrix.get(1,0), matrix.get(2,0));
+        if (C == Point.class){
+            M = new Point(M.get(0,0), M.get(1,0), M.get(2,0));
         }
-        return matrix;
+        return M;
     }
 
     @Override

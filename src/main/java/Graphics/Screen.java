@@ -1,5 +1,4 @@
 package Graphics;
-import Matrix.Point;
 
 import javax.swing.*;
 
@@ -86,6 +85,11 @@ public class Screen extends JFrame {
      */
     public void drawPoint(int x, int y, float r, float g, float b){
         surface.drawPoint(x, y, r, g, b);
+    }
+
+    public void forceUpdate()
+    {
+        surface.paintComponent(getGraphics());
     }
 
 }
