@@ -24,16 +24,55 @@ public class Vector extends Matrix {
         put(0, 0, x).put(1, 0, y).put(2, 0, z);
     }
 
+    /**
+     * Get the projection of this vector along the x-axis.
+     * @return The projection of this vector along the x-axis.
+     */
     public double getX(){
         return x;
     }
 
+    /**
+     * Get the projection of this vector along the y-axis.
+     * @return The projection of this vector along the y-axis.
+     */
     public double getY(){
         return y;
     }
 
+    /**
+     * Get the projection of this vector along the z-axis.
+     * @return The projection of this vector along the z-axis.
+     */
     public double getZ(){
         return z;
+    }
+
+    /**
+     * Set the projection of this vector along the x-axis.
+     * @param x The projection of this vector along the x-axis.
+     */
+    public void setX(double x){
+        this.x = x;
+        put(0,0, x);
+    }
+
+    /**
+     * Set the projection of this vector along the y-axis.
+     * @param y The projection of this vector along the y-axis.
+     */
+    public void setY(double y){
+        this.y = y;
+        put(1,0, y);
+    }
+
+    /**
+     * Set the projection of this vector along the z-axis.
+     * @param z The projection of this vector along the z-axis.
+     */
+    public void setZ(double z){
+        this.z = z;
+        put(2,0, z);
     }
 
     /**

@@ -25,28 +25,52 @@ public class Point extends Matrix{
         put(0, 0, x).put(1, 0, y).put(2, 0, z);
     }
 
+    /**
+     * Get the value on the x-axis.
+     * @return The value on the x-axis.
+     */
     public double getX(){
         return x;
     }
 
+    /**
+     * Get the value on the y-axis.
+     * @return The value on the y-axis.
+     */
     public double getY(){
         return y;
     }
 
+    /**
+     * Get the value on the z-axis.
+     * @return The value on the z-axis.
+     */
     public double getZ(){
         return z;
     }
 
+    /**
+     * Set the value on the x-axis.
+     * @param x The value on the x-axis.
+     */
     public void setX(double x){
         this.x = x;
         put(0,0, x);
     }
 
+    /**
+     * Set the value on the y-axis.
+     * @param y The value on the y-axis.
+     */
     public void setY(double y){
         this.y = y;
         put(1,0, y);
     }
 
+    /**
+     * Set the value on the z-axis.
+     * @param z The value on the z-axis.
+     */
     public void setZ(double z){
         this.z = z;
         put(1,0, z);
