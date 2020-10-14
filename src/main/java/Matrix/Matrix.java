@@ -4,7 +4,7 @@ package Matrix;
  * A rectangular array of numbers
  * also known as a matrix.
  */
-public class Matrix {
+public class Matrix{
 
     private int R;              // Number of rows.
     private int C;              // Number of columns.
@@ -45,6 +45,14 @@ public class Matrix {
      */
     public double get(int r, int c){
         return values[r][c];
+    }
+
+    public int getR(){
+        return R;
+    }
+
+    public int getC(){
+        return C;
     }
 
     /**
@@ -115,19 +123,31 @@ public class Matrix {
      * @param B The matrix to be multiplied with.
      * @return The resulting matrix D.
      */
-    public Matrix times(Matrix B){
+    public <T extends Matrix> T times (T B){
         Matrix A = this;
-        assert(A.C == B.R) : "Wrong matrix dimensions in multiplication.";
-        Matrix D = new Matrix(A.R, B.C);
-        for (int i=0; i<D.R; i++){
-            for (int j=0; j<D.C; j++){
+        assert(A.C == B.getR()) : "Wrong matrix dimensions in multiplication.";
+        Matrix D = new Matrix(A.R, B.getC());
+        for (int i=0; i<D.getR(); i++){
+            for (int j=0; j<D.getC(); j++){
                 for (int k=0; k<A.C; k++)
                 {
-                    D.values[i][j] += (A.values[i][k] * B.values[k][j]);
+                    D.put(i,j,D.get(i,j) + (A.values[i][k] * B.get(k,j)));
                 }
             }
         }
-        return D;
+
+        D = toCorrectMatrixClass(D, B.getClass());
+        return (T) D;
+    }
+
+    Matrix toCorrectMatrixClass(Matrix matrix, Class cls){
+        if (cls == Vector.class){
+            matrix = new Vector(matrix.get(0,0), matrix.get(1,0), matrix.get(2,0));
+        }
+        if (cls == Point.class){
+            matrix = new Point(matrix.get(0,0), matrix.get(1,0), matrix.get(2,0));
+        }
+        return matrix;
     }
 
     @Override

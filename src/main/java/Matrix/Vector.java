@@ -23,4 +23,30 @@ public class Vector extends Matrix {
         this.z = z;
         put(0, 0, x).put(1, 0, y).put(2, 0, z);
     }
+
+    public double getX(){
+        return x;
+    }
+
+    public double getY(){
+        return y;
+    }
+
+    public double getZ(){
+        return z;
+    }
+
+    /**
+     * Calculate the cross product of two vectors
+     * D = A x B.
+     * @param B The vector to be multiplied with.
+     * @return The resulting vector D.
+     */
+    public Vector cross(Vector B){
+        Vector A = this;
+        double xValue = (A.getY() * B.getZ()) - (A.getZ() * B.getY());
+        double yValue = (A.getZ() * B.getX()) - (A.getX() * B.getZ());
+        double zValue = (A.getX() * B.getY()) - (A.getY() * B.getX());
+        return new Vector(xValue, yValue, zValue);
+    }
 }

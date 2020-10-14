@@ -1,4 +1,5 @@
 import Graphics.Screen;
+import Matrix.*;
 import RayTracing.RayTracer;
 
 /**
@@ -11,9 +12,9 @@ public class RayTracing3DEngine {
      */
     public static void main (String[] args) {
         // Built a ray tracer.
-        RayTracer tracer = new RayTracer(500, 500, 10.0);
+        //RayTracer tracer = new RayTracer(500, 500, 10.0);
 
         // Refresh the screen buffer.
-        tracer.refresh();
+        //tracer.refresh();
 ;    }
 }
