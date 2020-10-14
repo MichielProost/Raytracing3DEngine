@@ -11,6 +11,14 @@ public class Point extends Matrix{
     private double z;   // The value on the z-axis.
 
     /**
+     * Default constructor.
+     */
+    public Point(){
+        super(4,1);
+        put(3, 0, 1);     // Element on the 4th row should be 1.
+    }
+
+    /**
      * Create a matrix representation of a 3D point.
      * @param x The value on the x-axis.
      * @param y The value on the y-axis.
@@ -74,5 +82,16 @@ public class Point extends Matrix{
     public void setZ(double z){
         this.z = z;
         put(1,0, z);
+    }
+
+    public Vector minus(Point B){
+        Point A = this;
+        Vector D = new Vector();
+
+        D.setX(A.getX() - B.getX());
+        D.setY(A.getY() - B.getY());
+        D.setZ(A.getZ() - B.getZ());
+
+        return D;
     }
 }

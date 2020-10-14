@@ -11,6 +11,13 @@ public class Vector extends Matrix {
     private double z;   // Projection of this vector along the z-axis.
 
     /**
+     * Default constructor.
+     */
+    public Vector(){
+        super(4, 1);            // Create a 4-by-1 matrix.
+    }
+
+    /**
      * Create a matrix representation of a 3D vector.
      * @param x Projection of this vector along the x-axis.
      * @param y Projection of this vector along the y-axis.
@@ -73,6 +80,24 @@ public class Vector extends Matrix {
     public void setZ(double z){
         this.z = z;
         put(2,0, z);
+    }
+
+    /**
+     * Normalizing this vector.
+     * @return
+     */
+    public Vector normalize(){
+        double magnitude = Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2));
+        setX(x / magnitude);
+        setY(y / magnitude);
+        setZ(z / magnitude);
+        return this;
+    }
+
+    public double dot(Vector B){
+        Vector A = this;
+        return
+                ((A.getX() * B.getX()) + (A.getY() * B.getY()) + (A.getZ() + B.getZ()));
     }
 
     /**

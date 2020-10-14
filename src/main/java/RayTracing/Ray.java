@@ -3,18 +3,23 @@ import Matrix.*;
 
 public class Ray {
 
-    public Matrix start;    // The starting point of the vector.
-    public Matrix dir;      // The direction of the vector.
+    public Point start;    // The starting point of the ray.
+    public Matrix dir;     // The direction of the ray.
 
     /**
-     * Create a ray object starting from a point
-     * with a direction described by a vector.
-     * @param point The starting point.
-     * @param vector The ray's direction.
+     * Set the starting point of the ray.
+     * @param start The starting point.
      */
-    public Ray(Matrix point, Matrix vector){
-        start = point;
-        dir = vector;
+    public void setStart(Point start){
+        this.start = start;
+    }
+
+    /**
+     * Set the direction of the ray.
+     * @param dir The ray's direction.
+     */
+    public void setDir(Vector dir){
+        this.dir = dir;
     }
 
 }

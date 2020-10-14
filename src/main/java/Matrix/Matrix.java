@@ -95,7 +95,7 @@ public class Matrix{
      * @param B The matrix to be added.
      * @return The resulting matrix D.
      */
-    public <T extends Matrix> T plus(T B){
+    public Matrix plus(Matrix B){
         Matrix A = this;
         assert(B.getR() == A.getR() && B.getC() == A.getC()) : "Wrong matrix dimensions in addition.";
         Matrix D = new Matrix(R, C);
@@ -105,9 +105,7 @@ public class Matrix{
                 D.put(i,j,A.get(i,j) + B.get(i,j));
             }
         }
-
-        D = toCorrectMatrixClass(D, B.getClass());
-        return (T) D;
+        return D;
     }
 
     /**
@@ -115,7 +113,7 @@ public class Matrix{
      * @param B The matrix to be subtracted from the original one.
      * @return The resulting matrix D.
      */
-    public <T extends Matrix> T minus(T B){
+    public Matrix minus(Matrix B){
         Matrix A = this;
         assert(B.getR() == A.getR() && B.getC() == A.getR()) : "Wrong matrix dimensions in addition.";
         Matrix D = new Matrix(R, C);
@@ -125,9 +123,7 @@ public class Matrix{
                 D.put(i,j,A.get(i,j) - B.get(i,j));
             }
         }
-
-        D = toCorrectMatrixClass(D, B.getClass());
-        return (T) D;
+        return D;
     }
 
     /**
@@ -158,7 +154,7 @@ public class Matrix{
      * @param C The class to which the matrix should be converted.
      * @return The converted matrix.
      */
-    Matrix toCorrectMatrixClass(Matrix M, Class C){
+    public Matrix toCorrectMatrixClass(Matrix M, Class C){
         if (C == Vector.class){
             M = new Vector(M.get(0,0), M.get(1,0), M.get(2,0));
         }
