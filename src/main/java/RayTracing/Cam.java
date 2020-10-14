@@ -47,11 +47,14 @@ public class Cam {
     public void rayTrace(Screen screen){
         Ray ray = new Ray();
         ray.setStart(eye);
-        for (int r=0; r < screen.getHeight(); r++){
-            for (int c = 0; c < screen.getWidth(); c++)
+        for (int r=0; r < screen.getnRows(); r++){
+            for (int c = 0; c < screen.getnColumns(); c++)
             {
                 // Compute the ray's direction.
+                Vector dir = ray.computeDirection(screen, r, c);
                 // Built the rc-th ray.
+                ray.setDir(dir);
+                System.out.println(dir);
                 // Find all the intersections of ray with objects in the scene.
                 // Identify the intersection that lies closest to, and in front of, the eye.
                 // Compute the hit point where the ray hits the object, and the normal vector at that point.

@@ -1,4 +1,5 @@
 package RayTracing;
+import Graphics.Screen;
 import Matrix.*;
 
 public class Ray {
@@ -20,6 +21,14 @@ public class Ray {
      */
     public void setDir(Vector dir){
         this.dir = dir;
+    }
+
+    public Vector computeDirection(Screen screen, int r, int c){
+        Vector dir = new Vector();
+        dir.setX(-screen.getX());
+        dir.setY((double) screen.getWidth() * (((2 * (double) c) / (double) screen.getnColumns()) - 1));
+        dir.setZ((double) screen.getHeight() * (((2 * (double) r) / (double) screen.getnRows()) - 1));
+        return dir;
     }
 
 }

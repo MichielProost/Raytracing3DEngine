@@ -9,6 +9,11 @@ public class Screen extends JFrame {
 
     private final Surface surface;
 
+    private double N;
+
+    private int nRows;
+    private int nColumns;
+
     private int width;
     private int height;
 
@@ -18,15 +23,25 @@ public class Screen extends JFrame {
 
     /**
      * Create a new JFrame and add a surface to it.
-     * @param width The width of the surface.
-     * @param height The height of the surface.
+     * @param nColumns The width of the surface (pixels).
+     * @param nRows The height of the surface (pixels).
+     * @param N The distance in front of the eye.
+     * @param alpha The view angle.
      */
-    public Screen(int width, int height){
+    public Screen(int nColumns, int nRows, double N, int alpha, double aspect){
 
-        surface = new Surface(width, height);
+        this.nColumns = nColumns;
+        this.nRows = nRows;
 
-        this.width = width;
+        this.N = N;
+        setLocation(N, 0, 0);
+
+        int height = (int) (N * Math.tan(-alpha / 2));
         this.height = height;
+        int width = (int) (height * aspect);
+        this.width = height;
+
+        surface = new Surface(2 * width, 2 * height);
 
         setTitle("Ray Tracing");
         setSize(width, height);
@@ -50,6 +65,14 @@ public class Screen extends JFrame {
      */
     public int getHeight(){
         return this.height;
+    }
+
+    public int getnRows(){
+        return nRows;
+    }
+
+    public int getnColumns(){
+        return nColumns;
     }
 
     /**
