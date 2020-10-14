@@ -4,10 +4,8 @@
     <list default="true" id="d37922cf-94ee-4f43-9fa0-0da2fa26b736" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Graphics/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Graphics/Screen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Matrix/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RayTracing/Ray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RayTracing/Ray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RayTracing/RayTracer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RayTracing/RayTracer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Matrix/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Matrix/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Matrix/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Matrix/Vector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,10 +130,10 @@
     </state>
     <state x="122" y="0" key="SettingsEditor/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1602092065546" />
     <state x="122" y="0" key="SettingsEditor/0.0.1280.690@0.0.1280.690" timestamp="1602180845017" />
-    <state x="339" y="169" key="com.intellij.ide.util.TipDialog" timestamp="1602247946773">
+    <state x="339" y="169" key="com.intellij.ide.util.TipDialog" timestamp="1602658345195">
       <screen x="0" y="0" width="1280" height="690" />
     </state>
-    <state x="339" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1602090410321" />
+    <state x="339" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1602658345195" />
     <state x="339" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1601999483730" />
     <state x="339" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.690@0.0.1280.690" timestamp="1602247946773" />
     <state x="1303" y="-853" width="672" height="678" key="search.everywhere.popup" timestamp="1601987994649">

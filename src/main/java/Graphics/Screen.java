@@ -54,33 +54,6 @@ public class Screen extends JFrame {
     }
 
     /**
-     * Get the screen's center location.
-     * @return The center point of the screen.
-     */
-    public Point getCenter(){
-        return new Point(x,y,z);
-    }
-
-    /**
-     * Get the pixel's lower left corner.
-     * @param column The specified column of the screen.
-     * @param row The specified row of the screen.
-     * @return The pixel's lower left corner point.
-     */
-    public Point getPixelLeftCorner(int column, int row){
-        double w = width;
-        double h = height;
-
-        double c = column;
-        double r = row;
-
-        double yLoc = -w + (w * ((2 * column) / w));
-        double zLoc = -h + (h * ((2 * row) / h));
-
-        return new Point(x, yLoc, zLoc);
-    }
-
-    /**
      * Set the screen's location in 3D space.
      * @param x The location on the x-axis.
      * @param y The location on the y-axis.

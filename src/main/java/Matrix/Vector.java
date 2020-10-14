@@ -21,7 +21,6 @@ public class Vector extends Matrix {
         this.x = x;
         this.y = y;
         this.z = z;
-        put(3, 0, 1);     // Element on the 4th row should be 1.
         put(0, 0, x).put(1, 0, y).put(2, 0, z);
     }
 }
