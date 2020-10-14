@@ -112,7 +112,7 @@ public class Screen extends JFrame {
 
     public void forceUpdate()
     {
-        surface.paintComponent(getGraphics());
+        surface.repaint();
     }
 
 }

@@ -18,6 +18,7 @@ public class Surface extends JPanel {
     Surface(int width, int height){
         super(true);    // Enable double buffering.
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        image.setAccelerationPriority(0);
         this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
     }
 
