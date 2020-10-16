@@ -4,7 +4,6 @@ import Matrix.Point;
 import Objects.*;
 import Objects.Shape;
 import RayTracing.Cam;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -17,11 +16,11 @@ public class RayTracing3DEngine {
      * @param args The input arguments.
      */
     public static void main (String[] args) {
-        // Create camera.
-        Cam cam = new Cam();
 
-        // Aspect ratio.
+        // Specify screen dimensions.
         Dimension screenSize = new Dimension(600,400);
+
+        // Calculate aspect ratio.
         double ratio = (double) screenSize.width / (double) screenSize.height;
 
         // View angle & camera distance.
@@ -33,15 +32,19 @@ public class RayTracing3DEngine {
                 new Screen(screenSize.width, screenSize.height, camDistance, viewAngle, ratio);
 
         // Initialize camera.
-        cam.set(new Point(0,0,camDistance),new Point(10,0,0),new Vector(0,1,0));
+        Point eye = new Point(0, 0, camDistance);
+        Point look = new Point(0, 0,0);     // Eye looks at the origin.
+        Vector up = new Vector(0, 1, 0);
+        Cam cam = new Cam().set(eye, look, up);
 
         // Define shapes.
         ArrayList<Shape> objects = new ArrayList<>();
         objects.add( new Sphere(1) );
 
-        // Refresh the screen buffer.
+        // Ray trace the current scene.
         cam.rayTrace(screen, objects);
 
+        // Refresh the screen.
         screen.forceUpdate();
         System.out.println("Done");
 

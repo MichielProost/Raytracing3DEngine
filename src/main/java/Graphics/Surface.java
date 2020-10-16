@@ -37,7 +37,7 @@ public class Surface extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        //paintComponent(g);
+        super.paintComponent(g);
         g.drawImage(image, 0,0, this.getWidth(), this.getHeight(), this);
     }
 }

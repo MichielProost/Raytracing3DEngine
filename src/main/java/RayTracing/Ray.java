@@ -2,6 +2,9 @@ package RayTracing;
 import Graphics.Screen;
 import Matrix.*;
 
+/**
+ * Ray that starts at a point and goes in a certain direction.
+ */
 public class Ray {
 
     public Point start;    // The starting point of the ray.
@@ -10,9 +13,11 @@ public class Ray {
     /**
      * Set the starting point of the ray.
      * @param start The starting point.
+     * @return This ray.
      */
-    public void setStart(Point start){
+    public Ray setStart(Point start){
         this.start = start;
+        return this;
     }
 
     /**
@@ -23,6 +28,13 @@ public class Ray {
         this.dir = dir;
     }
 
+    /**
+     * Compute the ray's direction.
+     * @param screen The screen.
+     * @param r The row of the rc-th pixel.
+     * @param c The column of the rc-th pixel.
+     * @return The vector representation of the direction.
+     */
     public Vector computeDirection(Screen screen, int r, int c){
         double W = screen.getW();
         double H = screen.getH();
@@ -36,6 +48,11 @@ public class Ray {
         return dir;
     }
 
+    /**
+     * Get the intersection point of the ray given a hit time.
+     * @param t The hit time.
+     * @return The intersection point.
+     */
     public Point getPoint(double t){
         Point point = new Point(start.getX() + dir.getX() * t,
                                 start.getY() + dir.getY() * t,
