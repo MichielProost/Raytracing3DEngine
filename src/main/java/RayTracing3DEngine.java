@@ -5,6 +5,7 @@ import Objects.*;
 import Objects.Shape;
 import RayTracing.Cam;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -49,7 +50,7 @@ public class RayTracing3DEngine {
         screen.forceUpdate();
 
         // The screen's refresh rate.
-        int refreshRate = 200;
+        int refreshRate = 10;
 
         while(true) {
             // Update every few ms.
@@ -57,8 +58,13 @@ public class RayTracing3DEngine {
             elapsedTime = end - start;
 
             if (elapsedTime > refreshRate) {
-                cam.slide(0.0, 0.05, -0.1);
-                cam.roll(1.0);
+                // Reset timer.
+                start = System.currentTimeMillis();
+
+                // Poll the keyboard.
+                screen.keyboard.poll();
+                screen.processInput(cam);
+
                 // Refresh the screen.
                 cam.rayTrace(screen, objects);
                 screen.forceUpdate();

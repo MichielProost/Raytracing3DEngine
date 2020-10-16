@@ -1,13 +1,17 @@
 package Graphics;
 
+import Input.KeyboardInput;
+import RayTracing.Cam;
+
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Library for everything graphics related (e.g. drawing points, squares).
  */
 public class Screen extends JFrame {
 
+    public KeyboardInput keyboard = new KeyboardInput();
     private final Surface surface;
 
     private double N;
@@ -49,6 +53,10 @@ public class Screen extends JFrame {
         setSize(width, height);
         add(surface);
         setVisible(true);
+
+        // Hookup keyboard polling
+        addKeyListener(keyboard);
+        surface.addKeyListener(keyboard);
 
     }
 
@@ -118,6 +126,54 @@ public class Screen extends JFrame {
     public void forceUpdate()
     {
         surface.repaint();
+    }
+
+    public void processInput(Cam cam) {
+        // If going up
+        if (keyboard.keyDown( KeyEvent.VK_DOWN )) {
+            if (cam.controlState == Cam.ControlState.TRANSLATION){
+                cam.slide(0.0, 0.1, 0.0);
+            }
+        }
+        // If going down.
+        if (keyboard.keyDown( KeyEvent.VK_UP )) {
+            if (cam.controlState == Cam.ControlState.TRANSLATION){
+                cam.slide(0.0, -0.1, 0.0);
+            }
+        }
+        // If going left.
+        if (keyboard.keyDown( KeyEvent.VK_LEFT)) {
+            if (cam.controlState == Cam.ControlState.TRANSLATION){
+                cam.slide(-0.1, 0.0, 0.0);
+            } else if (cam.controlState == Cam.ControlState.ROLL){
+                cam.roll(1.0);
+            }
+        }
+        // If going right.
+        if (keyboard.keyDown( KeyEvent.VK_RIGHT)) {
+            if (cam.controlState == Cam.ControlState.TRANSLATION) {
+                cam.slide(0.1, 0.0, 0.0);
+            } else if (cam.controlState == Cam.ControlState.ROLL) {
+                cam.roll(-1.0);
+            }
+        }
+        // If pressing S.
+        if (keyboard.keyDown( KeyEvent.VK_S)) {
+            if (cam.controlState == Cam.ControlState.TRANSLATION) {
+                cam.slide(0.0,0.0,0.1);
+            }
+        }
+        // If pressing W.
+        if (keyboard.keyDown( KeyEvent.VK_W)) {
+            if (cam.controlState == Cam.ControlState.TRANSLATION) {
+                cam.slide(0.0,0.0,-0.1);
+            }
+        }
+        // If pressing space.
+        if (keyboard.keyDownOnce( KeyEvent.VK_SPACE )) {
+            cam.nextControlState();
+            System.out.println(cam.controlState);
+        }
     }
 
 }

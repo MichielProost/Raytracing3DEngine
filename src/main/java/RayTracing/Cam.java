@@ -5,6 +5,8 @@ import Matrix.*;
 import Matrix.Point;
 import Objects.Shape;
 import Graphics.*;
+
+import javax.naming.ldap.Control;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,15 @@ import java.util.Map;
  */
 public class Cam {
 
+    public enum ControlState {
+        TRANSLATION,
+        ROLL;
+        private static ControlState[] vals = values();
+        public ControlState next(){
+            return vals[(this.ordinal()+1) % vals.length];
+        }
+    }
+
     // The eye is located at point eye and looking at point look.
     private Point eye, look;
     private Vector up;
@@ -21,6 +32,7 @@ public class Cam {
     private Vector u, v, n;
     // A matrix for converting the camera coordinates to the x,y,z coordinates.
     Matrix modelView;
+    public ControlState controlState;
 
     /**
      * Default constructor
@@ -31,6 +43,11 @@ public class Cam {
         up = new Vector();
         u = new Vector(); v = new Vector(); n = new Vector();
         this.modelView = new Matrix(4,4);
+        controlState = ControlState.TRANSLATION;
+    }
+
+    public void nextControlState(){
+        controlState = controlState.next();
     }
 
     /**
