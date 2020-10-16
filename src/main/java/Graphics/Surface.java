@@ -32,7 +32,9 @@ public class Surface extends JPanel {
      * @param b Blue color component.
      */
     public void drawPoint(int x, int y, float r, float g, float b){
-        image.setRGB(x, image.getHeight() - 1 - y, new Color(r, g, b).getRGB());
+        //System.out.println(x + " " + y);
+        //System.out.println(image.getHeight() - 1 - y);
+        image.setRGB(x, y, new Color(r, g, b).getRGB());
     }
 
     @Override

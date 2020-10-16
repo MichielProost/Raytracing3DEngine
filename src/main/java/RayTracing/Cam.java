@@ -69,6 +69,41 @@ public class Cam {
     }
 
     /**
+     * Slide the camera along one of its own axis.
+     * @param delU Slide forward or back.
+     * @param delV Slide up or down.
+     * @param delN Slide left or right.
+     */
+    public void slide(double delU, double delV, double delN){
+        this.eye.setX(this.eye.getX() + delU * u.getX() + delV * v.getX() + delN * n.getX());
+        this.eye.setY(this.eye.getY() + delU * u.getY() + delV * v.getY() + delN * n.getY());
+        this.eye.setZ(this.eye.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
+        this.look.setX(this.look.getX() + delU * u.getX() + delV * v.getX() + delN * n.getX());
+        this.look.setY(this.look.getY() + delU * u.getY() + delV * v.getY() + delN * n.getY());
+        this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
+
+        setModelViewMatrix();
+    }
+
+    /**
+     * Roll the camera.
+     * @param angle The angle to roll the camera with.
+     */
+    public void roll(double angle){
+        double cos = Math.cos((Math.PI/180) * angle);
+        double sin = Math.sin((Math.PI/180) * angle);
+        Vector t = u;
+        u.setX(cos*t.getX() - sin*v.getX());
+        u.setY(cos*t.getY() - sin*v.getY());
+        u.setZ(cos*t.getZ() - sin*v.getZ());
+        v.setX(sin*t.getX() + cos*v.getX());
+        v.setY(sin*t.getY() + cos*v.getY());
+        v.setZ(sin*t.getZ() + cos*v.getZ());
+
+        setModelViewMatrix();
+    }
+
+    /**
      * Ray trace and update the current scene.
      * @param screen The screen.
      * @param objects The objects in the scene.
@@ -78,8 +113,8 @@ public class Cam {
         // The ray starts at the eye.
         Ray ray = new Ray().setStart(eye);
 
-        for (int c=0; c < screen.getWidth(); c++){
-            for (int r = 0; r < screen.getHeight(); r++)
+        for (int r = 0; r < screen.getWidth(); r++){
+            for (int c = 0; c < screen.getHeight(); c++)
             {
                 // Compute the ray's direction.
                 Vector dir = ray.computeDirection(screen, r, c);
@@ -109,7 +144,10 @@ public class Cam {
                 }
 
                 // Continue if there were no intersections.
-                if(closestObject == null) continue;
+                if(closestObject == null) {
+                    screen.drawPoint(r, c,0.0f, 0.0f, 0.0f);
+                    continue;
+                }
 
                 // Compute the hit point where the ray hits the object, and the normal vector at that point.
                 Point hit = ray.getPoint( closestTime );

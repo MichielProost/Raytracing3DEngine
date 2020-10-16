@@ -41,12 +41,28 @@ public class RayTracing3DEngine {
         ArrayList<Shape> objects = new ArrayList<>();
         objects.add( new Sphere(1) );
 
+        long start = System.currentTimeMillis();
+        long end, elapsedTime;
+
         // Ray trace the current scene.
         cam.rayTrace(screen, objects);
-
-        // Refresh the screen.
         screen.forceUpdate();
-        System.out.println("Done");
 
-;    }
+        // The screen's refresh rate.
+        int refreshRate = 200;
+
+        while(true) {
+            // Update every few ms.
+            end = System.currentTimeMillis();
+            elapsedTime = end - start;
+
+            if (elapsedTime > refreshRate) {
+                cam.slide(0.0, 0.05, -0.1);
+                cam.roll(1.0);
+                // Refresh the screen.
+                cam.rayTrace(screen, objects);
+                screen.forceUpdate();
+            }
+        }
+    }
 }

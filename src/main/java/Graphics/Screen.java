@@ -1,6 +1,7 @@
 package Graphics;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Library for everything graphics related (e.g. drawing points, squares).
@@ -45,8 +46,8 @@ public class Screen extends JFrame {
 
         setTitle("Ray Tracing");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(width, height);
         add(surface);
-        pack();
         setVisible(true);
 
     }
