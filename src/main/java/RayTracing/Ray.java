@@ -24,10 +24,15 @@ public class Ray {
     }
 
     public Vector computeDirection(Screen screen, int r, int c){
-        Vector dir = new Vector();
-        dir.setX(-screen.getX());
-        dir.setY((double) screen.getWidth() * (((2 * (double) c) / (double) screen.getnColumns()) - 1));
-        dir.setZ((double) screen.getHeight() * (((2 * (double) r) / (double) screen.getnRows()) - 1));
+        double W = screen.getW();
+        double H = screen.getH();
+        double W_half = W / 2;
+        double H_half = H / 2;
+
+        final double ux = -W_half + (W * r) / screen.getWidth();
+        final double uy = -H_half + (H * c) / screen.getHeight();
+
+        Vector dir = new Vector(-ux, -uy, -screen.getN());
         return dir;
     }
 

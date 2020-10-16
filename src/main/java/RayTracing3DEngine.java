@@ -1,9 +1,12 @@
 import Graphics.Screen;
 import Matrix.*;
 import Matrix.Point;
+import Objects.*;
+import Objects.Shape;
 import RayTracing.Cam;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * A 3D engine using the ray tracing principle.
@@ -18,17 +21,29 @@ public class RayTracing3DEngine {
         Cam cam = new Cam();
 
         // Aspect ratio.
-        double ratio =
-                (double) Toolkit.getDefaultToolkit().getScreenSize().width
-                        / (double) Toolkit.getDefaultToolkit().getScreenSize().height;
+        Dimension screenSize = new Dimension(600,400);
+        double ratio = (double) screenSize.width / (double) screenSize.height;
+
+        // View angle & camera distance.
+        double viewAngle = Math.PI / 3;
+        double camDistance = 10;
 
         // Create screen.
-        Screen screen = new Screen(500, 500, 50, 60, ratio);
+        Screen screen =
+                new Screen(screenSize.width, screenSize.height, camDistance, viewAngle, ratio);
 
         // Initialize camera.
-        cam.set(new Point(0,0,0),new Point(10,0,0),new Vector(0,1,0));
+        cam.set(new Point(0,0,camDistance),new Point(10,0,0),new Vector(0,1,0));
+
+        // Define shapes.
+        ArrayList<Shape> objects = new ArrayList<>();
+        objects.add( new Sphere(1) );
 
         // Refresh the screen buffer.
-        cam.rayTrace(screen);
+        cam.rayTrace(screen, objects);
+
+        screen.forceUpdate();
+        System.out.println("Done");
+
 ;    }
 }

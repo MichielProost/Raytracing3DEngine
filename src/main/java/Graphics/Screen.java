@@ -11,8 +11,8 @@ public class Screen extends JFrame {
 
     private double N;
 
-    private int nRows;
-    private int nColumns;
+    private double W;
+    private double H;
 
     private int width;
     private int height;
@@ -23,30 +23,30 @@ public class Screen extends JFrame {
 
     /**
      * Create a new JFrame and add a surface to it.
-     * @param nColumns The width of the surface (pixels).
-     * @param nRows The height of the surface (pixels).
+     * @param width The width of the surface (pixels).
+     * @param height The height of the surface (pixels).
      * @param N The distance in front of the eye.
      * @param alpha The view angle.
      */
-    public Screen(int nColumns, int nRows, double N, int alpha, double aspect){
+    public Screen(int width, int height, double N, double alpha, double aspect){
 
-        this.nColumns = nColumns;
-        this.nRows = nRows;
+        this.width = width;
+        this.height = height;
 
         this.N = N;
-        setLocation(N, 0, 0);
 
-        int height = (int) (N * Math.tan(-alpha / 2));
-        this.height = height;
-        int width = (int) (height * aspect);
-        this.width = height;
+        double W = 2 * N * Math.tan( alpha / 2 );
+        double H = W / aspect;
 
-        surface = new Surface(2 * width, 2 * height);
+        this.W = W;
+        this.H = H;
+
+        surface = new Surface(width, height);
 
         setTitle("Ray Tracing");
-        setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(surface);
+        pack();
         setVisible(true);
 
     }
@@ -67,12 +67,16 @@ public class Screen extends JFrame {
         return this.height;
     }
 
-    public int getnRows(){
-        return nRows;
+    public double getW(){
+        return W;
     }
 
-    public int getnColumns(){
-        return nColumns;
+    public double getH(){
+        return H;
+    }
+
+    public double getN(){
+        return N;
     }
 
     /**

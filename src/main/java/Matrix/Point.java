@@ -84,6 +84,28 @@ public class Point extends Matrix{
         put(1,0, z);
     }
 
+    public double getMagnitude(){
+        return Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2));
+    }
+
+    /**
+     * Normalizing this point.
+     * @return
+     */
+    public Point normalize(){
+        double magnitude = getMagnitude();
+        setX(x / magnitude);
+        setY(y / magnitude);
+        setZ(z / magnitude);
+        return this;
+    }
+
+    public double dot(Vector B){
+        Point A = this;
+        return
+                ((A.getX() * B.getX()) + (A.getY() * B.getY()) + (A.getZ() * B.getZ()));
+    }
+
     public Vector minus(Point B){
         Point A = this;
         Vector D = new Vector();

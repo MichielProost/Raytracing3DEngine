@@ -82,12 +82,16 @@ public class Vector extends Matrix {
         put(2,0, z);
     }
 
+    public double getMagnitude(){
+        return Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2));
+    }
+
     /**
      * Normalizing this vector.
      * @return
      */
     public Vector normalize(){
-        double magnitude = Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2));
+        double magnitude = getMagnitude();
         setX(x / magnitude);
         setY(y / magnitude);
         setZ(z / magnitude);
@@ -97,7 +101,13 @@ public class Vector extends Matrix {
     public double dot(Vector B){
         Vector A = this;
         return
-                ((A.getX() * B.getX()) + (A.getY() * B.getY()) + (A.getZ() + B.getZ()));
+                ((A.getX() * B.getX()) + (A.getY() * B.getY()) + (A.getZ() * B.getZ()));
+    }
+
+    public double dot(Point B){
+        Vector A = this;
+        return
+                ((A.getX() * B.getX()) + (A.getY() * B.getY()) + (A.getZ() * B.getZ()));
     }
 
     /**
