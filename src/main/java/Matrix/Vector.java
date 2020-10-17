@@ -82,13 +82,17 @@ public class Vector extends Matrix {
         put(2,0, z);
     }
 
+    /**
+     * Get the magnitude of this vector.
+     * @return The magnitude of this vector.
+     */
     public double getMagnitude(){
         return Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2));
     }
 
     /**
      * Normalizing this vector.
-     * @return
+     * @return The normalized vector.
      */
     public Vector normalize(){
         double magnitude = getMagnitude();
@@ -98,12 +102,22 @@ public class Vector extends Matrix {
         return this;
     }
 
+    /**
+     * Perform a dot product between this vector and another vector.
+     * @param B The vector to do the dot product with.
+     * @return The result of the dot product.
+     */
     public double dot(Vector B){
         Vector A = this;
         return
                 ((A.getX() * B.getX()) + (A.getY() * B.getY()) + (A.getZ() * B.getZ()));
     }
 
+    /**
+     * Perform a dot product between this vector and another point.
+     * @param B The point to do the dot product with.
+     * @return The result of the dot product.
+     */
     public double dot(Point B){
         Vector A = this;
         return

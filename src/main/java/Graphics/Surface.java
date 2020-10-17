@@ -11,7 +11,7 @@ public class Surface extends JPanel {
     private final BufferedImage image;
 
     /**
-     *
+     * Initialize the surface.
      * @param width The width of the image (thus, the surface).
      * @param height The height of the image (thus, the surface).
      */
@@ -32,8 +32,6 @@ public class Surface extends JPanel {
      * @param b Blue color component.
      */
     public void drawPoint(int x, int y, float r, float g, float b){
-        //System.out.println(x + " " + y);
-        //System.out.println(image.getHeight() - 1 - y);
         image.setRGB(x, y, new Color(r, g, b).getRGB());
     }
 

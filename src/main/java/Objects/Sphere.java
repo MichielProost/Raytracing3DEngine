@@ -3,10 +3,18 @@ package Objects;
 import Matrix.*;
 import RayTracing.Ray;
 
+/**
+ * A generic sphere with a certain radius.
+ */
 public class Sphere extends Shape {
 
+    // The radius of the sphere.
     private double radius;
 
+    /**
+     * Default constructor.
+     * @param radius The radius of the sphere.
+     */
     public Sphere(double radius){
         this.radius = radius;
     }

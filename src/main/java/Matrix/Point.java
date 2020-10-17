@@ -84,13 +84,17 @@ public class Point extends Matrix{
         put(1,0, z);
     }
 
+    /**
+     * Get the magnitude of this point.
+     * @return The magnitude of this point.
+     */
     public double getMagnitude(){
         return Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2));
     }
 
     /**
      * Normalizing this point.
-     * @return
+     * @return This point.
      */
     public Point normalize(){
         double magnitude = getMagnitude();
@@ -100,12 +104,22 @@ public class Point extends Matrix{
         return this;
     }
 
+    /**
+     * Perform a dot product between this point and a vector B.
+     * @param B The vector to do the dot product with.
+     * @return The result of the dot product.
+     */
     public double dot(Vector B){
         Point A = this;
         return
                 ((A.getX() * B.getX()) + (A.getY() * B.getY()) + (A.getZ() * B.getZ()));
     }
 
+    /**
+     * D = A - B.
+     * @param B The point which we are going to subtract this point with.
+     * @return A vector which captures the result.
+     */
     public Vector minus(Point B){
         Point A = this;
         Vector D = new Vector();

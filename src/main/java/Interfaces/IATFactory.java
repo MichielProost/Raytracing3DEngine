@@ -2,8 +2,12 @@ package Interfaces;
 
 import Matrix.Matrix;
 
+/**
+ * An interface for the Affine Transformation factory.
+ */
 public interface IATFactory {
 
+    // Rotate around one of these axis.
     enum RotationAxis{
         X,
         Y,
@@ -34,6 +38,6 @@ public interface IATFactory {
      * @param beta The rotation angle.
      * @return The resulting rotation matrix.
      */
-    public Matrix getRotation(RotationAxis axis, double beta);
+    Matrix getRotation(RotationAxis axis, double beta);
 
 }

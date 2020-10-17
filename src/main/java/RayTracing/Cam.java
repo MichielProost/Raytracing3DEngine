@@ -5,8 +5,6 @@ import Matrix.*;
 import Matrix.Point;
 import Objects.Shape;
 import Graphics.*;
-
-import javax.naming.ldap.Control;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,22 +14,37 @@ import java.util.Map;
  */
 public class Cam {
 
+    /**
+     * The camera can be controlled in a variety of ways:
+     * Translation, roll, pitch and rotation.
+     * This allows us to use the same keys on the keyboard depending on the state.
+     */
     public enum ControlState {
+
         TRANSLATION,
         ROLL;
         private static ControlState[] vals = values();
+
+        /**
+         * Get the next state.
+         * @return The next state.
+         */
         public ControlState next(){
             return vals[(this.ordinal()+1) % vals.length];
         }
     }
 
-    // The eye is located at point eye and looking at point look.
+    // The eye is located at point "eye" and looking at point "look".
     private Point eye, look;
     private Vector up;
-    // The camera base coordinates.
+
+    // The camera coordinates.
     private Vector u, v, n;
-    // A matrix for converting the camera coordinates to the x,y,z coordinates.
+
+    // A matrix for converting the camera coordinates to x,y,z coordinates.
     Matrix modelView;
+
+    // The control state of this camera.
     public ControlState controlState;
 
     /**
@@ -46,6 +59,9 @@ public class Cam {
         controlState = ControlState.TRANSLATION;
     }
 
+    /**
+     * Set the control state of this camera to the next one.
+     */
     public void nextControlState(){
         controlState = controlState.next();
     }
@@ -68,7 +84,7 @@ public class Cam {
         n.normalize(); u.normalize();
         v = n.cross(u);
 
-        // Set model view matrix.
+        // Set the model view matrix.
         setModelViewMatrix();
 
         return this;

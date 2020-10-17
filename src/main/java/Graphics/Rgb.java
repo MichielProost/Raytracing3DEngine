@@ -1,17 +1,19 @@
 package Graphics;
 
+/**
+ * Defines a color by its RGB components.
+ */
 public class Rgb {
-    private float r;
-    private float g;
-    private float b;
+
+    private float r;    // Red component.
+    private float g;    // Green component.
+    private float b;    // Blue component.
 
     /**
-     * Red, green and blue components
-     * Must all be in the range [0.0, 1.0]
-     *
-     * @param r red component
-     * @param g green component
-     * @param b blue component
+     * Red, green and blue components in the range [0.0 1.0].
+     * @param r Red component.
+     * @param g Green component.
+     * @param b Blue component.
      */
     public Rgb(float r, float g, float b)
     {
@@ -20,16 +22,28 @@ public class Rgb {
         this.b = b;
     }
 
+    /**
+     * Return the red component of this color.
+     * @return The red component of this color.
+     */
     public float r()
     {
         return r;
     }
 
+    /**
+     * Return the green component of this color.
+     * @return The green component of this color.
+     */
     public float g()
     {
         return g;
     }
 
+    /**
+     * Return the blue component of this color.
+     * @return The blue component of this color.
+     */
     public float b()
     {
         return b;
