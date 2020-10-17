@@ -30,6 +30,11 @@ public abstract class Shape {
      */
     public abstract Double getCollidingT(Ray ray);
 
+    public Shape setLocation(Point location){
+        this.location = location;
+        return this;
+    }
+
     /**
      * Get the color of this object.
      * @return The color of this object.

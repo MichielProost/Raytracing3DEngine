@@ -24,7 +24,7 @@ public class Sphere extends Shape {
         // The direction of the ray.
         Vector c = ray.dir;
         // The starting point of the ray.
-        Point S = ray.start;
+        Vector S = ray.start.minus(this.location);
 
         double A = Math.pow(c.getMagnitude(),2);
         double B = S.dot(c);

@@ -46,7 +46,7 @@ public class RayTracing3DEngine {
         ArrayList<Matrix> ATMatrices = new ArrayList<>();
         ATMatrices.add(factory.getScaling(2,1,3));
         Shape sphere = new Sphere(1).setATMatrix(ATMatrices);
-        objects.add( new Sphere(1) );
+        objects.add( new Sphere(1).setLocation(new Point(0,1,0)) );
 
         long start = System.currentTimeMillis();
         long end, elapsedTime;
