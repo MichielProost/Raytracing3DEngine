@@ -1,8 +1,10 @@
 package Objects;
 
-import Matrix.Point;
+import Matrix.*;
 import RayTracing.Ray;
 import Graphics.*;
+
+import java.util.List;
 
 /**
  * The class that represents an object or shape in 3D space.
@@ -14,6 +16,12 @@ public abstract class Shape {
 
     // The color of the object.
     protected Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
+
+    // Transformation matrix.
+    private Matrix ATMatrix = new Identity(4);
+
+    // Inverse transformation matrix.
+    private Matrix InverseAT;
 
     /**
      * Get the hit time between this object and a given ray.
@@ -36,5 +44,34 @@ public abstract class Shape {
      */
     public Point getLocation() {
         return location;
+    }
+
+    /**
+     * Return the Affine Transformation matrix.
+     * @return The AT matrix.
+     */
+    public Matrix getATMatrix(){
+        return ATMatrix;
+    }
+
+    /**
+     * Set the Affine Transformation matrix.
+     * @param matrices The AT matrices.
+     * @return this shape.
+     */
+    public Shape setATMatrix(List<Matrix> matrices){
+        for (Matrix matrix : matrices){
+            this.ATMatrix = this.ATMatrix.times(matrix);
+        }
+        this.InverseAT = this.ATMatrix.inverse();
+        return this;
+    }
+
+    /**
+     * Return the inverse AT matrix.
+     * @return The inverse AT matrix.
+     */
+    public Matrix getInverseAT(){
+        return InverseAT;
     }
 }

@@ -28,7 +28,7 @@ public class Sphere extends Shape {
 
         double A = Math.pow(c.getMagnitude(),2);
         double B = S.dot(c);
-        double C = Math.pow(S.getMagnitude(), 2) - 1;
+        double C = Math.pow(S.getMagnitude(), 2) - Math.pow(radius, 2);
 
         double discriminant = Math.pow(B, 2) - (A * C);
 

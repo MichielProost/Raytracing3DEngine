@@ -1,4 +1,5 @@
 import Graphics.Screen;
+import Interfaces.IATFactory;
 import Matrix.*;
 import Matrix.Point;
 import Objects.*;
@@ -37,8 +38,14 @@ public class RayTracing3DEngine {
         Vector up = new Vector(0, 1, 0);
         Cam cam = new Cam().set(eye, look, up);
 
+        // Create Affine Transformation Factory.
+        IATFactory factory = new ATFactory();
+
         // Define shapes.
         ArrayList<Shape> objects = new ArrayList<>();
+        ArrayList<Matrix> ATMatrices = new ArrayList<>();
+        ATMatrices.add(factory.getScaling(2,1,3));
+        Shape sphere = new Sphere(1).setATMatrix(ATMatrices);
         objects.add( new Sphere(1) );
 
         long start = System.currentTimeMillis();

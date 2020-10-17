@@ -164,6 +164,16 @@ public class Matrix{
         return M;
     }
 
+    /**
+     * Calculate the inverse of this matrix.
+     * @return The inverse of this matrix.
+     */
+    public Matrix inverse(){
+        Jama.Matrix helper = new Jama.Matrix(this.values);
+        helper = helper.inverse();
+        return new Matrix( helper.getArray() );
+    }
+
     @Override
     public boolean equals(Object o) {
         Matrix A = this;

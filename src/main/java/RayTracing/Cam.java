@@ -1,6 +1,7 @@
 package RayTracing;
 
 import Graphics.Screen;
+import Interfaces.IATFactory;
 import Matrix.*;
 import Matrix.Point;
 import Objects.Shape;
@@ -111,8 +112,8 @@ public class Cam {
         this.eye.setX(this.eye.getX() + delU * u.getX() + delV * v.getX() + delN * n.getX());
         this.eye.setY(this.eye.getY() + delU * u.getY() + delV * v.getY() + delN * n.getY());
         this.eye.setZ(this.eye.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
-        this.look.setX(this.look.getX() + delU * u.getX() + delV * v.getX() + delN * n.getX());
-        this.look.setY(this.look.getY() + delU * u.getY() + delV * v.getY() + delN * n.getY());
+        this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
+        this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
         this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
 
         setModelViewMatrix();
@@ -143,7 +144,6 @@ public class Cam {
      */
     public void rayTrace(Screen screen, List<Shape> objects){
 
-        // The ray starts at the eye.
         Ray ray = new Ray().setStart(eye);
 
         for (int r = 0; r < screen.getWidth(); r++){
@@ -151,19 +151,28 @@ public class Cam {
             {
                 // Compute the ray's direction.
                 Vector dir = ray.computeDirection(screen, r, c);
+                dir = modelView.times(dir);
 
                 // Built the rc-th ray.
-                ray.setDir(modelView.times(dir));
+                ray.setDir(dir);
 
                 // Create a map that contains all the intersections of this ray with this pixel.
                 Map<Double, Shape> intersections = new HashMap<>();
 
                 // Find all the intersections of ray with objects in the scene.
                 for (Shape object : objects){
+
+                    // Specific ray for this object.
+                    //Matrix inverseAT = object.getInverseAT();
+                    //ray.setStart(inverseAT.times(eye));
+                    //ray.setDir(inverseAT.times(dir));
+
+                    // Check for collisions.
                     Double t = object.getCollidingT(ray);
                     if (t != null && t >= 0){
                         intersections.put(t, object);
                     }
+
                 }
 
                 // Identify the intersection that lies closest to, and in front of, the eye.
