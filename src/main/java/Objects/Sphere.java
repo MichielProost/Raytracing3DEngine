@@ -36,8 +36,8 @@ public class Sphere extends Shape {
             return null;
         }
 
-        double t1 = (-B + Math.sqrt(discriminant)) / A;
-        double t2 = (-B - Math.sqrt(discriminant)) / A;
+        double t1 = (-B + Math.sqrt(discriminant)) / (2 * A);
+        double t2 = (-B - Math.sqrt(discriminant)) / (2 * A);
 
         if (t1 < 0 && t2 < 0)
             return null;

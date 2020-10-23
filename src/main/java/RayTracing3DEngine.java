@@ -5,6 +5,8 @@ import Matrix.Point;
 import Objects.*;
 import Objects.Shape;
 import RayTracing.Cam;
+import RayTracing.Ray;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -33,9 +35,9 @@ public class RayTracing3DEngine {
                 new Screen(screenSize.width, screenSize.height, camDistance, viewAngle, ratio);
 
         // Initialize camera.
-        Point eye = new Point(0, 0, camDistance);
+        Point eye = new Point(0, camDistance, 0);
         Point look = new Point(0, 0,0);     // Eye looks at the origin.
-        Vector up = new Vector(0, 1, 0);
+        Vector up = new Vector(0, 0, 1);
         Cam cam = new Cam().set(eye, look, up);
 
         // Create Affine Transformation Factory.
@@ -44,9 +46,10 @@ public class RayTracing3DEngine {
         // Define shapes.
         ArrayList<Shape> objects = new ArrayList<>();
         ArrayList<Matrix> ATMatrices = new ArrayList<>();
-        ATMatrices.add(factory.getScaling(2,1,3));
-        Shape sphere = new Sphere(1).setATMatrix(ATMatrices);
-        objects.add( new Sphere(1).setLocation(new Point(0,1,0)) );
+        //ATMatrices.add(factory.getScaling(2,1,3));
+        //Shape sphere = new Sphere(1).setATMatrix(ATMatrices);
+        //objects.add( new Sphere(1) );
+        objects.add(new Cone(new Vector(0,0,-1), Math.PI / 12));
 
         long start = System.currentTimeMillis();
         long end, elapsedTime;
