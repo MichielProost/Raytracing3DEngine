@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d37922cf-94ee-4f43-9fa0-0da2fa26b736" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Objects/Cone.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Objects/Sphere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Objects/Sphere.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,10 +93,10 @@
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state x="1094" y="-901" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1601987532133" />
-    <state x="411" y="46" key="#com.intellij.ide.util.MemberChooser" timestamp="1603350181831">
+    <state x="411" y="46" key="#com.intellij.ide.util.MemberChooser" timestamp="1603438847051">
       <screen x="0" y="0" width="1280" height="690" />
     </state>
-    <state x="411" y="46" key="#com.intellij.ide.util.MemberChooser/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1602866387116" />
+    <state x="411" y="46" key="#com.intellij.ide.util.MemberChooser/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1603438847051" />
     <state x="1297" y="-1010" key="#com.intellij.ide.util.MemberChooser/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1601998577643" />
     <state x="411" y="46" key="#com.intellij.ide.util.MemberChooser/0.0.1280.690@0.0.1280.690" timestamp="1603350181831" />
     <state width="1237" height="230" key="GridCell.Tab.0.bottom" timestamp="1603438042236">
