@@ -1,5 +1,6 @@
 import Graphics.Screen;
 import Interfaces.IATFactory;
+import Light.LightSource;
 import Matrix.*;
 import Matrix.Point;
 import Objects.*;
@@ -26,7 +27,7 @@ public class RayTracing3DEngine {
 
         // View angle & camera distance.
         double viewAngle = Math.PI / 3;
-        double camDistance = 5;
+        double camDistance = 10;
 
         // Create screen.
         Screen screen =
@@ -43,16 +44,19 @@ public class RayTracing3DEngine {
 
         // Define shapes.
         ArrayList<Shape> objects = new ArrayList<>();
-        ArrayList<Matrix> ATMatrices = new ArrayList<>();
-        //ATMatrices.add(factory.getScaling(5,1,1));
         Shape box = new Box(new Point(0,0,0), new Point(1,1,1));
         objects.add( box );
+
+        // Define light source(s).
+        LightSource source = new LightSource(new Point(10, 10, 10));
+        ArrayList<LightSource> sources = new ArrayList<>();
+        sources.add(source);
 
         long start = System.currentTimeMillis();
         long end, elapsedTime;
 
         // Ray trace the current scene.
-        cam.rayTrace(screen, objects);
+        cam.rayTrace(screen, objects, sources);
         screen.forceUpdate();
 
         // The screen's refresh rate.
@@ -72,7 +76,7 @@ public class RayTracing3DEngine {
                 screen.processInput(cam);
 
                 // Refresh the screen.
-                cam.rayTrace(screen, objects);
+                cam.rayTrace(screen, objects, sources);
                 screen.forceUpdate();
             }
         }

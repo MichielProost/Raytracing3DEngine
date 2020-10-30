@@ -38,6 +38,8 @@ public abstract class Shape {
      */
     public abstract Double getCollidingT(Ray ray);
 
+    public abstract Vector getNormalVector(Point hit);
+
     public Shape setLocation(Point location){
         this.location = location;
         return this;

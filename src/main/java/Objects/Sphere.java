@@ -30,6 +30,17 @@ public class Sphere extends Shape {
         super.setLocation(location);
     }
 
+    /**
+     * Get normal vector at the hit spot.
+     * @param hit The hit spot.
+     * @return The normal vector at the hit spot.
+     */
+    public Vector getNormalVector(Point hit){
+        return new Vector(  (hit.getX() - this.location.getX()) / this.radius,
+                            (hit.getY() - this.location.getY()) / this.radius,
+                            (hit.getZ() - this.location.getZ()) / this.radius);
+    }
+
     @Override
     public Double getCollidingT(Ray ray) {
         // The direction of the ray.

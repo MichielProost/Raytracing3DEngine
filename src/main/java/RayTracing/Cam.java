@@ -2,6 +2,7 @@ package RayTracing;
 
 import Graphics.Screen;
 import Interfaces.IATFactory;
+import Light.LightSource;
 import Matrix.*;
 import Matrix.Point;
 import Objects.Shape;
@@ -142,7 +143,7 @@ public class Cam {
      * @param screen The screen.
      * @param objects The objects in the scene.
      */
-    public void rayTrace(Screen screen, List<Shape> objects){
+    public void rayTrace(Screen screen, List<Shape> objects, List<LightSource> sources){
 
         Ray ray = new Ray().setStart(eye);
 
@@ -196,6 +197,19 @@ public class Cam {
 
                 // Find the color of the light returning to the eye along the ray from the point of intersection.
                 Rgb color = closestObject.getColor();
+
+                Vector normal = closestObject.getInverseAT().times(closestObject.getNormalVector(hit));
+                normal.normalize();
+
+                // Loop over every light source (shading).
+                for (LightSource L: sources){
+                    Vector s = L.location.minus(hit);   // Vector from hit point to source.
+                    s.normalize();
+                    double mDotS = s.dot(normal);       // The lambert term.
+                    if (mDotS > 0.0){                   // Hit point is turned towards the light.
+                        // Find diffuse color.
+                    }
+                }
 
                 // Place the color in the rc-th pixel.
                 screen.drawPoint(r, c, color.r(), color.g(), color.b());
