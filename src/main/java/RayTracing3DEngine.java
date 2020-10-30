@@ -26,7 +26,7 @@ public class RayTracing3DEngine {
 
         // View angle & camera distance.
         double viewAngle = Math.PI / 3;
-        double camDistance = 10;
+        double camDistance = 5;
 
         // Create screen.
         Screen screen =
@@ -44,10 +44,9 @@ public class RayTracing3DEngine {
         // Define shapes.
         ArrayList<Shape> objects = new ArrayList<>();
         ArrayList<Matrix> ATMatrices = new ArrayList<>();
-        //ATMatrices.add(factory.getScaling(2,1,3));
-        //Shape sphere = new Sphere(1).setATMatrix(ATMatrices);
-        //objects.add( new Sphere(1) );
-        objects.add(new Cone(new Vector(0,0,-1), Math.PI / 12));
+        //ATMatrices.add(factory.getScaling(5,1,1));
+        Shape box = new Box(new Point(0,0,0), new Point(1,1,1));
+        objects.add( box );
 
         long start = System.currentTimeMillis();
         long end, elapsedTime;

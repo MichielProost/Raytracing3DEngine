@@ -19,6 +19,17 @@ public class Sphere extends Shape {
         this.radius = radius;
     }
 
+    /**
+     * Constructor to set the sphere's location as well.
+     * @param radius The radius of the sphere.
+     * @param location The location of the sphere.
+     */
+    public Sphere(double radius, Point location){
+        super();
+        this.radius = radius;
+        super.setLocation(location);
+    }
+
     @Override
     public Double getCollidingT(Ray ray) {
         // The direction of the ray.

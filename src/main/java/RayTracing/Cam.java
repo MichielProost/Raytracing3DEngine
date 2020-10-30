@@ -163,9 +163,9 @@ public class Cam {
                 for (Shape object : objects){
 
                     // Specific ray for this object.
-                    //Matrix inverseAT = object.getInverseAT();
-                    //ray.setStart(inverseAT.times(eye));
-                    //ray.setDir(inverseAT.times(dir));
+                    Matrix inverseAT = object.getInverseAT();
+                    ray.setStart(inverseAT.times(eye));
+                    ray.setDir(inverseAT.times(dir));
 
                     // Check for collisions.
                     Double t = object.getCollidingT(ray);

@@ -4,6 +4,7 @@ import Matrix.*;
 import RayTracing.Ray;
 import Graphics.*;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +23,13 @@ public abstract class Shape {
 
     // Inverse transformation matrix.
     private Matrix InverseAT;
+
+    /**
+     * Default constructor.
+     */
+    public Shape(){
+        setATMatrix(Collections.<Matrix> emptyList());
+    }
 
     /**
      * Get the hit time between this object and a given ray.
