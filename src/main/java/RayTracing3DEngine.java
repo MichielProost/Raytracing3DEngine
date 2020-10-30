@@ -5,8 +5,6 @@ import Matrix.Point;
 import Objects.*;
 import Objects.Shape;
 import RayTracing.Cam;
-import RayTracing.Ray;
-
 import java.awt.*;
 import java.util.ArrayList;
 
