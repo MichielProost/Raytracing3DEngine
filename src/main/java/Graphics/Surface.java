@@ -28,7 +28,6 @@ public class Surface extends JPanel {
      * @param y Location on the y-axis.
      * @param r Red color component.
      * @param g Green color component.
-     * @param g Green color component.
      * @param b Blue color component.
      */
     public void drawPoint(int x, int y, float r, float g, float b){

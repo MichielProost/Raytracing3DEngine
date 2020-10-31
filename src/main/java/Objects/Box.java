@@ -36,6 +36,11 @@ public class Box extends Shape {
     }
 
     @Override
+    public Vector getNormalVector(Point hit) {
+        return null;
+    }
+
+    @Override
     public Double getCollidingT(Ray ray) {
         // The direction of the ray.
         Vector D = ray.dir;

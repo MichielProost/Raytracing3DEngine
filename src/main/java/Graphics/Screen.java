@@ -14,34 +14,30 @@ public class Screen extends JFrame {
     // Create a keyboard for handling user input.
     public KeyboardInput keyboard = new KeyboardInput();
 
-    // The surface to be placed on the frame.
+    // The surface - buffer - to be placed on the frame.
     private final Surface surface;
 
     // The distance in front of the eye.
     private double N;
 
-    // Window extends from -W to W in the u-direction.
+    // The window extends from -W to W in the u-direction.
     private double W;
-    // Window extends from -H to H in the v-direction.
+    // The window extends from -H to H in the v-direction.
     private double H;
 
     // Width & height of the screen.
     private int width;
     private int height;
 
-    private double x = 0;   // The value on the x-axis.
-    private double y = 0;   // The value on the y-axis.
-    private double z = 0;   // The value on the z-axis.
-
     /**
      * Create a new JFrame and add a surface to it.
      * @param width The width of the surface (pixels).
      * @param height The height of the surface (pixels).
+     * @param aspect_ratio The aspect ratio of the screen.
+     * @param view_angle The view angle.
      * @param N The distance in front of the eye.
-     * @param alpha The view angle.
-     * @param aspect The aspect ratio of the screen.
      */
-    public Screen(int width, int height, double N, double alpha, double aspect){
+    public Screen(int width, int height, double aspect_ratio, double view_angle, double N){
 
         this.width = width;
         this.height = height;
@@ -49,8 +45,8 @@ public class Screen extends JFrame {
         this.N = N;
 
         // H and W are given by the expressions:
-        double W = 2 * N * Math.tan( alpha / 2 );
-        double H = W / aspect;
+        double W = 2 * N * Math.tan( view_angle / 2 );
+        double H = W / aspect_ratio;
         this.W = W;
         this.H = H;
 
@@ -111,21 +107,6 @@ public class Screen extends JFrame {
     }
 
     /**
-     * Set the screen's location in 3D space.
-     * @param x The location on the x-axis.
-     * @param y The location on the y-axis.
-     * @param x The location on the z-axis.
-     * @return This screen.
-     */
-    public Screen setLocation(double x, double y, double z)
-    {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        return this;
-    }
-
-    /**
      * Draw a white point at a specified location of the surface.
      * @param x Location on the x-axis.
      * @param y Location on the y-axis.
@@ -147,6 +128,16 @@ public class Screen extends JFrame {
     }
 
     /**
+     * Draw a colored point at a specified location of the surface.
+     * @param x Location on the x-axis.
+     * @param y Location on the y-axis.
+     * @param color The required color.
+     */
+    public void drawPoint(int x, int y, Rgb color){
+        surface.drawPoint(x, y, color.r(), color.g(), color.b());
+    }
+
+    /**
      * Force an update of the screen.
      */
     public void forceUpdate()
@@ -160,32 +151,36 @@ public class Screen extends JFrame {
      */
     public void processInput(Cam cam) {
 
-        // If going up
+        // If pressing the down key.
         if (keyboard.keyDown( KeyEvent.VK_DOWN )) {
             if (cam.controlState == Cam.ControlState.TRANSLATION){
+                // Slide the camera downwards.
                 cam.slide(0.0, 0.1, 0.0);
             }
         }
 
-        // If going down.
+        // If pressing the up key.
         if (keyboard.keyDown( KeyEvent.VK_UP )) {
             if (cam.controlState == Cam.ControlState.TRANSLATION){
+                // Slide the camera upwards.
                 cam.slide(0.0, -0.1, 0.0);
             }
         }
 
-        // If going left.
+        // If pressing the left key.
         if (keyboard.keyDown( KeyEvent.VK_LEFT)) {
             if (cam.controlState == Cam.ControlState.TRANSLATION){
+                // Slide the camera to the left.
                 cam.slide(-0.1, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL){
                 cam.roll(1.0);
             }
         }
 
-        // If going right.
+        // If pressing the right key.
         if (keyboard.keyDown( KeyEvent.VK_RIGHT)) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
+                // Slide the camera to the right.
                 cam.slide(0.1, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL) {
                 cam.roll(-1.0);
@@ -195,6 +190,7 @@ public class Screen extends JFrame {
         // If pressing S.
         if (keyboard.keyDown( KeyEvent.VK_S)) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
+                // Zoom in.
                 cam.slide(0.0,0.0,0.1);
             }
         }
@@ -202,13 +198,16 @@ public class Screen extends JFrame {
         // If pressing W.
         if (keyboard.keyDown( KeyEvent.VK_W)) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
+                // Zoom out.
                 cam.slide(0.0,0.0,-0.1);
             }
         }
 
         // If pressing space.
         if (keyboard.keyDownOnce( KeyEvent.VK_SPACE )) {
+            // Change the camera's control state.
             cam.nextControlState();
+            // Indicate the camera's control state to the user.
             System.out.println(cam.controlState);
         }
     }
