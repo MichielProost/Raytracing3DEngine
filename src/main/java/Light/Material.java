@@ -42,6 +42,29 @@ public class Material {
     }
 
     /**
+     * Set the reflection coefficients for a gold material.
+     * @return A gold material.
+     */
+    public Material PolishedSilver(){
+        // Ambient component.
+        rho_ar = 0.23125f;
+        rho_ag = 0.23125f;
+        rho_ab = 0.23125f;
+
+        // Diffuse component.
+        rho_dr = 0.2755f;
+        rho_dg = 0.2755f;
+        rho_db = 0.2755f;
+
+        // Specular component.
+        rho_sr = 0.773911f;
+        rho_sg = 0.773911f;
+        rho_sb = 0.773911f;
+        exponent = 89.6;
+        return this;
+    }
+
+    /**
      * Return the ambient coefficients of this material.
      * @return The ambient coefficients of this material.
      */

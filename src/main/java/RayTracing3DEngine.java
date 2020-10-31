@@ -62,7 +62,7 @@ public class RayTracing3DEngine {
         // Define light sources.
         ArrayList<LightSource> sources = new ArrayList<>();
         Rgb intensity = new Rgb(0.7f, 0.7f, 0.7f);
-        LightSource source = new LightSource(new Point(0, 10,10), intensity);
+        LightSource source = new LightSource(new Point(0, 5, 0), intensity);
         sources.add( source );
 
         // Measure time in milliseconds.
