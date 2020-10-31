@@ -50,21 +50,22 @@ public class Rgb {
     }
 
     /**
-     * Add a color to this color.
+     * Addition of two colors.
      * @param color The color to be added.
-     * @return The new color.
+     * @return The resulting color.
      */
     public Rgb add(Rgb color){
-        Rgb new_color = new Rgb(this.r + color.r, this.g + color.g, this.b + color.b);
-        if (new_color.r > 1){
-            new_color.r = 1;
+        Rgb color_result = new Rgb(this.r + color.r, this.g + color.g, this.b + color.b);
+        // Limit in case of overexposure.
+        if (color_result.r > 1){
+            color_result.r = 1;
         }
-        if (new_color.g > 1){
-            new_color.g = 1;
+        if (color_result.g > 1){
+            color_result.g = 1;
         }
-        if (new_color.b > 1){
-            new_color.b = 1;
+        if (color_result.b > 1){
+            color_result.b = 1;
         }
-        return new_color;
+        return color_result;
     }
 }

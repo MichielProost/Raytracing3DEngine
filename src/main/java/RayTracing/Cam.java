@@ -198,6 +198,11 @@ public class Cam {
                 // Find the color of the light returning to the eye along the ray from the point of intersection.
                 Rgb color = closestObject.getColor();
 
+                // Ambient term.
+                float[] amb_coef = closestObject.material.ambient_coefficients();
+                Rgb ambient = new Rgb(amb_coef[0], amb_coef[1], amb_coef[2]);
+                color = color.add(ambient);
+
                 // Compute the hit point where the ray hits the object.
                 Point hit = ray.getPoint( closestTime );
                 // Compute the normal vector at that point.
@@ -205,7 +210,9 @@ public class Cam {
                 // Normalize this vector.
                 normal.normalize();
 
-                Rgb color2 = new Rgb(0.0f, 0.0f, 0.0f);
+                // Negative of the ray's direction. Points to the viewer.
+                Vector v = new Vector(-dir.getX(), -dir.getY(), -dir.getZ());
+
                 // Loop over every light source (shading purposes).
                 for (LightSource L: sources){
                     Vector s = L.location.minus(hit);   // Vector from hit point to source.
@@ -216,12 +223,23 @@ public class Cam {
                         Rgb diffuse = new Rgb(  (float) mDotS * diff_coef[0] * L.color.r(),
                                                 (float) mDotS * diff_coef[1] * L.color.g(),
                                                 (float) mDotS * diff_coef[2] * L.color.b());
-                        color2 = color.add(diffuse);
+                        color = color.add(diffuse);
                     }
+                    Vector h = v.plus(s);               // The halfway vector.
+                    h.normalize();
+                    double mDotH = h.dot(normal);       // Part of phong term.
+                    if(mDotH <= 0)                      // No specular distribution.
+                        continue;
+                    double phong = Math.pow(mDotH, closestObject.material.getExponent());
+                    float[] spec_coef = closestObject.material.specular_coefficients();
+                    Rgb specular = new Rgb( (float) phong * spec_coef[0] * L.color.r(),
+                                            (float) phong * spec_coef[1] * L.color.g(),
+                                            (float) phong * spec_coef[2] * L.color.b());
+                    color = color.add(specular);
                 }
 
                 // Place the color in the rc-th pixel.
-                screen.drawPoint(r, c, color2);
+                screen.drawPoint(r, c, color);
             }
         }
     }

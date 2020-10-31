@@ -103,6 +103,18 @@ public class Vector extends Matrix {
     }
 
     /**
+     * D = A + B.
+     * @param B The vector to be added.
+     * @return The resulting vector D.
+     */
+    public Vector plus(Vector B){
+        Vector D = new Vector(  this.getX() + B.getX(),
+                                this.getY() + B.getY(),
+                                this.getZ() + B.getZ());
+        return D;
+    }
+
+    /**
      * Perform a dot product between this vector and another vector.
      * @param B The vector to do the dot product with.
      * @return The result of the dot product.
