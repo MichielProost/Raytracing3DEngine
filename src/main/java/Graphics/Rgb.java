@@ -54,9 +54,17 @@ public class Rgb {
      * @param color The color to be added.
      * @return The new color.
      */
-    public void add(Rgb color){
-        this.r += color.r();
-        this.g += color.g();
-        this.b += color.b();
+    public Rgb add(Rgb color){
+        Rgb new_color = new Rgb(this.r + color.r, this.g + color.g, this.b + color.b);
+        if (new_color.r > 1){
+            new_color.r = 1;
+        }
+        if (new_color.g > 1){
+            new_color.g = 1;
+        }
+        if (new_color.b > 1){
+            new_color.b = 1;
+        }
+        return new_color;
     }
 }

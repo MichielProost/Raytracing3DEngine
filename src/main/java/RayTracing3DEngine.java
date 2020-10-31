@@ -1,4 +1,5 @@
 import Graphics.Screen;
+import Graphics.Rgb;
 import Interfaces.IATFactory;
 import Light.LightSource;
 import Matrix.*;
@@ -59,8 +60,9 @@ public class RayTracing3DEngine {
         objects.add( sphere );
 
         // Define light sources.
-        LightSource source = new LightSource(new Point(10, 10, 10));
         ArrayList<LightSource> sources = new ArrayList<>();
+        Rgb intensity = new Rgb(0.7f, 0.7f, 0.7f);
+        LightSource source = new LightSource(new Point(0, 10,10), intensity);
         sources.add( source );
 
         // Measure time in milliseconds.

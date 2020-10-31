@@ -15,7 +15,7 @@ public abstract class Shape {
     protected Point location = new Point(0,0,0);
 
     // The color of the object.
-    protected Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
+    protected Rgb color = new Rgb(0.0f, 0.0f, 0.0f);
 
     // Transformation matrix.
     private Matrix ATMatrix = new Identity(4);

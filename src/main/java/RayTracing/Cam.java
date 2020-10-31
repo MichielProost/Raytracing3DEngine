@@ -205,6 +205,7 @@ public class Cam {
                 // Normalize this vector.
                 normal.normalize();
 
+                Rgb color2 = new Rgb(0.0f, 0.0f, 0.0f);
                 // Loop over every light source (shading purposes).
                 for (LightSource L: sources){
                     Vector s = L.location.minus(hit);   // Vector from hit point to source.
@@ -215,12 +216,12 @@ public class Cam {
                         Rgb diffuse = new Rgb(  (float) mDotS * diff_coef[0] * L.color.r(),
                                                 (float) mDotS * diff_coef[1] * L.color.g(),
                                                 (float) mDotS * diff_coef[2] * L.color.b());
-                        color.add(diffuse);
+                        color2 = color.add(diffuse);
                     }
                 }
 
                 // Place the color in the rc-th pixel.
-                screen.drawPoint(r, c, color);
+                screen.drawPoint(r, c, color2);
             }
         }
     }
