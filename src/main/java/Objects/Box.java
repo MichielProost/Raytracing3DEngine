@@ -30,9 +30,9 @@ public class Box extends Shape {
      * @param location The location of the box.
      */
     public Box(Point minimum, Point maximum, Point location){
+        super(location);
         this.minimum = minimum;
         this.maximum = maximum;
-        super.setLocation(location);
     }
 
     @Override

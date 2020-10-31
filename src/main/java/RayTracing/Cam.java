@@ -1,7 +1,6 @@
 package RayTracing;
 
 import Graphics.Screen;
-import Interfaces.IATFactory;
 import Light.LightSource;
 import Matrix.*;
 import Matrix.Point;
@@ -25,14 +24,14 @@ public class Cam {
 
         TRANSLATION,
         ROLL;
-        private static ControlState[] vals = values();
+        private static ControlState[] values = values();
 
         /**
-         * Get the next state.
-         * @return The next state.
+         * Get the next control state.
+         * @return The next control state.
          */
         public ControlState next(){
-            return vals[(this.ordinal()+1) % vals.length];
+            return values[(this.ordinal()+1) % values.length];
         }
     }
 
@@ -43,7 +42,7 @@ public class Cam {
     // The camera coordinates.
     private Vector u, v, n;
 
-    // A matrix for converting the camera coordinates to x,y,z coordinates.
+    // A matrix for converting the camera coordinates to world coordinates (x, y, z).
     Matrix modelView;
 
     // The control state of this camera.
@@ -117,6 +116,7 @@ public class Cam {
         this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
         this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
 
+        // Set the model view matrix.
         setModelViewMatrix();
     }
 
@@ -135,16 +135,19 @@ public class Cam {
         v.setY(sin*t.getY() + cos*v.getY());
         v.setZ(sin*t.getZ() + cos*v.getZ());
 
+        // Set the model view matrix.
         setModelViewMatrix();
     }
 
     /**
      * Ray trace and update the current scene.
      * @param screen The screen.
-     * @param objects The objects in the scene.
+     * @param objects The shapes in the scene.
+     * @param sources The light sources in the scene.
      */
     public void rayTrace(Screen screen, List<Shape> objects, List<LightSource> sources){
 
+        // Ray starts at the eye.
         Ray ray = new Ray().setStart(eye);
 
         for (int r = 0; r < screen.getWidth(); r++){
@@ -164,9 +167,9 @@ public class Cam {
                 for (Shape object : objects){
 
                     // Specific ray for this object.
-                    Matrix inverseAT = object.getInverseAT();
-                    ray.setStart(inverseAT.times(eye));
-                    ray.setDir(inverseAT.times(dir));
+                    //Matrix inverseAT = object.getInverseAT();
+                    //ray.setStart(inverseAT.times(eye));
+                    //ray.setDir(inverseAT.times(dir));
 
                     // Check for collisions.
                     Double t = object.getCollidingT(ray);
@@ -192,27 +195,32 @@ public class Cam {
                     continue;
                 }
 
-                // Compute the hit point where the ray hits the object, and the normal vector at that point.
-                Point hit = ray.getPoint( closestTime );
-
                 // Find the color of the light returning to the eye along the ray from the point of intersection.
                 Rgb color = closestObject.getColor();
 
+                // Compute the hit point where the ray hits the object.
+                Point hit = ray.getPoint( closestTime );
+                // Compute the normal vector at that point.
                 Vector normal = closestObject.getInverseAT().times(closestObject.getNormalVector(hit));
+                // Normalize this vector.
                 normal.normalize();
 
-                // Loop over every light source (shading).
+                // Loop over every light source (shading purposes).
                 for (LightSource L: sources){
                     Vector s = L.location.minus(hit);   // Vector from hit point to source.
                     s.normalize();
                     double mDotS = s.dot(normal);       // The lambert term.
-                    if (mDotS > 0.0){                   // Hit point is turned towards the light.
-                        // Find diffuse color.
+                    if (mDotS > 0.0){                   // Hit point is turned toward the light.
+                        float[] diff_coef = closestObject.material.diffuse_coefficients();
+                        Rgb diffuse = new Rgb(  (float) mDotS * diff_coef[0] * L.color.r(),
+                                                (float) mDotS * diff_coef[1] * L.color.g(),
+                                                (float) mDotS * diff_coef[2] * L.color.b());
+                        color.add(diffuse);
                     }
                 }
 
                 // Place the color in the rc-th pixel.
-                screen.drawPoint(r, c, color.r(), color.g(), color.b());
+                screen.drawPoint(r, c, color);
             }
         }
     }

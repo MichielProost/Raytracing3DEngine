@@ -16,6 +16,7 @@ public class Sphere extends Shape {
      * @param radius The radius of the sphere.
      */
     public Sphere(double radius){
+        super();
         this.radius = radius;
     }
 
@@ -25,16 +26,11 @@ public class Sphere extends Shape {
      * @param location The location of the sphere.
      */
     public Sphere(double radius, Point location){
-        super();
+        super(location);
         this.radius = radius;
-        super.setLocation(location);
     }
 
-    /**
-     * Get normal vector at the hit spot.
-     * @param hit The hit spot.
-     * @return The normal vector at the hit spot.
-     */
+    @Override
     public Vector getNormalVector(Point hit){
         return new Vector(  (hit.getX() - this.location.getX()) / this.radius,
                             (hit.getY() - this.location.getY()) / this.radius,

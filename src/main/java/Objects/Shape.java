@@ -1,10 +1,9 @@
 package Objects;
 
+import Light.Material;
 import Matrix.*;
 import RayTracing.Ray;
 import Graphics.*;
-
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,12 +23,31 @@ public abstract class Shape {
     // Inverse transformation matrix.
     private Matrix InverseAT;
 
+    // All shapes are by default gold.
+    public Material material = new Material().Gold();
+
     /**
      * Default constructor.
      */
     public Shape(){
-        setATMatrix(Collections.<Matrix> emptyList());
+        this.InverseAT = this.ATMatrix;
     }
+
+    /**
+     * Constructor.
+     * @param Location The location of the shape.
+     */
+    public Shape(Point Location){
+        this.location = location;
+        this.InverseAT = this.ATMatrix;
+    }
+
+    /**
+     * Get the normal vector at the hit spot.
+     * @param hit The hit spot.
+     * @return The normal vector at the hit spot.
+     */
+    public abstract Vector getNormalVector(Point hit);
 
     /**
      * Get the hit time between this object and a given ray.
@@ -37,13 +55,6 @@ public abstract class Shape {
      * @return The closest value of t. Returns null if no hit points are found.
      */
     public abstract Double getCollidingT(Ray ray);
-
-    public abstract Vector getNormalVector(Point hit);
-
-    public Shape setLocation(Point location){
-        this.location = location;
-        return this;
-    }
 
     /**
      * Get the color of this object.
@@ -70,6 +81,22 @@ public abstract class Shape {
     }
 
     /**
+     * Return the inverse AT matrix.
+     * @return The inverse AT matrix.
+     */
+    public Matrix getInverseAT(){
+        return InverseAT;
+    }
+
+    /**
+     * Set the location of the shape.
+     * @param location The location of the shape.
+     */
+    public void setLocation(Point location){
+        this.location = location;
+    }
+
+    /**
      * Set the Affine Transformation matrix.
      * @param matrices The AT matrices.
      * @return this shape.
@@ -80,13 +107,5 @@ public abstract class Shape {
         }
         this.InverseAT = this.ATMatrix.inverse();
         return this;
-    }
-
-    /**
-     * Return the inverse AT matrix.
-     * @return The inverse AT matrix.
-     */
-    public Matrix getInverseAT(){
-        return InverseAT;
     }
 }

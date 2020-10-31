@@ -48,4 +48,15 @@ public class Rgb {
     {
         return b;
     }
+
+    /**
+     * Add a color to this color.
+     * @param color The color to be added.
+     * @return The new color.
+     */
+    public void add(Rgb color){
+        this.r += color.r();
+        this.g += color.g();
+        this.b += color.b();
+    }
 }
