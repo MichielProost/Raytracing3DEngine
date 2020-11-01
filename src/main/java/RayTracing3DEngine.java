@@ -2,11 +2,14 @@ import Graphics.Screen;
 import Graphics.Rgb;
 import Interfaces.IATFactory;
 import Light.LightSource;
-import Matrix.*;
 import Matrix.Point;
+import Matrix.Vector;
+import Matrix.Matrix;
+import Matrix.ATFactory;
 import Objects.*;
 import Objects.Shape;
 import RayTracing.Cam;
+import RayTracing.Scene;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -54,23 +57,24 @@ public class RayTracing3DEngine {
         // Create Affine Transformation Factory.
         IATFactory factory = new ATFactory();
 
+        // Define a scene.
+        Scene scene = new Scene();
+
         // Define shapes.
-        ArrayList<Shape> objects = new ArrayList<>();
-        Shape sphere = new Sphere(2);
-        objects.add( sphere );
+        Shape sphere1 = new Sphere(1).setATMatrix(factory.getScaling(1,1,3));
+        scene.addShape( sphere1 );
 
         // Define light sources.
-        ArrayList<LightSource> sources = new ArrayList<>();
         Rgb intensity = new Rgb(0.7f, 0.7f, 0.7f);
-        LightSource source = new LightSource(new Point(0, 5, 0), intensity);
-        sources.add( source );
+        LightSource source = new LightSource(new Point(0, 10, 10), intensity);
+        scene.addSource( source );
 
         // Measure time in milliseconds.
         long start = System.currentTimeMillis();
         long end, elapsedTime;
 
-        // Ray trace the current scene.
-        cam.rayTrace(screen, objects, sources);
+        // Render the screen.
+        cam.render(screen, scene);
         screen.forceUpdate();
 
         while(true) {
@@ -87,7 +91,7 @@ public class RayTracing3DEngine {
                 screen.processInput(cam);
 
                 // Refresh the screen.
-                cam.rayTrace(screen, objects, sources);
+                cam.render(screen, scene);
                 screen.forceUpdate();
             }
         }

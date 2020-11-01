@@ -4,11 +4,7 @@ import Graphics.Screen;
 import Light.LightSource;
 import Matrix.*;
 import Matrix.Point;
-import Objects.Shape;
 import Graphics.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Class that implements a camera in our 3D world.
@@ -140,12 +136,84 @@ public class Cam {
     }
 
     /**
-     * Ray trace and update the current scene.
-     * @param screen The screen.
-     * @param objects The shapes in the scene.
-     * @param sources The light sources in the scene.
+     * Ray trace the current scene.
+     * @param scene The scene.
+     * @param ray The sent out ray.
+     * @return The appropriate color.
      */
-    public void rayTrace(Screen screen, List<Shape> objects, List<LightSource> sources){
+    public Rgb rayTrace(Scene scene, Ray ray){
+
+        // The background color.
+        Rgb background = new Rgb(0.0f, 0.0f, 0.0f);
+
+        // Get info about the first hit if there is one.
+        HitInfo info = new HitInfo().getFirstHit(ray, scene.objects);
+
+        // No intersections.
+        if(info == null) {
+            return background;
+        }
+
+        // Find the color of the light returning to the eye along the ray from the point of intersection.
+        Rgb color = info.hitObject.getColor();
+
+        // Get the reflective coefficients.
+        float[] amb_coef = info.hitObject.material.ambient_coefficients();
+        float[] dif_coef = info.hitObject.material.diffuse_coefficients();
+        float[] spe_coef = info.hitObject.material.specular_coefficients();
+        double exponent = info.hitObject.material.getExponent();
+
+        // Ambient component.
+        Rgb ambient = new Rgb(amb_coef[0], amb_coef[1], amb_coef[2]);
+        color = color.add(ambient);
+
+        // Get the normal vector at the hit point.
+        Vector normal = info.hitNormal;
+        normal.normalize();
+
+        // Negative of the ray's direction. Points to the viewer.
+        Vector v = new Vector(-ray.dir.getX(), -ray.dir.getY(), -ray.dir.getZ());
+
+        // Loop over every light source (for shading purposes).
+        for (LightSource L: scene.sources){
+
+            // Vector from hit point to source.
+            Vector s = L.location.minus(info.hitPoint);
+            s.normalize();
+            // The lambert term.
+            double mDotS = s.dot(normal);
+            // Hit point is turned toward the light.
+            if (mDotS > 0.0){
+                // Diffuse component.
+                Rgb diffuse = new Rgb((float) mDotS * dif_coef[0] * L.color.r(),
+                        (float) mDotS * dif_coef[1] * L.color.g(),
+                        (float) mDotS * dif_coef[2] * L.color.b());
+                color = color.add(diffuse);
+            }
+            // The halfway vector.
+            Vector h = v.plus(s);
+            h.normalize();
+            // Part of phong term.
+            double mDotH = h.dot(normal);
+            if(mDotH <= 0)  // No specular distribution.
+                continue;
+            double phong = Math.pow(mDotH, exponent);
+            Rgb specular = new Rgb( (float) phong * spe_coef[0] * L.color.r(),
+                    (float) phong * spe_coef[1] * L.color.g(),
+                    (float) phong * spe_coef[2] * L.color.b());
+            color = color.add(specular);
+
+        }
+
+        return color;
+    }
+
+    /**
+     * Render the screen to show the current scene.
+     * @param screen The screen.
+     * @param scene The scene.
+     */
+    public void render(Screen screen, Scene scene){
 
         // Ray starts at the eye.
         Ray ray = new Ray().setStart(eye);
@@ -155,88 +223,15 @@ public class Cam {
             {
                 // Compute the ray's direction.
                 Vector dir = ray.computeDirection(screen, r, c);
+
+                // Translate to world coordinates.
                 dir = modelView.times(dir);
 
                 // Built the rc-th ray.
                 ray.setDir(dir);
 
-                // Create a map that contains all the intersections of this ray with this pixel.
-                Map<Double, Shape> intersections = new HashMap<>();
-
-                // Find all the intersections of ray with objects in the scene.
-                for (Shape object : objects){
-
-                    // Specific ray for this object.
-                    //Matrix inverseAT = object.getInverseAT();
-                    //ray.setStart(inverseAT.times(eye));
-                    //ray.setDir(inverseAT.times(dir));
-
-                    // Check for collisions.
-                    Double t = object.getCollidingT(ray);
-                    if (t != null && t >= 0){
-                        intersections.put(t, object);
-                    }
-
-                }
-
-                // Identify the intersection that lies closest to, and in front of, the eye.
-                double closestTime = -1;
-                Shape closestObject = null;
-                for( Map.Entry<Double, Shape> entry : intersections.entrySet()){
-                    if (closestTime == -1 || entry.getKey() < closestTime){
-                        closestTime = entry.getKey();
-                        closestObject = entry.getValue();
-                    }
-                }
-
-                // Continue if there were no intersections.
-                if(closestObject == null) {
-                    screen.drawPoint(r, c,0.0f, 0.0f, 0.0f);
-                    continue;
-                }
-
-                // Find the color of the light returning to the eye along the ray from the point of intersection.
-                Rgb color = closestObject.getColor();
-
-                // Ambient term.
-                float[] amb_coef = closestObject.material.ambient_coefficients();
-                Rgb ambient = new Rgb(amb_coef[0], amb_coef[1], amb_coef[2]);
-                color = color.add(ambient);
-
-                // Compute the hit point where the ray hits the object.
-                Point hit = ray.getPoint( closestTime );
-                // Compute the normal vector at that point.
-                Vector normal = closestObject.getInverseAT().times(closestObject.getNormalVector(hit));
-                // Normalize this vector.
-                normal.normalize();
-
-                // Negative of the ray's direction. Points to the viewer.
-                Vector v = new Vector(-dir.getX(), -dir.getY(), -dir.getZ());
-
-                // Loop over every light source (shading purposes).
-                for (LightSource L: sources){
-                    Vector s = L.location.minus(hit);   // Vector from hit point to source.
-                    s.normalize();
-                    double mDotS = s.dot(normal);       // The lambert term.
-                    if (mDotS > 0.0){                   // Hit point is turned toward the light.
-                        float[] diff_coef = closestObject.material.diffuse_coefficients();
-                        Rgb diffuse = new Rgb(  (float) mDotS * diff_coef[0] * L.color.r(),
-                                                (float) mDotS * diff_coef[1] * L.color.g(),
-                                                (float) mDotS * diff_coef[2] * L.color.b());
-                        color = color.add(diffuse);
-                    }
-                    Vector h = v.plus(s);               // The halfway vector.
-                    h.normalize();
-                    double mDotH = h.dot(normal);       // Part of phong term.
-                    if(mDotH <= 0)                      // No specular distribution.
-                        continue;
-                    double phong = Math.pow(mDotH, closestObject.material.getExponent());
-                    float[] spec_coef = closestObject.material.specular_coefficients();
-                    Rgb specular = new Rgb( (float) phong * spec_coef[0] * L.color.r(),
-                                            (float) phong * spec_coef[1] * L.color.g(),
-                                            (float) phong * spec_coef[2] * L.color.b());
-                    color = color.add(specular);
-                }
+                // Ray trace the current scene.
+                Rgb color = rayTrace(scene, ray);
 
                 // Place the color in the rc-th pixel.
                 screen.drawPoint(r, c, color);

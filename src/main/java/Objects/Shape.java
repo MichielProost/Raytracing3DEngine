@@ -35,10 +35,10 @@ public abstract class Shape {
 
     /**
      * Constructor.
-     * @param Location The location of the shape.
+     * @param loc The location of the shape.
      */
-    public Shape(Point Location){
-        this.location = location;
+    public Shape(Point loc){
+        this.location = loc;
         this.InverseAT = this.ATMatrix;
     }
 
@@ -98,10 +98,21 @@ public abstract class Shape {
 
     /**
      * Set the Affine Transformation matrix.
-     * @param matrices The AT matrices.
-     * @return this shape.
+     * @param matrix The AT matrix.
+     * @return This shape.
      */
-    public Shape setATMatrix(List<Matrix> matrices){
+    public Shape setATMatrix(Matrix matrix){
+        this.ATMatrix = this.ATMatrix.times(matrix);
+        this.InverseAT = this.ATMatrix.inverse();
+        return this;
+    }
+
+    /**
+     * Set the Affine Transformation matrix.
+     * @param matrices The AT matrices.
+     * @return This shape.
+     */
+    public Shape setATMatrices(List<Matrix> matrices){
         for (Matrix matrix : matrices){
             this.ATMatrix = this.ATMatrix.times(matrix);
         }
