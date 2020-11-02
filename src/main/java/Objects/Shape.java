@@ -97,6 +97,16 @@ public abstract class Shape {
     }
 
     /**
+     * Set the material type of the shape.
+     * @param type The type of material.
+     * @return This shape.
+     */
+    public Shape setMaterial(Material.MaterialType type){
+        this.material = new Material().getMaterial(type);
+        return this;
+    }
+
+    /**
      * Set the Affine Transformation matrix.
      * @param matrix The AT matrix.
      * @return This shape.

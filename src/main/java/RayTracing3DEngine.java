@@ -2,6 +2,7 @@ import Graphics.Screen;
 import Graphics.Rgb;
 import Interfaces.IATFactory;
 import Light.LightSource;
+import Light.Material;
 import Matrix.Point;
 import Matrix.Vector;
 import Matrix.Matrix;
@@ -61,7 +62,7 @@ public class RayTracing3DEngine {
         Scene scene = new Scene();
 
         // Define shapes.
-        Shape sphere1 = new Sphere(1).setATMatrix(factory.getScaling(1,1,3));
+        Shape sphere1 = new Sphere(2).setMaterial(Material.MaterialType.polished_silver);
         scene.addShape( sphere1 );
 
         // Define light sources.

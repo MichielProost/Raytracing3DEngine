@@ -154,6 +154,11 @@ public class Cam {
             return background;
         }
 
+        // Specific ray for closest object.
+        Matrix inverseAT = info.hitObject.getInverseAT();
+        ray.setStart(inverseAT.times(ray.start));
+        ray.setDir(inverseAT.times(ray.dir));
+
         // Find the color of the light returning to the eye along the ray from the point of intersection.
         Rgb color = info.hitObject.getColor();
 

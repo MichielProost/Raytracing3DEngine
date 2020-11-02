@@ -18,6 +18,27 @@ public class Material {
     private float rho_sb;
     private double exponent;
 
+    // The kind of material.
+    public enum MaterialType{
+        gold,
+        polished_silver
+    }
+
+    /**
+     * Return a material based on the given type.
+     * @param type The type of required material.
+     * @return The appropriate material.
+     */
+    public Material getMaterial(MaterialType type){
+        switch (type){
+            case gold:
+                return new Material().Gold();
+            case polished_silver:
+                return new Material().PolishedSilver();
+        }
+        return null;
+    }
+
     /**
      * Set the reflection coefficients for a gold material.
      * @return A gold material.
