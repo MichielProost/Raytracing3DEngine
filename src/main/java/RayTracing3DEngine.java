@@ -34,6 +34,7 @@ public class RayTracing3DEngine {
         int width = config_handler.getIntProperty("width");
         int height = config_handler.getIntProperty("height");
         int refresh_rate = config_handler.getIntProperty("refresh_rate");
+        int max_recursion_level = config_handler.getIntProperty("max_recursion_level");
         double cam_distance = config_handler.getDoubleProperty("cam_distance");
 
         // Specify screen dimensions.
@@ -59,7 +60,7 @@ public class RayTracing3DEngine {
         IATFactory factory = new ATFactory();
 
         // Define a scene.
-        Scene scene = new Scene();
+        Scene scene = new Scene(max_recursion_level);
 
         // Define shapes.
         Shape sphere1 = new Sphere(2).setMaterial(Material.MaterialType.polished_silver);

@@ -144,7 +144,7 @@ public class Cam {
     public Rgb rayTrace(Scene scene, Ray ray){
 
         // The background color.
-        Rgb background = new Rgb(0.0f, 0.0f, 0.0f);
+        Rgb background = new Rgb(1.0f, 1.0f, 1.0f);
 
         // Get info about the first hit if there is one.
         HitInfo info = new HitInfo().getFirstHit(ray, scene.objects);
@@ -153,11 +153,6 @@ public class Cam {
         if(info == null) {
             return background;
         }
-
-        // Specific ray for closest object.
-        Matrix inverseAT = info.hitObject.getInverseAT();
-        ray.setStart(inverseAT.times(ray.start));
-        ray.setDir(inverseAT.times(ray.dir));
 
         // Find the color of the light returning to the eye along the ray from the point of intersection.
         Rgb color = info.hitObject.getColor();
@@ -177,7 +172,7 @@ public class Cam {
         normal.normalize();
 
         // Negative of the ray's direction. Points to the viewer.
-        Vector v = new Vector(-ray.dir.getX(), -ray.dir.getY(), -ray.dir.getZ());
+        Vector v = new Vector(-info.hitRay.dir.getX(), -info.hitRay.dir.getY(), -info.hitRay.dir.getZ());
 
         // Loop over every light source (for shading purposes).
         for (LightSource L: scene.sources){
@@ -209,6 +204,19 @@ public class Cam {
             color = color.add(specular);
 
         }
+
+        // Check recursion level.
+        if (ray.recurseLevel == scene.maxRecursionLevel){
+            return color;
+        }
+
+        double dirDotm = info.hitRay.dir.dot(normal);
+        // Get reflection direction.
+        Vector reflection_dir = ray.dir.minus(
+                new Vector(2*dirDotm*normal.getX(), 2*dirDotm*normal.getY(), 2*dirDotm*normal.getZ()));
+        // Build reflected ray.
+        Ray reflection = new Ray().setStart(info.hitPoint);
+        reflection.setDir(reflection_dir);
 
         return color;
     }

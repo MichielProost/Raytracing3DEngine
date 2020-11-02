@@ -7,8 +7,9 @@ import Matrix.*;
  */
 public class Ray {
 
-    public Point start;    // The starting point of the ray.
-    public Vector dir;     // The direction of the ray.
+    public Point start;         // The starting point of the ray.
+    public Vector dir;          // The direction of the ray.
+    public int recurseLevel;    // The recursion level.
 
     /**
      * Set the starting point of the ray.

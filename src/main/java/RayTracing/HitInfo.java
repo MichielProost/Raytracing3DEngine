@@ -21,6 +21,8 @@ public class HitInfo {
     public Point hitPoint;
     // Normal vector at the hit spot.
     public Vector hitNormal;
+    // Specific ray for closest object.
+    public Ray hitRay;
 
     /**
      * Get the first hit of the ray with an object in the scene.
@@ -62,6 +64,9 @@ public class HitInfo {
         } else {
             hitPoint = ray.getPoint(closestTime);
             hitNormal = hitObject.getInverseAT().times(hitObject.getNormalVector(hitPoint));
+            Matrix inverseAT = hitObject.getInverseAT();
+            hitRay = new Ray().setStart(inverseAT.times(ray.start));
+            hitRay.setDir(inverseAT.times(ray.dir));
         }
 
         return this;
