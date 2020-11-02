@@ -45,8 +45,7 @@ public class Ray {
         final double ux = -W_half + (W * r) / screen.getWidth();
         final double uy = -H_half + (H * c) / screen.getHeight();
 
-        Vector dir = new Vector(-ux, -uy, -screen.getN());
-        return dir;
+        return new Vector(-ux, -uy, -screen.getN());
     }
 
     /**
@@ -55,10 +54,9 @@ public class Ray {
      * @return The intersection point.
      */
     public Point getPoint(double t){
-        Point point = new Point(start.getX() + dir.getX() * t,
+        return new Point(start.getX() + dir.getX() * t,
                                 start.getY() + dir.getY() * t,
                                 start.getZ() + dir.getZ() * t);
-        return point;
     }
 
 }

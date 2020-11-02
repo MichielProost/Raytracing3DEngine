@@ -20,6 +20,7 @@ public class Material {
 
     // The kind of material.
     public enum MaterialType{
+        black_plastic,
         gold,
         polished_silver
     }
@@ -31,12 +32,37 @@ public class Material {
      */
     public Material getMaterial(MaterialType type){
         switch (type){
+            case black_plastic:
+                return new Material().BlackPlastic();
             case gold:
                 return new Material().Gold();
             case polished_silver:
                 return new Material().PolishedSilver();
         }
         return null;
+    }
+
+    /**
+     * Set the reflection coefficients for a black plastic.
+     * @return A black plastic material.
+     */
+    public Material BlackPlastic(){
+        // Ambient component.
+        rho_ar = 0.0f;
+        rho_ag = 0.0f;
+        rho_ab = 0.0f;
+
+        // Diffuse component.
+        rho_dr = 0.01f;
+        rho_dg = 0.01f;
+        rho_db = 0.01f;
+
+        // Specular component.
+        rho_sr = 0.50f;
+        rho_sg = 0.50f;
+        rho_sb = 0.50f;
+        exponent = 32;
+        return this;
     }
 
     /**

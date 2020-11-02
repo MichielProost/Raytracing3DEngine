@@ -63,8 +63,14 @@ public class RayTracing3DEngine {
         Scene scene = new Scene(max_recursion_level);
 
         // Define shapes.
-        Shape sphere1 = new Sphere(2).setMaterial(Material.MaterialType.polished_silver);
+        Shape sphere1 = new Sphere(2)
+                .setMaterial(Material.MaterialType.black_plastic)
+                .setShininess(0.8f);
+        Shape sphere2 = new Sphere(1, new Point(0, 5, -2))
+                .setMaterial(Material.MaterialType.gold)
+                .setShininess(0.2f);
         scene.addShape( sphere1 );
+        scene.addShape( sphere2 );
 
         // Define light sources.
         Rgb intensity = new Rgb(0.7f, 0.7f, 0.7f);

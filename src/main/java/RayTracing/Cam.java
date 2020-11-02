@@ -144,7 +144,7 @@ public class Cam {
     public Rgb rayTrace(Scene scene, Ray ray){
 
         // The background color.
-        Rgb background = new Rgb(1.0f, 1.0f, 1.0f);
+        Rgb background = new Rgb(0.0f, 0.0f, 0.0f);
 
         // Get info about the first hit if there is one.
         HitInfo info = new HitInfo().getFirstHit(ray, scene.objects);
@@ -210,13 +210,26 @@ public class Cam {
             return color;
         }
 
-        double dirDotm = info.hitRay.dir.dot(normal);
-        // Get reflection direction.
-        Vector reflection_dir = ray.dir.minus(
-                new Vector(2*dirDotm*normal.getX(), 2*dirDotm*normal.getY(), 2*dirDotm*normal.getZ()));
-        // Build reflected ray.
-        Ray reflection = new Ray().setStart(info.hitPoint);
-        reflection.setDir(reflection_dir);
+        // Shininess of hit object.
+        float shininess = info.hitObject.shininess;
+
+        if (shininess > 0.1f){    // Add any reflected light.
+            double dirDotm = info.hitRay.dir.dot(normal);
+            // Get reflection direction.
+            Vector reflection_dir = ray.dir.minus(
+                    new Vector(2*dirDotm*normal.getX(), 2*dirDotm*normal.getY(), 2*dirDotm*normal.getZ()));
+            // Build reflected ray.
+            Ray reflected = new Ray().setStart(info.hitPoint);
+            reflected.setDir(reflection_dir);
+            // Go up a level.
+            reflected.recurseLevel = ray.recurseLevel + 1;
+            // Add reflected component.
+            Rgb reflection_color = rayTrace(scene, reflected);
+            Rgb reflection_factor = new Rgb(shininess * reflection_color.r(),
+                    shininess * reflection_color.g(),
+                    shininess * reflection_color.b());
+            color.add(reflection_factor);
+        }
 
         return color;
     }
@@ -242,6 +255,9 @@ public class Cam {
 
                 // Built the rc-th ray.
                 ray.setDir(dir);
+
+                // Initialize the recursive level.
+                ray.recurseLevel = 0;
 
                 // Ray trace the current scene.
                 Rgb color = rayTrace(scene, ray);

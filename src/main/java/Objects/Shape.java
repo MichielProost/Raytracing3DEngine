@@ -26,6 +26,9 @@ public abstract class Shape {
     // All shapes are by default gold.
     public Material material = new Material().Gold();
 
+    // Represents how shiny the object is.
+    public float shininess = 0.0f;
+
     /**
      * Default constructor.
      */
@@ -103,6 +106,16 @@ public abstract class Shape {
      */
     public Shape setMaterial(Material.MaterialType type){
         this.material = new Material().getMaterial(type);
+        return this;
+    }
+
+    /**
+     * Set the shininess of the shape.
+     * @param shininess The required shininess.
+     * @return This shape.
+     */
+    public Shape setShininess(float shininess){
+        this.shininess = shininess;
         return this;
     }
 

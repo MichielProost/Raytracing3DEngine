@@ -37,9 +37,9 @@ public class HitInfo {
         for (Shape object : objects){
 
             // Specific ray for this object.
-            Matrix inverseAT = object.getInverseAT();
-            ray.setStart(inverseAT.times(ray.start));
-            ray.setDir(inverseAT.times(ray.dir));
+            //Matrix inverseAT = object.getInverseAT();
+            //ray.setStart(inverseAT.times(ray.start));
+            //ray.setDir(inverseAT.times(ray.dir));
 
             // Check for collisions.
             Double t = object.getCollidingT(ray);
