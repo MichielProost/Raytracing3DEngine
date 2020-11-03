@@ -63,17 +63,16 @@ public class RayTracing3DEngine {
         // Define shapes.
         Shape sphere1 = new Sphere(2)
                 .setMaterial(Material.MaterialType.polished_silver)
-                .setShininess(0.8f);
-        sphere1.material.set_weights(0.0f, 1.0f);
-        Shape sphere2 = new Sphere(1, new Point(0, 5, -2))
-                .setMaterial(Material.MaterialType.polished_silver)
-                .setShininess(0.2f);
+                .setShininess(0.6f);
+        Shape sphere2 = new Sphere(1, new Point(0, 10, 2))
+                .setMaterial(Material.MaterialType.gold)
+                .setShininess(0.0f);
         scene.addShape( sphere1 );
         scene.addShape( sphere2 );
 
         // Define light sources.
         Rgb intensity = new Rgb(0.7f, 0.7f, 0.7f);
-        LightSource source = new LightSource(new Point(0, 10, 10), intensity);
+        LightSource source = new LightSource(new Point(0, 5, 0), intensity);
         scene.addSource( source );
 
         // Measure time in milliseconds.

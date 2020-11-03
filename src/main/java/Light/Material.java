@@ -53,8 +53,8 @@ public class Material {
     public Material BlackPlastic(){
 
         // Weights.
-        light_weight = 0.95f;
-        reflection_weight = 0.05f;
+        light_weight = 0.98f;
+        reflection_weight = 0.02f;
 
         // Ambient component.
         rho_ar = 0.0f;
@@ -81,8 +81,8 @@ public class Material {
     public Material Gold(){
 
         // Weights.
-        light_weight = 0.7f;
-        reflection_weight = 0.3f;
+        light_weight = 0.9f;
+        reflection_weight = 0.1f;
 
         // Ambient component.
         rho_ar = 0.24725f;
@@ -109,8 +109,8 @@ public class Material {
     public Material PolishedSilver(){
 
         // Weights.
-        light_weight = 0.4f;
-        reflection_weight = 0.6f;
+        light_weight = 0.8f;
+        reflection_weight = 0.2f;
 
         // Ambient component.
         rho_ar = 0.23125f;

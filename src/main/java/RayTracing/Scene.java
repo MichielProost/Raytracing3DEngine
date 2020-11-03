@@ -78,7 +78,7 @@ public class Scene {
         }
 
         // Add light component to final color.
-        color = color.add( light.multiply(weights[0]) );
+        color = color.add( light.multiply( weights[0]) );
 
         // Check recursion level.
         if (ray.recurseLevel == maxRecursionLevel){
