@@ -4,8 +4,6 @@ import Graphics.Rgb;
 import Light.LightSource;
 import Matrix.Vector;
 import Objects.Shape;
-import com.sun.javafx.scene.text.TextLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,76 +57,81 @@ public class Scene {
             return background;
         }
 
+        // Get the weights of the appropriate material.
+        float[] weights = info.hitObject.material.get_weights();
+
         // The color of the hit object.
         Rgb color = info.hitObject.getColor();
 
-        color = addAmbientComponent(color, info);
+        // Get ambient component.
+        Rgb light = getAmbientComponent( info );
 
         // Loop over every light source (for shading purposes).
         for (LightSource L: sources){
 
-            // Add diffuse component.
-            color = addDiffuseComponent(color, L, info);
+            // Get and add diffuse component.
+            light = light.add( getDiffuseComponent( L, info ) );
 
-            // Add specular component.
-            color = addSpecularComponent(color, L, info);
+            // Get and add specular component.
+            light = light.add( getSpecularComponent( L, info ) );
 
         }
+
+        // Add light component to final color.
+        color = color.add( light.multiply(weights[0]) );
 
         // Check recursion level.
         if (ray.recurseLevel == maxRecursionLevel){
             return color;
         }
 
-        // Shininess of hit object.
-        float shininess = info.hitObject.shininess;
+        // Add reflected light if object is shiny enough.
+        if (isShinyEnough(info.hitObject)){
 
-        if (shininess > 0.1f){    // Add any reflected light.
-            double dirDotm = info.hitRay.dir.dot(normal);
-            // Get reflection direction.
-            Vector reflection_dir = ray.dir.minus(
-                    new Vector(2*dirDotm*normal.getX(), 2*dirDotm*normal.getY(), 2*dirDotm*normal.getZ()));
-            // Build reflected ray.
-            Ray reflected = new Ray().setStart(info.hitPoint);
-            reflected.setDir(reflection_dir);
-            // Go up a level.
-            reflected.recurseLevel = ray.recurseLevel + 1;
-            // Add reflected component.
-            Rgb reflection_color = this.rayTrace(reflected);
-            Rgb reflection_factor = new Rgb(shininess * reflection_color.r(),
-                    shininess * reflection_color.g(),
-                    shininess * reflection_color.b());
-            color.add(reflection_factor);
+            Rgb reflected = getReflectedLight( info );
+            color = color.add( reflected.multiply(weights[1]) );
+
         }
 
         return color;
     }
 
     /**
-     * Compute and add the ambient component to the current color.
-     * @param color The current color.
-     * @param info Info about the first hit.
-     * @return The new color that includes the ambient component.
+     * Is the object shiny enough?
+     * @param object The object.
+     * @return True if the object is shiny enough. False otherwise.
      */
-    public Rgb addAmbientComponent(Rgb color, HitInfo info){
+    public boolean isShinyEnough(Shape object){
+
+        // Required shininess.
+        float required = 0.1f;
+
+        return object.shininess >= required;
+
+    }
+
+    /**
+     * Compute the ambient component.
+     * @param info Info about the first hit.
+     * @return The color that represents the ambient component.
+     */
+    public Rgb getAmbientComponent(HitInfo info){
 
         // Get the reflective coefficients.
         float[] coefficients = info.hitObject.material.ambient_coefficients();
 
         // Ambient component.
-        Rgb ambient = new Rgb(coefficients[0], coefficients[1], coefficients[2]);
-        return color.add(ambient);
+        return new Rgb(coefficients[0], coefficients[1], coefficients[2]);
 
     }
 
     /**
-     * Compute and add the diffuse component to the current color.
-     * @param color The current color.
+     * Compute the diffuse component.
      * @param L The light source.
      * @param info Info about the first hit.
-     * @return The new color that includes a diffuse component.
+     * @return The color that represents the diffuse component.
      */
-    public Rgb addDiffuseComponent(Rgb color, LightSource L, HitInfo info){
+    public Rgb getDiffuseComponent(LightSource L, HitInfo info){
 
         // Get the reflective coefficients.
         float[] coefficients = info.hitObject.material.diffuse_coefficients();
@@ -147,23 +150,21 @@ public class Scene {
         // Hit point is turned towards the light.
         if (lambert > 0.0){
             // Diffuse component.
-            Rgb diffuse = new Rgb((float) lambert * coefficients[0] * L.color.r(),
+            return new Rgb((float) lambert * coefficients[0] * L.color.r(),
                     (float) lambert * coefficients[1] * L.color.g(),
                     (float) lambert * coefficients[2] * L.color.b());
-            return color.add(diffuse);
         }
-        return color;
+        return background;
 
     }
 
     /**
-     * Compute and add the specular component to the current color.
-     * @param color The current color.
+     * Compute the specular component.
      * @param L The light source.
      * @param info Info about the first hit.
-     * @return The new color that includes a specular component.
+     * @return The color that represents the specular component.
      */
-    public Rgb addSpecularComponent(Rgb color, LightSource L, HitInfo info){
+    public Rgb getSpecularComponent(LightSource L, HitInfo info){
 
         // Get the reflective coefficients.
         float[] coefficients = info.hitObject.material.specular_coefficients();
@@ -189,12 +190,44 @@ public class Scene {
         // Part of phong term.
         double part = h.dot(normal);
         if(part <= 0)  // No specular distribution.
-            return color;
+            return background;
         double phong = Math.pow(part, exponent);
-        Rgb specular = new Rgb( (float) phong * coefficients[0] * L.color.r(),
+        return new Rgb( (float) phong * coefficients[0] * L.color.r(),
                 (float) phong * coefficients[1] * L.color.g(),
                 (float) phong * coefficients[2] * L.color.b());
-        return color.add(specular);
+
+    }
+
+    /**
+     * Get the reflected light component.
+     * @param info Info about the first hit.
+     * @return The color that represents the reflected light component.
+     */
+    public Rgb getReflectedLight(HitInfo info){
+
+        // Get the normal vector at the hit point.
+        Vector normal = info.hitNormal;
+        normal.normalize();
+
+        // Dot product between ray and normal.
+        double factor = info.hitRay.dir.dot(normal);
+
+        // Get reflection direction.
+        Vector dir = info.hitRay.dir.minus(
+                new Vector(2*factor*normal.getX(), 2*factor*normal.getY(), 2*factor*normal.getZ()));
+
+        // Build reflected ray.
+        Ray reflected = new Ray().setStart(info.hitPoint);
+        reflected.setDir(dir);
+
+        // Go up a level.
+        reflected.recurseLevel = info.hitRay.recurseLevel + 1;
+
+        // Reflected component.
+        Rgb color = this.rayTrace(reflected);
+        return new Rgb(info.hitObject.shininess * color.r(),
+                info.hitObject.shininess * color.g(),
+                info.hitObject.shininess * color.b());
 
     }
 

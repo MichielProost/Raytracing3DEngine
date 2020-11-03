@@ -64,8 +64,9 @@ public class RayTracing3DEngine {
         Shape sphere1 = new Sphere(2)
                 .setMaterial(Material.MaterialType.polished_silver)
                 .setShininess(0.8f);
+        sphere1.material.set_weights(0.0f, 1.0f);
         Shape sphere2 = new Sphere(1, new Point(0, 5, -2))
-                .setMaterial(Material.MaterialType.gold)
+                .setMaterial(Material.MaterialType.polished_silver)
                 .setShininess(0.2f);
         scene.addShape( sphere1 );
         scene.addShape( sphere2 );

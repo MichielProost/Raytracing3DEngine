@@ -35,9 +35,9 @@ public class HitInfo {
         for (Shape object : objects){
 
             // Specific ray for this object.
-            Matrix inverseAT = object.getInverseAT();
-            ray.setStart(inverseAT.times(ray.start));
-            ray.setDir(inverseAT.times(ray.dir));
+            //Matrix inverseAT = object.getInverseAT();
+            //ray.setStart(inverseAT.times(ray.start));
+            //ray.setDir(inverseAT.times(ray.dir));
 
             // Check for collisions.
             Double t = object.getCollidingT(ray);
@@ -65,6 +65,7 @@ public class HitInfo {
             Matrix inverseAT = hitObject.getInverseAT();
             hitRay = new Ray().setStart(inverseAT.times(ray.start));
             hitRay.setDir(inverseAT.times(ray.dir));
+            hitRay.recurseLevel = ray.recurseLevel;
         }
 
         return this;

@@ -55,6 +55,7 @@ public class Rgb {
      * @return The resulting color.
      */
     public Rgb add(Rgb color){
+
         Rgb color_result = new Rgb(this.r + color.r, this.g + color.g, this.b + color.b);
         // Limit in case of overexposure.
         if (color_result.r > 1){
@@ -67,5 +68,28 @@ public class Rgb {
             color_result.b = 1;
         }
         return color_result;
+
+    }
+
+    /**
+     * Multiplication of value with color.
+     * @param value The value to multiply the color with.
+     * @return The resulting color.
+     */
+    public Rgb multiply(float value){
+
+        Rgb color_result = new Rgb( value * this.r(), value * this.g(), value * this.b());
+        // Limit in case of overexposure.
+        if (color_result.r > 1){
+            color_result.r = 1;
+        }
+        if (color_result.g > 1){
+            color_result.g = 1;
+        }
+        if (color_result.b > 1){
+            color_result.b = 1;
+        }
+        return color_result;
+
     }
 }

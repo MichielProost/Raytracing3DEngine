@@ -2,6 +2,10 @@ package Light;
 
 public class Material {
 
+    // Weights.
+    private float light_weight;
+    private float reflection_weight;
+
     // Ambient reflection coefficients.
     private float rho_ar;
     private float rho_ag;
@@ -47,6 +51,11 @@ public class Material {
      * @return A black plastic material.
      */
     public Material BlackPlastic(){
+
+        // Weights.
+        light_weight = 0.95f;
+        reflection_weight = 0.05f;
+
         // Ambient component.
         rho_ar = 0.0f;
         rho_ag = 0.0f;
@@ -70,6 +79,11 @@ public class Material {
      * @return A gold material.
      */
     public Material Gold(){
+
+        // Weights.
+        light_weight = 0.7f;
+        reflection_weight = 0.3f;
+
         // Ambient component.
         rho_ar = 0.24725f;
         rho_ag = 0.1955f;
@@ -93,6 +107,11 @@ public class Material {
      * @return A gold material.
      */
     public Material PolishedSilver(){
+
+        // Weights.
+        light_weight = 0.4f;
+        reflection_weight = 0.6f;
+
         // Ambient component.
         rho_ar = 0.23125f;
         rho_ag = 0.23125f;
@@ -109,6 +128,24 @@ public class Material {
         rho_sb = 0.773911f;
         exponent = 89.6;
         return this;
+    }
+
+    /**
+     * Return the weights of this material.
+     * @return The weights of this material.
+     */
+    public float[] get_weights() {
+        return new float[]{light_weight, reflection_weight};
+    }
+
+    /**
+     * Set the weights of this material.
+     * @param light_weight The weight for the light component.
+     * @param reflection_weight The weight for the reflection component.
+     */
+    public void set_weights(float light_weight, float reflection_weight){
+        this.light_weight = light_weight;
+        this.reflection_weight = reflection_weight;
     }
 
     /**
