@@ -11,11 +11,11 @@ public class ConfigurationHandler {
 
     /**
      * Default constructor.
-     * @param file_location The location of property file.
+     * @param fileLocation The location of the property file.
      */
-    public ConfigurationHandler(String file_location){
+    public ConfigurationHandler(String fileLocation){
         this.prop = new Properties();
-        try (FileInputStream ip = new FileInputStream(file_location)) {
+        try (FileInputStream ip = new FileInputStream(fileLocation)) {
             // Load the property file.
             this.prop.load(ip);
         } catch (IOException e){
@@ -26,7 +26,7 @@ public class ConfigurationHandler {
     }
 
     /**
-     * Return the value of the matched key from the property file.
+     * Return the value of the matched key.
      * @param key The key of the property.
      * @return The value of the matched key if it exists. Returns null otherwise.
      */

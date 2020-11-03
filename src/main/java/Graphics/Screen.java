@@ -210,6 +210,12 @@ public class Screen extends JFrame {
             // Indicate the camera's control state to the user.
             System.out.println(cam.controlState);
         }
+
+        // If pressing escape.
+        if (keyboard.keyDownOnce( KeyEvent.VK_ESCAPE )){
+            // Exit the program.
+            System.exit(0);
+        }
     }
 
 }

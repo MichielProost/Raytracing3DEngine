@@ -5,7 +5,6 @@ import Light.LightSource;
 import Light.Material;
 import Matrix.Point;
 import Matrix.Vector;
-import Matrix.Matrix;
 import Matrix.ATFactory;
 import Objects.*;
 import Objects.Shape;
@@ -14,7 +13,6 @@ import RayTracing.Scene;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 /**
  * A 3D engine using the ray tracing principle.
@@ -28,30 +26,30 @@ public class RayTracing3DEngine {
 
         // Create configuration handler.
         Path path = Paths.get(".\\src\\main\\java\\config.properties");
-        ConfigurationHandler config_handler = new ConfigurationHandler(path.toString());
+        ConfigurationHandler configHandler = new ConfigurationHandler(path.toString());
 
         // Read configuration parameters.
-        int width = config_handler.getIntProperty("width");
-        int height = config_handler.getIntProperty("height");
-        int refresh_rate = config_handler.getIntProperty("refresh_rate");
-        int max_recursion_level = config_handler.getIntProperty("max_recursion_level");
-        double cam_distance = config_handler.getDoubleProperty("cam_distance");
+        int width = configHandler.getIntProperty("width");
+        int height = configHandler.getIntProperty("height");
+        int refreshRate = configHandler.getIntProperty("refresh_rate");
+        int maxRecursionLevel = configHandler.getIntProperty("max_recursion_level");
+        double camDistance = configHandler.getDoubleProperty("cam_distance");
 
         // Specify screen dimensions.
-        Dimension screen_size = new Dimension(width, height);
+        Dimension screenSize = new Dimension(width, height);
 
         // Calculate aspect ratio.
-        double aspect_ratio = (double) screen_size.width / (double) screen_size.height;
+        double aspectRatio = (double) screenSize.width / (double) screenSize.height;
 
         // View angle.
         double view_angle = Math.PI / 3;
 
         // Create screen.
         Screen screen =
-                new Screen(screen_size.width, screen_size.height, aspect_ratio, view_angle, cam_distance);
+                new Screen(screenSize.width, screenSize.height, aspectRatio, view_angle, camDistance);
 
         // Create an initialize camera.
-        Point eye = new Point(0, cam_distance, 0);
+        Point eye = new Point(0, camDistance, 0);
         Point look = new Point(0, 0,0);     // Eye looks at the origin.
         Vector up = new Vector(0, 0, 1);
         Cam cam = new Cam().set(eye, look, up);
@@ -60,11 +58,11 @@ public class RayTracing3DEngine {
         IATFactory factory = new ATFactory();
 
         // Define a scene.
-        Scene scene = new Scene(max_recursion_level);
+        Scene scene = new Scene(maxRecursionLevel);
 
         // Define shapes.
         Shape sphere1 = new Sphere(2)
-                .setMaterial(Material.MaterialType.black_plastic)
+                .setMaterial(Material.MaterialType.polished_silver)
                 .setShininess(0.8f);
         Shape sphere2 = new Sphere(1, new Point(0, 5, -2))
                 .setMaterial(Material.MaterialType.gold)
@@ -90,7 +88,7 @@ public class RayTracing3DEngine {
             end = System.currentTimeMillis();
             elapsedTime = end - start;
 
-            if (elapsedTime >= refresh_rate) {
+            if (elapsedTime >= refreshRate) {
                 // Reset timer.
                 start = System.currentTimeMillis();
 
