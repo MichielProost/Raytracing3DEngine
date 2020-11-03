@@ -89,11 +89,20 @@ public class Scene {
         if (isShinyEnough(info.hitObject)){
 
             Rgb reflected = getReflectedLight( info );
-            color = color.add( reflected.multiply(weights[1]) );
+            color = color.add( reflected.multiply( weights[1]) );
 
         }
 
         return color;
+    }
+
+    /**
+     * Returns true if in shadow. Returns false otherwise.
+     * @param ray The sent out ray.
+     * @return True if in shadow. Returns false otherwise.
+     */
+    public boolean isInShadow(Ray ray){
+        return new HitInfo().getFirstHit(ray, objects) != null;
     }
 
     /**
