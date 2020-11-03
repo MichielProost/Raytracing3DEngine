@@ -38,7 +38,7 @@ public class Cam {
     // The camera coordinates.
     private Vector u, v, n;
 
-    // A matrix for converting the camera coordinates to world coordinates (x, y, z).
+    // A matrix for converting the camera coordinates (u, v, n) to world coordinates (x, y, z).
     Matrix modelView;
 
     // The control state of this camera.
@@ -136,105 +136,6 @@ public class Cam {
     }
 
     /**
-     * Ray trace the current scene.
-     * @param scene The scene.
-     * @param ray The sent out ray.
-     * @return The appropriate color.
-     */
-    public Rgb rayTrace(Scene scene, Ray ray){
-
-        // The background color.
-        Rgb background = new Rgb(0.0f, 0.0f, 0.0f);
-
-        // Get info about the first hit if there is one.
-        HitInfo info = new HitInfo().getFirstHit(ray, scene.objects);
-
-        // No intersections.
-        if(info == null) {
-            return background;
-        }
-
-        // Find the color of the light returning to the eye along the ray from the point of intersection.
-        Rgb color = info.hitObject.getColor();
-
-        // Get the reflective coefficients.
-        float[] amb_coef = info.hitObject.material.ambient_coefficients();
-        float[] dif_coef = info.hitObject.material.diffuse_coefficients();
-        float[] spe_coef = info.hitObject.material.specular_coefficients();
-        double exponent = info.hitObject.material.getExponent();
-
-        // Ambient component.
-        Rgb ambient = new Rgb(amb_coef[0], amb_coef[1], amb_coef[2]);
-        color = color.add(ambient);
-
-        // Get the normal vector at the hit point.
-        Vector normal = info.hitNormal;
-        normal.normalize();
-
-        // Negative of the ray's direction. Points to the viewer.
-        Vector v = new Vector(-info.hitRay.dir.getX(), -info.hitRay.dir.getY(), -info.hitRay.dir.getZ());
-
-        // Loop over every light source (for shading purposes).
-        for (LightSource L: scene.sources){
-
-            // Vector from hit point to source.
-            Vector s = L.location.minus(info.hitPoint);
-            s.normalize();
-            // The lambert term.
-            double mDotS = s.dot(normal);
-            // Hit point is turned toward the light.
-            if (mDotS > 0.0){
-                // Diffuse component.
-                Rgb diffuse = new Rgb((float) mDotS * dif_coef[0] * L.color.r(),
-                        (float) mDotS * dif_coef[1] * L.color.g(),
-                        (float) mDotS * dif_coef[2] * L.color.b());
-                color = color.add(diffuse);
-            }
-            // The halfway vector.
-            Vector h = v.plus(s);
-            h.normalize();
-            // Part of phong term.
-            double mDotH = h.dot(normal);
-            if(mDotH <= 0)  // No specular distribution.
-                continue;
-            double phong = Math.pow(mDotH, exponent);
-            Rgb specular = new Rgb( (float) phong * spe_coef[0] * L.color.r(),
-                    (float) phong * spe_coef[1] * L.color.g(),
-                    (float) phong * spe_coef[2] * L.color.b());
-            color = color.add(specular);
-
-        }
-
-        // Check recursion level.
-        if (ray.recurseLevel == scene.maxRecursionLevel){
-            return color;
-        }
-
-        // Shininess of hit object.
-        float shininess = info.hitObject.shininess;
-
-        if (shininess > 0.1f){    // Add any reflected light.
-            double dirDotm = info.hitRay.dir.dot(normal);
-            // Get reflection direction.
-            Vector reflection_dir = ray.dir.minus(
-                    new Vector(2*dirDotm*normal.getX(), 2*dirDotm*normal.getY(), 2*dirDotm*normal.getZ()));
-            // Build reflected ray.
-            Ray reflected = new Ray().setStart(info.hitPoint);
-            reflected.setDir(reflection_dir);
-            // Go up a level.
-            reflected.recurseLevel = ray.recurseLevel + 1;
-            // Add reflected component.
-            Rgb reflection_color = rayTrace(scene, reflected);
-            Rgb reflection_factor = new Rgb(shininess * reflection_color.r(),
-                    shininess * reflection_color.g(),
-                    shininess * reflection_color.b());
-            color.add(reflection_factor);
-        }
-
-        return color;
-    }
-
-    /**
      * Render the screen to show the current scene.
      * @param screen The screen.
      * @param scene The scene.
@@ -256,11 +157,11 @@ public class Cam {
                 // Built the rc-th ray.
                 ray.setDir(dir);
 
-                // Initialize the recursive level.
+                // Initialize the ray's recursive level.
                 ray.recurseLevel = 0;
 
                 // Ray trace the current scene.
-                Rgb color = rayTrace(scene, ray);
+                Rgb color = scene.rayTrace(ray);
 
                 // Place the color in the rc-th pixel.
                 screen.drawPoint(r, c, color);

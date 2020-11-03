@@ -9,19 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Holds info about the first hit between a ray and an object.
+ * Holds information about the first hit between a ray and an object.
  */
 public class HitInfo {
 
-    // Time for closest intersection.
-    public double closestTime;
-    // Object involved in closest intersection.
+    // The closest object that the ray intersected with.
     public Shape hitObject;
-    // Point at which closest intersection occurs.
+    // Point at which the closest intersection occurs.
     public Point hitPoint;
-    // Normal vector at the hit spot.
+    // Normal vector at hit spot.
     public Vector hitNormal;
-    // Specific ray for closest object.
+    // Specific ray for hit object.
     public Ray hitRay;
 
     /**
@@ -37,9 +35,9 @@ public class HitInfo {
         for (Shape object : objects){
 
             // Specific ray for this object.
-            //Matrix inverseAT = object.getInverseAT();
-            //ray.setStart(inverseAT.times(ray.start));
-            //ray.setDir(inverseAT.times(ray.dir));
+            Matrix inverseAT = object.getInverseAT();
+            ray.setStart(inverseAT.times(ray.start));
+            ray.setDir(inverseAT.times(ray.dir));
 
             // Check for collisions.
             Double t = object.getCollidingT(ray);
@@ -49,7 +47,7 @@ public class HitInfo {
         }
 
         // Identify the intersection that lies closest to, and in front of, the eye.
-        closestTime = -1;
+        double closestTime = -1;
         for( Map.Entry<Double, Shape> entry : intersections.entrySet()){
             if (closestTime == -1 || entry.getKey() < closestTime){
                 closestTime = entry.getKey();
