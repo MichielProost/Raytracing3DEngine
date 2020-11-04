@@ -1,6 +1,5 @@
 package Objects;
 
-import Light.Material;
 import Matrix.Point;
 import Matrix.Vector;
 import RayTracing.Ray;
@@ -38,7 +37,24 @@ public class Box extends Shape {
 
     @Override
     public Vector getNormalVector(Point hit) {
-        return null;
+
+        // Calculate the centre point C.
+        Point C = new Point((minimum.getX() + maximum.getX()) * 0.5,
+                            (minimum.getY() + maximum.getY()) * 0.5,
+                            (minimum.getZ() + maximum.getZ()) * 0.5);
+
+        // Calculate the vector that points from the centre point to the hit point.
+        Vector p = hit.minus(C);
+
+        // Calculate divisor values fore each dimension.
+        double dx = Math.abs(minimum.getX() - maximum.getX()) * 0.5;
+        double dy = Math.abs(minimum.getY() - maximum.getY()) * 0.5;
+        double dz = Math.abs(minimum.getZ() - maximum.getZ()) * 0.5;
+
+        double bias = 1.000001;
+
+        return new Vector((int) (p.getX() / dx * bias), (int) (p.getY() / dy * bias), (int) (p.getZ() / dz * bias));
+
     }
 
     @Override

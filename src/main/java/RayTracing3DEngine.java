@@ -67,8 +67,12 @@ public class RayTracing3DEngine {
         Shape sphere2 = new Sphere(0.5, new Point(0, 5, 0))
                 .setMaterial(Material.MaterialType.gold)
                 .setShininess(0.1f);
+        Shape box1 = new Box(new Point(1, 1, 1), new Point(2, 2, 2))
+                .setMaterial(Material.MaterialType.gold)
+                .setShininess(0.4f);
         scene.addShape( sphere1 );
         scene.addShape( sphere2 );
+        scene.addShape( box1 );
 
         // Define light sources.
         Rgb intensity = new Rgb(0.7f, 0.7f, 0.7f);
