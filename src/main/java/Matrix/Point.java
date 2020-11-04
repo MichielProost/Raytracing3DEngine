@@ -130,4 +130,20 @@ public class Point extends Matrix{
 
         return D;
     }
+
+    /**
+     * D = A - B.
+     * @param B The vector which we are going to subtract this point with.
+     * @return A point which captures the result.
+     */
+    public Point minus(Vector B){
+        Point A = this;
+        Point D = new Point();
+
+        D.setX(A.getX() - B.getX());
+        D.setY(A.getY() - B.getY());
+        D.setZ(A.getZ() - B.getZ());
+
+        return D;
+    }
 }

@@ -2,6 +2,7 @@ package RayTracing;
 
 import Graphics.Rgb;
 import Light.LightSource;
+import Matrix.Point;
 import Matrix.Vector;
 import Objects.Shape;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Scene {
     public List<Shape> objects;         // Objects in the scene.
     public List<LightSource> sources;   // Light sources in the scene.
     public int maxRecursionLevel;       // Max recursion level.
-    public Rgb background = new Rgb(0.0f, 0.0f, 0.0f);  // Default background is black.
+    public Rgb background = new Rgb(1.0f, 1.0f, 1.0f);  // Default background is black.
 
     /**
      * Default constructor.
@@ -69,6 +70,11 @@ public class Scene {
         // Loop over every light source (for shading purposes).
         for (LightSource L: sources){
 
+             // Check for shadow.
+            if ( isInShadow( getShadowRay( L, info ) ) ){
+                continue;
+            }
+
             // Get and add diffuse component.
             light = light.add( getDiffuseComponent( L, info ) );
 
@@ -86,7 +92,7 @@ public class Scene {
         }
 
         // Add reflected light if object is shiny enough.
-        if (isShinyEnough(info.hitObject)){
+        if (info.hitObject.isShinyEnough()){
 
             Rgb reflected = getReflectedLight( info );
             color = color.add( reflected.multiply( weights[1]) );
@@ -102,20 +108,47 @@ public class Scene {
      * @return True if in shadow. Returns false otherwise.
      */
     public boolean isInShadow(Ray ray){
-        return new HitInfo().getFirstHit(ray, objects) != null;
+
+        // All intersections of ray with objects in the scene.
+        for (Shape object : objects){
+            // Check for collisions.
+            Double t = object.getCollidingT(ray);
+            if (t != null && t >= 0){
+                return true;
+            }
+        }
+        return false;
+
     }
 
     /**
-     * Is the object shiny enough?
-     * @param object The object.
-     * @return True if the object is shiny enough. False otherwise.
+     * Calculates a shadow feeler ray.
+     * @param L The light source.
+     * @param info Info about the first hit.
+     * @return The shadow feeler ray.
      */
-    public boolean isShinyEnough(Shape object){
+    public Ray getShadowRay(LightSource L, HitInfo info){
 
-        // Required shininess.
-        float required = 0.1f;
+        // Create shadow feeler ray.
+        Ray feeler = new Ray();
 
-        return object.shininess >= required;
+        // The direction of the hit ray.
+        Vector hitRayDir = info.hitRay.dir;
+
+        // Calculate the starting point of the shadow feeler ray.
+        double epsilon = 0.01;  // A small positive number.
+        Point start = info.hitPoint.minus(
+                new Vector(epsilon * hitRayDir.getX(),
+                        epsilon * hitRayDir.getY(),
+                        epsilon * hitRayDir.getZ())
+        );
+
+        // Set the starting point of the shadow feeler ray.
+        feeler.setStart(start);
+        // Set the direction of the shadow feeler ray.
+        feeler.setDir(L.location.minus(info.hitPoint));
+
+        return feeler;
 
     }
 

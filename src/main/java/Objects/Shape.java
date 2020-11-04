@@ -142,4 +142,17 @@ public abstract class Shape {
         this.InverseAT = this.ATMatrix.inverse();
         return this;
     }
+
+    /**
+     * Is the object shiny enough?
+     * @return True if the object is shiny enough. False otherwise.
+     */
+    public boolean isShinyEnough(){
+
+        // Required shininess.
+        float required = 0.1f;
+
+        return shininess >= required;
+
+    }
 }
