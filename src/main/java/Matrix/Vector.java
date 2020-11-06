@@ -147,11 +147,12 @@ public class Vector extends Matrix {
      * @param B The vector to be multiplied with.
      * @return The resulting vector D.
      */
-    public Vector cross(Vector B){
+    public Vector cross(Vector B) {
         Vector A = this;
         double xValue = (A.getY() * B.getZ()) - (A.getZ() * B.getY());
         double yValue = (A.getZ() * B.getX()) - (A.getX() * B.getZ());
         double zValue = (A.getX() * B.getY()) - (A.getY() * B.getX());
         return new Vector(xValue, yValue, zValue);
     }
+
 }

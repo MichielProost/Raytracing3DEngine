@@ -1,6 +1,5 @@
 package Objects;
 
-import Light.Material;
 import Matrix.*;
 import RayTracing.Ray;
 

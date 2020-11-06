@@ -116,6 +116,22 @@ public class Point extends Matrix{
     }
 
     /**
+     * D = A + B.
+     * @param B The vector to be added.
+     * @return The resulting matrix D.
+     */
+    public Point plus(Vector B){
+        Point A = this;
+        Point D = new Point();
+
+        D.setX(A.getX() + B.getX());
+        D.setY(A.getY() + B.getY());
+        D.setZ(A.getZ() + B.getZ());
+
+        return D;
+    }
+
+    /**
      * D = A - B.
      * @param B The point which we are going to subtract this point with.
      * @return A vector which captures the result.

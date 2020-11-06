@@ -94,9 +94,11 @@ public abstract class Shape {
     /**
      * Set the location of the shape.
      * @param location The location of the shape.
+     * @return This shape.
      */
-    public void setLocation(Point location){
+    public Shape setLocation(Point location){
         this.location = location;
+        return this;
     }
 
     /**
