@@ -99,6 +99,14 @@ public class Scene {
 
         }
 
+        // Add refracted light if the object is transparent enough.
+        if (info.hitObject.isTransparentEnough()){
+
+            Rgb refracted = getTransmittedLight( info );
+            color = color.add( refracted.multiply( weights[2] ) );
+
+        }
+
         return color;
     }
 
@@ -270,6 +278,52 @@ public class Scene {
         return new Rgb(info.hitObject.shininess * color.r(),
                 info.hitObject.shininess * color.g(),
                 info.hitObject.shininess * color.b());
+
+    }
+
+    /**
+     * Get the refracted light component.
+     * @param info Info about the first hit.
+     * @return The color that represents the refracted light component.
+     */
+    public Rgb getTransmittedLight(HitInfo info){
+
+        // Get the normal vector at the hit point.
+        Vector normal = info.hitNormal;
+        normal.normalize();
+
+        // Direction of hit ray.
+        Vector dir_hit = info.hitRay.dir;
+
+        // Dot product between ray and normal.
+        double product = dir_hit.dot(normal);
+
+        // Index of refraction.
+        double index = info.hitObject.material.getRefraction_index();
+
+        // cos(02)
+        double cos = Math.sqrt(1 - ((Math.pow(index, 2)) * (1 - Math.pow(product, 2))));
+
+        // Calculate factor for determining transmitted direction.
+        double factor = (index * product) - cos;
+
+        // Get transmitted direction.
+        Vector vector1 = new Vector(index * dir_hit.getX(), index * dir_hit.getY(), index * dir_hit.getZ());
+        Vector vector2 = new Vector(factor * normal.getX(), factor * normal.getY(), factor * normal.getZ());
+        Vector dir = vector1.plus(vector2);
+
+        // Build refracted ray.
+        Ray refracted = new Ray().setStart(info.hitPoint);
+        refracted.setDir(dir);
+
+        // Go up a level.
+        refracted.recurseLevel = info.hitRay.recurseLevel + 1;
+
+        // Reflected component.
+        Rgb color = this.rayTrace(refracted);
+        return new Rgb(info.hitObject.transparency * color.r(),
+                info.hitObject.transparency * color.g(),
+                info.hitObject.transparency * color.b());
 
     }
 

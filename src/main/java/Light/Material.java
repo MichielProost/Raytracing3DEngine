@@ -5,6 +5,7 @@ public class Material {
     // Weights.
     private float light_weight;
     private float reflection_weight;
+    private float refraction_weight;
 
     // Ambient reflection coefficients.
     private float rho_ar;
@@ -21,6 +22,9 @@ public class Material {
     private float rho_sg;
     private float rho_sb;
     private double exponent;
+
+    // Index of refraction.
+    private double refraction_index;
 
     // The kind of material.
     public enum MaterialType{
@@ -53,8 +57,9 @@ public class Material {
     public Material BlackPlastic(){
 
         // Weights.
-        light_weight = 0.98f;
-        reflection_weight = 0.02f;
+        light_weight = 0.96f;
+        reflection_weight = 0.03f;
+        refraction_weight = 0.01f;
 
         // Ambient component.
         rho_ar = 0.0f;
@@ -71,6 +76,9 @@ public class Material {
         rho_sg = 0.50f;
         rho_sb = 0.50f;
         exponent = 32;
+
+        // Index of refraction.
+        refraction_index = 0.71428;
         return this;
     }
 
@@ -81,8 +89,9 @@ public class Material {
     public Material Gold(){
 
         // Weights.
-        light_weight = 0.9f;
+        light_weight = 0.8f;
         reflection_weight = 0.1f;
+        refraction_weight = 0.1f;
 
         // Ambient component.
         rho_ar = 0.24725f;
@@ -99,6 +108,9 @@ public class Material {
         rho_sg = 0.555802f;
         rho_sb = 0.366065f;
         exponent = 51.2;
+
+        // Index of refraction.
+        refraction_index = 2.12766;
         return this;
     }
 
@@ -109,8 +121,9 @@ public class Material {
     public Material PolishedSilver(){
 
         // Weights.
-        light_weight = 0.8f;
+        light_weight = 0.75f;
         reflection_weight = 0.2f;
+        refraction_weight = 0.05f;
 
         // Ambient component.
         rho_ar = 0.23125f;
@@ -127,6 +140,9 @@ public class Material {
         rho_sg = 0.773911f;
         rho_sb = 0.773911f;
         exponent = 89.6;
+
+        // Index of refraction.
+        refraction_index = 0.74074;
         return this;
     }
 
@@ -135,17 +151,19 @@ public class Material {
      * @return The weights of this material.
      */
     public float[] get_weights() {
-        return new float[]{light_weight, reflection_weight};
+        return new float[]{light_weight, reflection_weight, refraction_weight};
     }
 
     /**
      * Set the weights of this material.
      * @param light_weight The weight for the light component.
      * @param reflection_weight The weight for the reflection component.
+     * @param refraction_weight The weight for the refraction component.
      */
-    public void set_weights(float light_weight, float reflection_weight){
+    public void set_weights(float light_weight, float reflection_weight, float refraction_weight){
         this.light_weight = light_weight;
         this.reflection_weight = reflection_weight;
+        this.refraction_weight = refraction_weight;
     }
 
     /**
@@ -180,4 +198,11 @@ public class Material {
         return exponent;
     }
 
+    /**
+     * Get the index of refraction of this material.
+     * @return The refraction index of this material.
+     */
+    public double getRefraction_index(){
+        return refraction_index;
+    }
 }

@@ -29,6 +29,9 @@ public abstract class Shape {
     // Represents how shiny the object is.
     public float shininess = 0.0f;
 
+    // Represents how transparent the object is.
+    public float transparency = 0.0f;
+
     /**
      * Default constructor.
      */
@@ -122,6 +125,16 @@ public abstract class Shape {
     }
 
     /**
+     * Set the transparency of the shape.
+     * @param transparency The required transparency.
+     * @return This shape.
+     */
+    public Shape setTransparency(float transparency){
+        this.transparency = transparency;
+        return this;
+    }
+
+    /**
      * Set the Affine Transformation matrix.
      * @param matrix The AT matrix.
      * @return This shape.
@@ -155,6 +168,19 @@ public abstract class Shape {
         float required = 0.1f;
 
         return shininess >= required;
+
+    }
+
+    /**
+     * Is the object transparent enough?
+     * @return True if the object is transparent enough. False otherwise.
+     */
+    public boolean isTransparentEnough(){
+
+        // Required transparency.
+        float required = 0.1f;
+
+        return transparency >= required;
 
     }
 }

@@ -62,11 +62,13 @@ public class RayTracing3DEngine {
 
         // Define shapes.
         Shape sphere1 = new Sphere(0.5, new Point(0, 5, 0))
-                .setMaterial(Material.MaterialType.gold)
-                .setShininess(0.1f);
-        Shape cylinder1 = new Cylinder(0.5, 3)
                 .setMaterial(Material.MaterialType.polished_silver)
-                .setShininess(0.6f);
+                .setShininess(0.1f)
+                .setTransparency(1.0f);
+        Shape cylinder1 = new Cylinder(0.5, 3)
+                .setMaterial(Material.MaterialType.gold)
+                .setShininess(0.6f)
+                .setTransparency(1.0f);
         scene.addShape( cylinder1 );
         scene.addShape( sphere1 );
 
