@@ -1,7 +1,7 @@
 package Graphics;
 
 import Input.KeyboardInput;
-import RayTracing.Cam;
+import World.Cam;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 

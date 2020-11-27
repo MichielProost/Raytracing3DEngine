@@ -1,15 +1,15 @@
 import Graphics.Screen;
 import Graphics.Rgb;
 import Interfaces.IATFactory;
-import Light.LightSource;
-import Light.Material;
+import World.LightSource;
+import Objects.Material;
 import Matrix.Point;
 import Matrix.Vector;
 import Matrix.ATFactory;
 import Objects.*;
 import Objects.Shape;
-import RayTracing.Cam;
-import RayTracing.Scene;
+import World.Cam;
+import World.Scene;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -74,7 +74,8 @@ public class RayTracing3DEngine {
 
         // Define light sources.
         Rgb intensity = new Rgb(0.7f, 0.7f, 0.7f);
-        LightSource source = new LightSource(new Point(0, 10, 0), intensity);
+        LightSource source = new LightSource(new Point(0, 10, 0))
+                .setColor(new Rgb(0.7f, 0.7f, 0.7f));
         scene.addSource( source );
 
         // Measure time in milliseconds.

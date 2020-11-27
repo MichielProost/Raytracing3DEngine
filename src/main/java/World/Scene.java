@@ -1,7 +1,9 @@
-package RayTracing;
+package World;
 
 import Graphics.Rgb;
-import Light.LightSource;
+import RayTracing.HitInfo;
+import RayTracing.Ray;
+import World.LightSource;
 import Matrix.Point;
 import Matrix.Vector;
 import Objects.Shape;

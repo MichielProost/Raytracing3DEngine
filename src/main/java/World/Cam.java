@@ -1,10 +1,10 @@
-package RayTracing;
+package World;
 
 import Graphics.Screen;
-import Light.LightSource;
 import Matrix.*;
 import Matrix.Point;
 import Graphics.*;
+import RayTracing.Ray;
 
 /**
  * Class that implements a camera in our 3D world.

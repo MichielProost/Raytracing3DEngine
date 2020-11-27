@@ -1,4 +1,4 @@
-package Light;
+package Objects;
 
 public class Material {
 
