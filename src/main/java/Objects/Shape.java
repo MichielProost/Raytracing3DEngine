@@ -14,23 +14,15 @@ public abstract class Shape {
     private Matrix ATMatrix = new Identity(4);
 
     // Inverse transformation matrix.
-    private Matrix InverseAT;
+    private Matrix InverseAT = new Identity(4);
 
-    // All shapes are by default gold.
-    public Material material = new Material().Gold();
-
-    // Represents how shiny the object is.
-    public float shininess = 0.0f;
-
-    // Represents how transparent the object is.
-    public float transparency = 0.0f;
+    // The material of the shape (default: white).
+    public Material material = new Material();
 
     /**
      * Default constructor.
      */
-    public Shape(){
-        this.InverseAT = this.ATMatrix;
-    }
+    public Shape(){}
 
     /**
      * Get the normal vector at the hit spot.
@@ -63,32 +55,22 @@ public abstract class Shape {
     }
 
     /**
+     * Set the material of this shape.
+     * @param material The material.
+     * @return This shape.
+     */
+    public Shape setMaterial(Material material){
+        this.material = material;
+        return this;
+    }
+
+    /**
      * Set the material type of the shape.
      * @param type The type of material.
      * @return This shape.
      */
-    public Shape setMaterial(Material.MaterialType type){
+    public Shape setMaterial(Material.Materials type){
         this.material = new Material().getMaterial(type);
-        return this;
-    }
-
-    /**
-     * Set the shininess of the shape.
-     * @param shininess The required shininess.
-     * @return This shape.
-     */
-    public Shape setShininess(float shininess){
-        this.shininess = shininess;
-        return this;
-    }
-
-    /**
-     * Set the transparency of the shape.
-     * @param transparency The required transparency.
-     * @return This shape.
-     */
-    public Shape setTransparency(float transparency){
-        this.transparency = transparency;
         return this;
     }
 

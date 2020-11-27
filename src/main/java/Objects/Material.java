@@ -4,46 +4,38 @@ import Graphics.Rgb;
 
 public class Material {
 
-    // The color of the material.
+    // The color of the material (default white).
     private Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
 
-    // Weights.
-    private float light_weight;
-    private float reflection_weight;
-    private float refraction_weight;
+    // Default weights.
+    private float [] weights = new float[]{0.7f, 0.2f, 0.1f};
 
     // Ambient reflection coefficients.
-    private float rho_ar;
-    private float rho_ag;
-    private float rho_ab;
+    private Rgb rho_ambient;
 
     // Diffuse reflection coefficients.
-    private float rho_dr;
-    private float rho_dg;
-    private float rho_db;
+    private Rgb rho_diffuse;
 
     // Specular reflection coefficients.
-    private float rho_sr;
-    private float rho_sg;
-    private float rho_sb;
+    private Rgb rho_specular;
     private double exponent;
 
     // Index of refraction.
     private double refraction_index;
 
-    // The kind of material.
-    public enum MaterialType{
+    // Set of materials.
+    public enum Materials{
         black_plastic,
         gold,
         polished_silver
     }
 
     /**
-     * Return a material based on the given type.
-     * @param type The type of required material.
-     * @return The appropriate material.
+     * Return the requested material.
+     * @param type A material from the set of materials.
+     * @return The requested materials.
      */
-    public Material getMaterial(MaterialType type){
+    public Material getMaterial(Materials type){
         switch (type){
             case black_plastic:
                 return new Material().BlackPlastic();
@@ -64,7 +56,75 @@ public class Material {
     }
 
     /**
-     * Set the reflection coefficients for a black plastic.
+     * Return the weights of this material.
+     * @return The weights of this material.
+     */
+    public float[] get_weights() {
+        return weights;
+    }
+
+    /**
+     * Return the ambient coefficients of this material.
+     * @return The ambient coefficients of this material.
+     */
+    public Rgb ambient_coefficients(){
+        return rho_ambient;
+    }
+
+    /**
+     * Return the diffuse coefficients of this material.
+     * @return The diffuse coefficients of this material.
+     */
+    public Rgb diffuse_coefficients(){
+        return rho_diffuse;
+    }
+
+    /**
+     * Return the specular coefficients of this material.
+     * @return The specular coefficients of this material.
+     */
+    public Rgb specular_coefficients(){
+        return rho_specular;
+    }
+
+    /**
+     * Get the specular exponent of this material.
+     * @return The specular exponent of this material.
+     */
+    public double getExponent(){
+        return exponent;
+    }
+
+    /**
+     * Get the index of refraction of this material.
+     * @return The refraction index of this material.
+     */
+    public double getRefraction_index(){
+        return refraction_index;
+    }
+
+    /**
+     * Set the color of this material.
+     * @param color The color of this material.
+     */
+    public void setColor(Rgb color){
+        this.color = color;
+    }
+
+    /**
+     * Set the weights of this material.
+     * @param light_weight The weight for the light component.
+     * @param reflection_weight The weight for the reflection component.
+     * @param refraction_weight The weight for the refraction component.
+     */
+    public void set_weights(float light_weight, float reflection_weight, float refraction_weight){
+        this.weights[0] = light_weight;
+        this.weights[1] = reflection_weight;
+        this.weights[2] = refraction_weight;
+    }
+
+    /**
+     * Set the properties for a black plastic.
      * @return A black plastic material.
      */
     public Material BlackPlastic(){
@@ -73,24 +133,14 @@ public class Material {
         color = new Rgb(0.0f, 0.0f, 0.0f);
 
         // Weights.
-        light_weight = 0.96f;
-        reflection_weight = 0.03f;
-        refraction_weight = 0.01f;
+        set_weights(0.96f, 0.03f, 0.01f);
 
         // Ambient component.
-        rho_ar = 0.0f;
-        rho_ag = 0.0f;
-        rho_ab = 0.0f;
-
+        rho_ambient = new Rgb(0.0f, 0.0f, 0.0f);
         // Diffuse component.
-        rho_dr = 0.01f;
-        rho_dg = 0.01f;
-        rho_db = 0.01f;
-
+        rho_diffuse = new Rgb(0.01f, 0.01f, 0.01f);
         // Specular component.
-        rho_sr = 0.50f;
-        rho_sg = 0.50f;
-        rho_sb = 0.50f;
+        rho_specular = new Rgb(0.50f, 0.50f, 0.50f);
         exponent = 32;
 
         // Index of refraction.
@@ -99,7 +149,7 @@ public class Material {
     }
 
     /**
-     * Set the reflection coefficients for a gold material.
+     * Set the properties for a gold material.
      * @return A gold material.
      */
     public Material Gold(){
@@ -108,24 +158,14 @@ public class Material {
         color = new Rgb(0.0f, 0.0f, 0.0f);
 
         // Weights.
-        light_weight = 0.8f;
-        reflection_weight = 0.1f;
-        refraction_weight = 0.1f;
+        set_weights(0.8f, 0.1f, 0.1f);
 
         // Ambient component.
-        rho_ar = 0.24725f;
-        rho_ag = 0.1955f;
-        rho_ab = 0.0745f;
-
+        rho_ambient = new Rgb(0.24725f, 0.1955f, 0.0745f);
         // Diffuse component.
-        rho_dr = 0.75164f;
-        rho_dg = 0.60648f;
-        rho_db = 0.22648f;
-
+        rho_diffuse = new Rgb(0.75164f, 0.60648f, 0.22648f);
         // Specular component.
-        rho_sr = 0.628281f;
-        rho_sg = 0.555802f;
-        rho_sb = 0.366065f;
+        rho_specular = new Rgb(0.628281f, 0.555802f, 0.366065f);
         exponent = 51.2;
 
         // Index of refraction.
@@ -146,19 +186,11 @@ public class Material {
         set_weights(0.75f, 0.2f, 0.05f);
 
         // Ambient component.
-        rho_ar = 0.23125f;
-        rho_ag = 0.23125f;
-        rho_ab = 0.23125f;
-
+        rho_ambient = new Rgb(0.23125f, 0.23125f, 0.23125f);
         // Diffuse component.
-        rho_dr = 0.2755f;
-        rho_dg = 0.2755f;
-        rho_db = 0.2755f;
-
+        rho_diffuse = new Rgb(0.2755f, 0.2755f, 0.2755f);
         // Specular component.
-        rho_sr = 0.773911f;
-        rho_sg = 0.773911f;
-        rho_sb = 0.773911f;
+        rho_specular = new Rgb(0.773911f, 0.773911f, 0.773911f);
         exponent = 89.6;
 
         // Index of refraction.
@@ -166,67 +198,4 @@ public class Material {
         return this;
     }
 
-    /**
-     * Return the weights of this material.
-     * @return The weights of this material.
-     */
-    public float[] get_weights() {
-        return new float[]{light_weight, reflection_weight, refraction_weight};
-    }
-
-    /**
-     * Set the weights of this material.
-     * @param light_weight The weight for the light component.
-     * @param reflection_weight The weight for the reflection component.
-     * @param refraction_weight The weight for the refraction component.
-     */
-    public void set_weights(float light_weight, float reflection_weight, float refraction_weight){
-        this.light_weight = light_weight;
-        this.reflection_weight = reflection_weight;
-        this.refraction_weight = refraction_weight;
-    }
-
-    public void setColor(Rgb color){
-        this.color = color;
-    }
-
-    /**
-     * Return the ambient coefficients of this material.
-     * @return The ambient coefficients of this material.
-     */
-    public float[] ambient_coefficients(){
-        return new float[]{rho_ar, rho_ag, rho_ab};
-    }
-
-    /**
-     * Return the diffuse coefficients of this material.
-     * @return The diffuse coefficients of this material.
-     */
-    public float[] diffuse_coefficients(){
-        return new float[]{rho_dr, rho_dg, rho_db};
-    }
-
-    /**
-     * Return the specular coefficients of this material.
-     * @return The specular coefficients of this material.
-     */
-    public float[] specular_coefficients(){
-        return new float[]{rho_sr, rho_sg, rho_sb};
-    }
-
-    /**
-     * Get the specular exponent of this material.
-     * @return The specular exponent of this material.
-     */
-    public double getExponent(){
-        return exponent;
-    }
-
-    /**
-     * Get the index of refraction of this material.
-     * @return The refraction index of this material.
-     */
-    public double getRefraction_index(){
-        return refraction_index;
-    }
 }

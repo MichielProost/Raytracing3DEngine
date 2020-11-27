@@ -170,10 +170,7 @@ public class Scene {
     public Rgb getAmbientComponent(HitInfo info){
 
         // Get the reflective coefficients.
-        float[] coefficients = info.hitObject.material.ambient_coefficients();
-
-        // Ambient component.
-        return new Rgb(coefficients[0], coefficients[1], coefficients[2]);
+        return info.hitObject.material.ambient_coefficients();
 
     }
 
@@ -186,7 +183,7 @@ public class Scene {
     public Rgb getDiffuseComponent(LightSource L, HitInfo info){
 
         // Get the reflective coefficients.
-        float[] coefficients = info.hitObject.material.diffuse_coefficients();
+        Rgb coefficients = info.hitObject.material.diffuse_coefficients();
 
         // Get the normal vector at the hit point.
         Vector normal = info.hitNormal;
@@ -202,9 +199,9 @@ public class Scene {
         // Hit point is turned towards the light.
         if (lambert > 0.0){
             // Diffuse component.
-            return new Rgb((float) lambert * coefficients[0] * L.color.r(),
-                    (float) lambert * coefficients[1] * L.color.g(),
-                    (float) lambert * coefficients[2] * L.color.b());
+            return new Rgb((float) lambert * coefficients.r() * L.color.r(),
+                    (float) lambert * coefficients.g() * L.color.g(),
+                    (float) lambert * coefficients.b() * L.color.b());
         }
         return background;
 
@@ -219,7 +216,7 @@ public class Scene {
     public Rgb getSpecularComponent(LightSource L, HitInfo info){
 
         // Get the reflective coefficients.
-        float[] coefficients = info.hitObject.material.specular_coefficients();
+        Rgb coefficients = info.hitObject.material.specular_coefficients();
         double exponent = info.hitObject.material.getExponent();
 
         // Get the normal vector at the hit point.
@@ -244,9 +241,9 @@ public class Scene {
         if(part <= 0)  // No specular distribution.
             return background;
         double phong = Math.pow(part, exponent);
-        return new Rgb( (float) phong * coefficients[0] * L.color.r(),
-                (float) phong * coefficients[1] * L.color.g(),
-                (float) phong * coefficients[2] * L.color.b());
+        return new Rgb( (float) phong * coefficients.r() * L.color.r(),
+                (float) phong * coefficients.g() * L.color.g(),
+                (float) phong * coefficients.b() * L.color.b());
 
     }
 

@@ -30,11 +30,13 @@ public class Sphere extends Shape {
 
     /**
      * Set the location of the sphere.
-     * @param location The location of the sphere.
+     * @param x The location on the x-axis.
+     * @param y The location on the y-axis.
+     * @param z The location on the z-axis.
      * @return This sphere.
      */
-    public Sphere setLocation(Point location){
-        this.location = location;
+    public Sphere setLocation(double x, double y, double z){
+        this.location = new Point(x, y, z);
         return this;
     }
 
