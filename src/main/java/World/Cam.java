@@ -57,7 +57,7 @@ public class Cam {
     }
 
     /**
-     * Set the control state of this camera to the next one.
+     * Switch this camera to the next control state.
      */
     public void nextControlState(){
         controlState = controlState.next();

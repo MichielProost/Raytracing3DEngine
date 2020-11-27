@@ -8,7 +8,7 @@ public class Material {
     private Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
 
     // Default weights.
-    private float [] weights = new float[]{0.7f, 0.2f, 0.1f};
+    private float [] weights = new float[]{0.7f, 0.3f, 0.0f};
 
     // Ambient reflection coefficients.
     private Rgb rho_ambient = new Rgb(0.0f, 0.0f, 0.0f);
@@ -106,9 +106,11 @@ public class Material {
     /**
      * Set the color of this material.
      * @param color The color of this material.
+     * @return This material.
      */
-    public void setColor(Rgb color){
+    public Material setColor(Rgb color){
         this.color = color;
+        return this;
     }
 
     /**
@@ -133,7 +135,7 @@ public class Material {
         color = new Rgb(0.0f, 0.0f, 0.0f);
 
         // Weights.
-        set_weights(0.96f, 0.03f, 0.01f);
+        set_weights(0.96f, 0.04f, 0.00f);
 
         // Ambient component.
         rho_ambient = new Rgb(0.0f, 0.0f, 0.0f);
@@ -158,7 +160,7 @@ public class Material {
         color = new Rgb(0.0f, 0.0f, 0.0f);
 
         // Weights.
-        set_weights(0.8f, 0.1f, 0.1f);
+        set_weights(0.6f, 0.4f, 0.0f);
 
         // Ambient component.
         rho_ambient = new Rgb(0.24725f, 0.1955f, 0.0745f);
@@ -183,7 +185,7 @@ public class Material {
         color = new Rgb(0.0f, 0.0f, 0.0f);
 
         // Weights.
-        set_weights(0.75f, 0.2f, 0.05f);
+        set_weights(0.6f, 0.4f, 0.00f);
 
         // Ambient component.
         rho_ambient = new Rgb(0.23125f, 0.23125f, 0.23125f);

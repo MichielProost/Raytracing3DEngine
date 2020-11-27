@@ -17,7 +17,7 @@ public class Scene {
     public List<Shape> objects;         // Objects in the scene.
     public List<LightSource> sources;   // Light sources in the scene.
     public int maxRecursionLevel;       // Max recursion level.
-    public Rgb background = new Rgb(0.0f, 0.0f, 0.0f);  // Default background is black.
+    public Rgb background = new Rgb(1.0f, 1.0f, 1.0f);  // Default background is black.
 
     /**
      * Default constructor.

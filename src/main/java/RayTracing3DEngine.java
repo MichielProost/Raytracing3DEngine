@@ -61,10 +61,21 @@ public class RayTracing3DEngine {
         Scene scene = new Scene(maxRecursionLevel);
 
         // Define shapes.
-        Shape cylinder = new Cylinder()
-                .setRadius(0.5)
-                .setHeight(3)
+        Shape sphere1 = new Sphere()
+                .setRadius(0.90)
+                .setLocation(0, 0, 0)
+                .setMaterial(Material.Materials.polished_silver);
+        Shape sphere2 = new Sphere()
+                .setRadius(0.30)
+                .setLocation(0,4, 0)
                 .setMaterial(Material.Materials.gold);
+        Shape cylinder = new Cylinder()
+                .setCenter(0.6, 5, 0)
+                .setHeight(0.45)
+                .setRadius(0.15)
+                .setMaterial(Material.Materials.black_plastic);
+        scene.addShape( sphere1 );
+        scene.addShape( sphere2 );
         scene.addShape( cylinder );
 
         // Define light sources.
