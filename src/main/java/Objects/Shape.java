@@ -10,12 +10,6 @@ import java.util.List;
  */
 public abstract class Shape {
 
-    // The location of the object.
-    protected Point location = new Point(0,0,0);
-
-    // The color of the object.
-    protected Rgb color = new Rgb(0.0f, 0.0f, 0.0f);
-
     // Transformation matrix.
     private Matrix ATMatrix = new Identity(4);
 
@@ -39,15 +33,6 @@ public abstract class Shape {
     }
 
     /**
-     * Constructor.
-     * @param loc The location of the shape.
-     */
-    public Shape(Point loc){
-        this.location = loc;
-        this.InverseAT = this.ATMatrix;
-    }
-
-    /**
      * Get the normal vector at the hit spot.
      * @param hit The hit spot.
      * @return The normal vector at the hit spot.
@@ -60,22 +45,6 @@ public abstract class Shape {
      * @return The closest value of t. Returns null if no hit points are found.
      */
     public abstract Double getCollidingT(Ray ray);
-
-    /**
-     * Get the color of this object.
-     * @return The color of this object.
-     */
-    public Rgb getColor() {
-        return color;
-    }
-
-    /**
-     * Get the location of this object.
-     * @return The location of this object.
-     */
-    public Point getLocation() {
-        return location;
-    }
 
     /**
      * Return the Affine Transformation matrix.
@@ -91,16 +60,6 @@ public abstract class Shape {
      */
     public Matrix getInverseAT(){
         return InverseAT;
-    }
-
-    /**
-     * Set the location of the shape.
-     * @param location The location of the shape.
-     * @return This shape.
-     */
-    public Shape setLocation(Point location){
-        this.location = location;
-        return this;
     }
 
     /**

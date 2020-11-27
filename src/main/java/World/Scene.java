@@ -64,7 +64,7 @@ public class Scene {
         float[] weights = info.hitObject.material.get_weights();
 
         // The color of the hit object.
-        Rgb color = info.hitObject.getColor();
+        Rgb color = info.hitObject.material.getColor();
 
         // Get ambient component.
         Rgb light = getAmbientComponent( info );

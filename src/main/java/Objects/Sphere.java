@@ -8,44 +8,55 @@ import RayTracing.Ray;
  */
 public class Sphere extends Shape {
 
-    // The radius of the sphere.
-    private double radius;
+    private double radius = 1.0;  // The radius of the sphere.
+    private Point location = new Point(0,0,0);  // The location of the sphere.
 
     /**
      * Default constructor.
-     * @param radius The radius of the sphere.
      */
-    public Sphere(double radius){
+    public Sphere(){
         super();
-        this.radius = radius;
     }
 
     /**
-     * Constructor to set the sphere's location as well.
+     * Set the radius of the sphere.
      * @param radius The radius of the sphere.
-     * @param location The location of the sphere.
+     * @return This sphere.
      */
-    public Sphere(double radius, Point location){
-        super(location);
+    public Sphere setRadius(double radius){
         this.radius = radius;
+        return this;
+    }
+
+    /**
+     * Set the location of the sphere.
+     * @param location The location of the sphere.
+     * @return This sphere.
+     */
+    public Sphere setLocation(Point location){
+        this.location = location;
+        return this;
     }
 
     @Override
     public Vector getNormalVector(Point hit){
+
         return new Vector(  (hit.getX() - this.location.getX()) / this.radius,
                             (hit.getY() - this.location.getY()) / this.radius,
                             (hit.getZ() - this.location.getZ()) / this.radius);
+
     }
 
     @Override
     public Double getCollidingT(Ray ray) {
+
         // The direction of the ray.
-        Vector c = ray.dir;
+        Vector D = ray.dir;
         // The starting point of the ray.
         Vector S = ray.start.minus(this.location);
 
-        double A = Math.pow(c.getMagnitude(),2);
-        double B = S.dot(c);
+        double A = Math.pow(D.getMagnitude(),2);
+        double B = S.dot(D);
         double C = Math.pow(S.getMagnitude(), 2) - Math.pow(radius, 2);
 
         double discriminant = Math.pow(B, 2) - (A * C);
@@ -65,5 +76,6 @@ public class Sphere extends Shape {
             return t1;
         else
             return Math.min(t1, t2);
+
     }
 }

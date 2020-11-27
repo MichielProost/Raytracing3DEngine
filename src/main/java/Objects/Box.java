@@ -9,8 +9,8 @@ import RayTracing.Ray;
  */
 public class Box extends Shape {
 
-    private Point minimum;
-    private Point maximum;
+    private Point minimum;      // The minimum extend of the bounding box.
+    private Point maximum;      // the maximum extend of the bounding box.
 
     /**
      * Default constructor.
@@ -19,18 +19,6 @@ public class Box extends Shape {
      */
     public Box(Point minimum, Point maximum){
         super();
-        this.minimum = minimum;
-        this.maximum = maximum;
-    }
-
-    /**
-     * Constructor to set the location of the box as well.
-     * @param minimum The minimum extend of the bounding box.
-     * @param maximum The maximum extend of the bounding box.
-     * @param location The location of the box.
-     */
-    public Box(Point minimum, Point maximum, Point location){
-        super(location);
         this.minimum = minimum;
         this.maximum = maximum;
     }
@@ -46,7 +34,7 @@ public class Box extends Shape {
         // Calculate the vector that points from the centre point to the hit point.
         Vector p = hit.minus(C);
 
-        // Calculate divisor values fore each dimension.
+        // Calculate divisor values for each dimension.
         double dx = Math.abs(minimum.getX() - maximum.getX()) * 0.5;
         double dy = Math.abs(minimum.getY() - maximum.getY()) * 0.5;
         double dz = Math.abs(minimum.getZ() - maximum.getZ()) * 0.5;
@@ -59,6 +47,7 @@ public class Box extends Shape {
 
     @Override
     public Double getCollidingT(Ray ray) {
+
         // The direction of the ray.
         Vector D = ray.dir;
         // The starting point of the ray.
@@ -107,5 +96,6 @@ public class Box extends Shape {
             return tmin;
         }
         return null;
+
     }
 }

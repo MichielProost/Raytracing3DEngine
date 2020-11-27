@@ -1,6 +1,11 @@
 package Objects;
 
+import Graphics.Rgb;
+
 public class Material {
+
+    // The color of the material.
+    private Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
 
     // Weights.
     private float light_weight;
@@ -51,10 +56,21 @@ public class Material {
     }
 
     /**
+     * Get the color of this material.
+     * @return The color of this material.
+     */
+    public Rgb getColor(){
+        return color;
+    }
+
+    /**
      * Set the reflection coefficients for a black plastic.
      * @return A black plastic material.
      */
     public Material BlackPlastic(){
+
+        // Color.
+        color = new Rgb(0.0f, 0.0f, 0.0f);
 
         // Weights.
         light_weight = 0.96f;
@@ -88,6 +104,9 @@ public class Material {
      */
     public Material Gold(){
 
+        // Color.
+        color = new Rgb(0.0f, 0.0f, 0.0f);
+
         // Weights.
         light_weight = 0.8f;
         reflection_weight = 0.1f;
@@ -120,10 +139,11 @@ public class Material {
      */
     public Material PolishedSilver(){
 
+        // Color.
+        color = new Rgb(0.0f, 0.0f, 0.0f);
+
         // Weights.
-        light_weight = 0.75f;
-        reflection_weight = 0.2f;
-        refraction_weight = 0.05f;
+        set_weights(0.75f, 0.2f, 0.05f);
 
         // Ambient component.
         rho_ar = 0.23125f;
@@ -164,6 +184,10 @@ public class Material {
         this.light_weight = light_weight;
         this.reflection_weight = reflection_weight;
         this.refraction_weight = refraction_weight;
+    }
+
+    public void setColor(Rgb color){
+        this.color = color;
     }
 
     /**
