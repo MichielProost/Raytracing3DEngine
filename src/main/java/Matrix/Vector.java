@@ -92,14 +92,12 @@ public class Vector extends Matrix {
 
     /**
      * Normalizing this vector.
-     * @return The normalized vector.
      */
-    public Vector normalize(){
+    public void normalize(){
         double magnitude = getMagnitude();
         setX(x / magnitude);
         setY(y / magnitude);
         setZ(z / magnitude);
-        return this;
     }
 
     /**
@@ -113,6 +111,11 @@ public class Vector extends Matrix {
                             this.getZ() + B.getZ());
     }
 
+    /**
+     * D = A - B.
+     * @param B The vector to subtract this vector with.
+     * @return The resulting vector D.
+     */
     public Vector minus(Vector B){
         return new Vector(  this.getX() - B.getX(),
                             this.getY() - B.getY(),

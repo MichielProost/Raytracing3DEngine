@@ -93,7 +93,7 @@ public class Point extends Matrix{
     }
 
     /**
-     * Normalizing this point.
+     * Normalize this point.
      * @return This point.
      */
     public Point normalize(){
@@ -133,7 +133,7 @@ public class Point extends Matrix{
 
     /**
      * D = A - B.
-     * @param B The point which we are going to subtract this point with.
+     * @param B The point which we are going to subtract from this point.
      * @return A vector which captures the result.
      */
     public Vector minus(Point B){
@@ -149,7 +149,7 @@ public class Point extends Matrix{
 
     /**
      * D = A - B.
-     * @param B The vector which we are going to subtract this point with.
+     * @param B The vector which we are going to subtract with this point.
      * @return A point which captures the result.
      */
     public Point minus(Vector B){

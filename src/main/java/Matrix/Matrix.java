@@ -2,7 +2,7 @@ package Matrix;
 
 /**
  * A rectangular array of numbers
- * also known as a matrix.
+ *  also known as a matrix.
  */
 public class Matrix{
 
@@ -30,10 +30,7 @@ public class Matrix{
         C = values[0].length;
         this.values = new double[R][C];
         for (int i=0; i<R; i++){
-            for (int j=0; j<C; j++)
-            {
-                this.values[i][j] = values[i][j];
-            }
+            System.arraycopy(values[i], 0, this.values[i], 0, C);
         }
     }
 

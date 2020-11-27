@@ -1,6 +1,5 @@
 package Matrix;
 
-import Matrix.*;
 import Interfaces.IATFactory;
 
 public class ATFactory implements IATFactory {
