@@ -69,14 +69,12 @@ public class RayTracing3DEngine {
                 .setRadius(0.30)
                 .setLocation(0,4, 0)
                 .setMaterial(Material.Materials.gold);
-        Shape cylinder = new Cylinder()
-                .setCenter(0.6, 5, 0)
-                .setHeight(0.45)
-                .setRadius(0.15)
-                .setMaterial(Material.Materials.black_plastic);
+        Shape box = new Box()
+                .setMinimum(0.6, 5, 0)
+                .setMaximum(1.2, 5.6, 0.6)
+                .setMaterial(Material.Materials.gold);
         scene.addShape( sphere1 );
-        scene.addShape( sphere2 );
-        scene.addShape( cylinder );
+        scene.addShape( box );
 
         // Define light sources.
         LightSource source = new LightSource(0, 10, 0)
