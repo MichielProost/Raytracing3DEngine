@@ -61,10 +61,11 @@ public class RayTracing3DEngine {
         Scene scene = new Scene(maxRecursionLevel);
 
         // Define shapes.
-        Shape sphere = new Box()
-                .setMinimum(2, 2, 2)
-                .setMaximum(3,3,3);
-        scene.addShape( sphere );
+        Shape cylinder = new Cylinder()
+                .setRadius(0.5)
+                .setHeight(3)
+                .setMaterial(Material.Materials.gold);
+        scene.addShape( cylinder );
 
         // Define light sources.
         LightSource source = new LightSource(0, 10, 0)

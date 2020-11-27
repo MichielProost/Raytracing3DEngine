@@ -6,7 +6,7 @@ import RayTracing.Ray;
 import java.util.Arrays;
 
 /**
- * A generic cylinder with a certain radius.
+ * A generic cylinder with a specific center, radius and height.
  */
 public class Cylinder extends Shape {
 
@@ -29,16 +29,33 @@ public class Cylinder extends Shape {
         super();
     }
 
+    /**
+     * Set the center of this cylinder.
+     * @param x The location on the x-axis.
+     * @param y The location on the y-axis.
+     * @param z The location on the z-axis.
+     * @return This cylinder.
+     */
     public Cylinder setCenter(double x, double y, double z){
         this.center = new Point(x, y, z);
         return this;
     }
 
+    /**
+     * Set the radius of this cylinder.
+     * @param radius The required radius.
+     * @return This cylinder.
+     */
     public Cylinder setRadius(double radius){
         this.radius = radius;
         return this;
     }
 
+    /**
+     * Set the height of this cylinder.
+     * @param height The required height.
+     * @return This cylinder.
+     */
     public Cylinder setHeight(double height){
         this.height = height;
         return this;
@@ -110,4 +127,5 @@ public class Cylinder extends Shape {
 
         return t;
     }
+
 }
