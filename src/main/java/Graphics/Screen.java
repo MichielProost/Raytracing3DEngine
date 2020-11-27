@@ -2,12 +2,12 @@ package Graphics;
 
 import Input.KeyboardInput;
 import RayTracing.Cam;
-
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 /**
- * Library for everything graphics related (e.g. drawing points, creating a buffer and so on).
+ * Implements a screen (or buffer) on which we can draw points.
+ * Provides the ability to handle user input.
  */
 public class Screen extends JFrame {
 
@@ -30,7 +30,7 @@ public class Screen extends JFrame {
     private int height;
 
     /**
-     * Create a new JFrame and add a surface to it.
+     * Create a new JFrame and add a surface - buffer - to it.
      * @param width The width of the surface (pixels).
      * @param height The height of the surface (pixels).
      * @param aspect_ratio The aspect ratio of the screen.
@@ -44,7 +44,7 @@ public class Screen extends JFrame {
 
         this.N = N;
 
-        // H and W are given by the expressions:
+        // W and H are given by the expressions:
         double W = 2 * N * Math.tan( view_angle / 2 );
         double H = W / aspect_ratio;
         this.W = W;
@@ -53,7 +53,7 @@ public class Screen extends JFrame {
         // Create a new surface.
         surface = new Surface(width, height);
 
-        // Settings:
+        // Settings
         setTitle("Ray Tracing");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
@@ -173,7 +173,8 @@ public class Screen extends JFrame {
                 // Slide the camera to the left.
                 cam.slide(-0.1, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL){
-                cam.roll(1.0);
+                // Roll the camera to the left.
+                cam.roll(-1.0);
             }
         }
 
@@ -183,7 +184,8 @@ public class Screen extends JFrame {
                 // Slide the camera to the right.
                 cam.slide(0.1, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL) {
-                cam.roll(-1.0);
+                // Roll the camera to the right.
+                cam.roll(1.0);
             }
         }
 
@@ -207,7 +209,7 @@ public class Screen extends JFrame {
         if (keyboard.keyDownOnce( KeyEvent.VK_SPACE )) {
             // Change the camera's control state.
             cam.nextControlState();
-            // Indicate the camera's control state to the user.
+            // Show the new control state to the user.
             System.out.println(cam.controlState);
         }
 
