@@ -198,4 +198,20 @@ public class Material {
         return this;
     }
 
+    /**
+     * Is the material shiny enough?
+     * @return True if the material is shiny enough. False otherwise.
+     */
+    public boolean isShinyEnough(){
+        return weights[1] >= 0.05f;
+    }
+
+    /**
+     * Is the material transparent enough?
+     * @return True if the material is transparent enough. False otherwise.
+     */
+    public boolean isTransparentEnough(){
+        return weights[2] >= 0.05f;
+    }
+
 }

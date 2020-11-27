@@ -3,7 +3,6 @@ package World;
 import Graphics.Rgb;
 import RayTracing.HitInfo;
 import RayTracing.Ray;
-import World.LightSource;
 import Matrix.Point;
 import Matrix.Vector;
 import Objects.Shape;
@@ -94,7 +93,7 @@ public class Scene {
         }
 
         // Add reflected light if object is shiny enough.
-        if (info.hitObject.isShinyEnough()){
+        if (info.hitObject.material.isShinyEnough()){
 
             Rgb reflected = getReflectedLight( info );
             color = color.add( reflected.multiply( weights[1]) );
@@ -102,7 +101,7 @@ public class Scene {
         }
 
         // Add refracted light if the object is transparent enough.
-        if (info.hitObject.isTransparentEnough()){
+        if (info.hitObject.material.isTransparentEnough()){
 
             Rgb refracted = getTransmittedLight( info );
             color = color.add( refracted.multiply( weights[2] ) );
@@ -273,10 +272,7 @@ public class Scene {
         reflected.recurseLevel = info.hitRay.recurseLevel + 1;
 
         // Reflected component.
-        Rgb color = this.rayTrace(reflected);
-        return new Rgb(info.hitObject.shininess * color.r(),
-                info.hitObject.shininess * color.g(),
-                info.hitObject.shininess * color.b());
+        return this.rayTrace(reflected);
 
     }
 
@@ -319,10 +315,7 @@ public class Scene {
         refracted.recurseLevel = info.hitRay.recurseLevel + 1;
 
         // Reflected component.
-        Rgb color = this.rayTrace(refracted);
-        return new Rgb(info.hitObject.transparency * color.r(),
-                info.hitObject.transparency * color.g(),
-                info.hitObject.transparency * color.b());
+        return this.rayTrace(refracted);
 
     }
 

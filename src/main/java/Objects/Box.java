@@ -51,7 +51,7 @@ public class Box extends Shape {
         // The direction of the ray.
         Vector D = ray.dir;
         // The starting point of the ray.
-        Vector S = ray.start.minus(this.location);
+        Vector S = ray.start.minus(new Point(0,0,0));
 
         Vector invDir = new Vector(1 / D.getX(), 1 / D.getY(), 1 / D.getZ());
 

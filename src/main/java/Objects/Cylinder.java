@@ -10,6 +10,9 @@ import java.util.Arrays;
  */
 public class Cylinder extends Shape {
 
+    // The center of the cylinder.
+    private Point center = new Point(0,0,0);
+
     // The radius of the cylinder.
     private double radius = 1.0;
 
@@ -21,25 +24,24 @@ public class Cylinder extends Shape {
 
     /**
      * Default constructor.
-     * @param radius The radius of the cylinder.
-     * @param height The height of the cylinder in the z-direction.
      */
-    public Cylinder(double radius, double height){
+    public Cylinder(){
         super();
-        this.radius = radius;
-        this.height = height;
     }
 
-    /**
-     * Constructor to set the cylinder's location as well.
-     * @param radius The radius of the cylinder.
-     * @param height The height of the cylinder in the z-direction.
-     * @param location The center of the cylinder.
-     */
-    public Cylinder(double radius, double height, Point location){
-        super(location);
+    public Cylinder setCenter(double x, double y, double z){
+        this.center = new Point(x, y, z);
+        return this;
+    }
+
+    public Cylinder setRadius(double radius){
         this.radius = radius;
+        return this;
+    }
+
+    public Cylinder setHeight(double height){
         this.height = height;
+        return this;
     }
 
     @Override
@@ -49,8 +51,7 @@ public class Cylinder extends Shape {
 
     @Override
     public Double getCollidingT(Ray ray) {
-        // The center of the cylinder.
-        Point center = this.location;
+
         // The direction of the ray.
         Vector D = ray.dir;
         // The starting point of the ray.

@@ -2,11 +2,10 @@ package Objects;
 
 import Matrix.*;
 import RayTracing.Ray;
-import Graphics.*;
 import java.util.List;
 
 /**
- * The class that represents an object or shape in 3D space.
+ * Represents an object or shape in 3D space.
  */
 public abstract class Shape {
 
@@ -56,7 +55,7 @@ public abstract class Shape {
 
     /**
      * Set the material of this shape.
-     * @param material The material.
+     * @param material The required material.
      * @return This shape.
      */
     public Shape setMaterial(Material material){
@@ -65,7 +64,7 @@ public abstract class Shape {
     }
 
     /**
-     * Set the material type of the shape.
+     * Set the material of this shape.
      * @param type The type of material.
      * @return This shape.
      */
@@ -87,7 +86,7 @@ public abstract class Shape {
 
     /**
      * Set the Affine Transformation matrix.
-     * @param matrices The AT matrices.
+     * @param matrices The individual AT matrices.
      * @return This shape.
      */
     public Shape setATMatrices(List<Matrix> matrices){
@@ -98,29 +97,4 @@ public abstract class Shape {
         return this;
     }
 
-    /**
-     * Is the object shiny enough?
-     * @return True if the object is shiny enough. False otherwise.
-     */
-    public boolean isShinyEnough(){
-
-        // Required shininess.
-        float required = 0.1f;
-
-        return shininess >= required;
-
-    }
-
-    /**
-     * Is the object transparent enough?
-     * @return True if the object is transparent enough. False otherwise.
-     */
-    public boolean isTransparentEnough(){
-
-        // Required transparency.
-        float required = 0.1f;
-
-        return transparency >= required;
-
-    }
 }
