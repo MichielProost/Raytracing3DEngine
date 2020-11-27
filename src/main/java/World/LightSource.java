@@ -13,10 +13,12 @@ public class LightSource {
 
     /**
      * Default constructor.
-     * @param location The location of the light source.
+     * @param x The location on the x axis.
+     * @param y The location on the y axis.
+     * @param z The location on the z axis.
      */
-    public LightSource(Point location){
-        this.location = location;
+    public LightSource(double x, double y, double z){
+        this.location = new Point(x, y, z);
     }
 
     /**

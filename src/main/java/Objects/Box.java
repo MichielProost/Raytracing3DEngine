@@ -9,18 +9,38 @@ import RayTracing.Ray;
  */
 public class Box extends Shape {
 
-    private Point minimum;      // The minimum extend of the bounding box.
-    private Point maximum;      // the maximum extend of the bounding box.
+    private Point minimum = new Point(0, 0, 0);     // The minimum extend of the bounding box.
+    private Point maximum = new Point(1, 1,1);      // the maximum extend of the bounding box.
 
     /**
      * Default constructor.
-     * @param minimum The minimum extend of the bounding box.
-     * @param maximum The maximum extend of the bounding box.
      */
-    public Box(Point minimum, Point maximum){
+    public Box(){
         super();
-        this.minimum = minimum;
-        this.maximum = maximum;
+    }
+
+    /**
+     * Set the minimum extend of the bounding box.
+     * @param x The location on the x-axis.
+     * @param y The location on the y-axis.
+     * @param z The location on the z-axis.
+     * @return This box.
+     */
+    public Box setMinimum(double x, double y, double z){
+        this.minimum = new Point(x, y, z);
+        return this;
+    }
+
+    /**
+     * Set the maximum extend of the bounding box.
+     * @param x The location on the x-axis.
+     * @param y The location on the y-axis.
+     * @param z The location on the z-axis.
+     * @return This box.
+     */
+    public Box setMaximum(double x, double y, double z){
+        this.maximum = new Point(x, y, z);
+        return this;
     }
 
     @Override

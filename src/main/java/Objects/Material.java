@@ -11,17 +11,17 @@ public class Material {
     private float [] weights = new float[]{0.7f, 0.2f, 0.1f};
 
     // Ambient reflection coefficients.
-    private Rgb rho_ambient;
+    private Rgb rho_ambient = new Rgb(0.0f, 0.0f, 0.0f);
 
     // Diffuse reflection coefficients.
-    private Rgb rho_diffuse;
+    private Rgb rho_diffuse = new Rgb(0.0f, 0.0f, 0.0f);
 
     // Specular reflection coefficients.
-    private Rgb rho_specular;
-    private double exponent;
+    private Rgb rho_specular = new Rgb(0.0f, 0.0f, 0.0f);
+    private double exponent = 1.0;
 
     // Index of refraction.
-    private double refraction_index;
+    private double refraction_index = 0.0;
 
     // Set of materials.
     public enum Materials{
