@@ -2,7 +2,7 @@ import Graphics.Screen;
 import Graphics.Rgb;
 import Interfaces.IATFactory;
 import World.LightSource;
-import Objects.Material;
+import Material.Material;
 import Matrix.Point;
 import Matrix.Vector;
 import Matrix.ATFactory;
@@ -13,6 +13,7 @@ import World.Scene;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import Material.Lambertian;
 
 /**
  * A 3D engine using the ray tracing principle.
@@ -67,7 +68,8 @@ public class RayTracing3DEngine {
                 .setMaterial(Material.Materials.polished_silver);
         Shape sphere2 = new Sphere()
                 .setRadius(0.30)
-                .setLocation(0,4, 0);
+                .setLocation(0,4, 0)
+                .setMaterial(Material.Materials.lambertian, new Rgb(1.0f, 0.0f, 0.0f));
         scene.addShape( sphere1 );
         scene.addShape( sphere2 );
 

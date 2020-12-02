@@ -1,5 +1,8 @@
 package Objects;
 
+import Graphics.Rgb;
+import Material.Material;
+import Material.Lambertian;
 import Matrix.*;
 import RayTracing.Ray;
 import java.util.List;
@@ -16,7 +19,7 @@ public abstract class Shape {
     private Matrix InverseAT = new Identity(4);
 
     // The material of the shape (default: white).
-    public Material material = new Material().Lambertian();
+    public Material material = new Lambertian();
 
     /**
      * Default constructor.
@@ -70,6 +73,17 @@ public abstract class Shape {
      */
     public Shape setMaterial(Material.Materials type){
         this.material = new Material().getMaterial(type);
+        return this;
+    }
+
+    /**
+     * Set the material of this shape.
+     * @param type The type of material.
+     * @param color The required color of the material.
+     * @return This shape.
+     */
+    public Shape setMaterial(Material.Materials type, Rgb color){
+        this.material = new Material().getMaterial(type, color);
         return this;
     }
 

@@ -1,4 +1,4 @@
-package Objects;
+package Material;
 
 import Graphics.Rgb;
 
@@ -10,13 +10,13 @@ public class Material {
     // Default weights.
     private float [] weights = new float[]{0.7f, 0.3f, 0.0f};
 
-    // Ambient reflection coefficients (default: gold).
+    // Ambient reflection coefficients.
     private Rgb rho_ambient;
 
-    // Diffuse reflection coefficients (default: gold).
+    // Diffuse reflection coefficients.
     private Rgb rho_diffuse;
 
-    // Specular reflection coefficients (default: gold).
+    // Specular reflection coefficients.
     private Rgb rho_specular;
     private double exponent;
 
@@ -39,13 +39,33 @@ public class Material {
     public Material getMaterial(Materials type){
         switch (type){
             case lambertian:
-                return new Material().Lambertian();
+                return new Lambertian();
             case black_plastic:
-                return new Material().BlackPlastic();
+                return new BlackPlastic();
             case gold:
-                return new Material().Gold();
+                return new Gold();
             case polished_silver:
-                return new Material().PolishedSilver();
+                return new PolishedSilver();
+        }
+        return null;
+    }
+
+    /**
+     * Return the requested material with a specified color.
+     * @param type A material from the set of materials.
+     * @param color The required color.
+     * @return The requested materials.
+     */
+    public Material getMaterial(Materials type, Rgb color){
+        switch (type){
+            case lambertian:
+                return new Lambertian(color);
+            case black_plastic:
+                return new BlackPlastic(color);
+            case gold:
+                return new Gold(color);
+            case polished_silver:
+                return new PolishedSilver(color);
         }
         return null;
     }
@@ -111,11 +131,9 @@ public class Material {
      * @param r The red component of the required color.
      * @param g The green component of the required color.
      * @param b The blue component of the required color.
-     * @return This material.
      */
-    public Material setColor(float r, float g, float b){
+    public void setColor(float r, float g, float b){
         this.color = new Rgb(r, g, b);
-        return this;
     }
 
     /**
@@ -131,102 +149,43 @@ public class Material {
     }
 
     /**
-     * Set the properties for a lambertian material.
-     * @return A lambertian material.
+     * Set the ambient reflection coefficients.
+     * @param r The red component.
+     * @param g The green component.
+     * @param b The blue component.
      */
-    public Material Lambertian(){
-        // Color.
-        color = new Rgb(0.0f, 0.0f, 0.0f);
-
-        // Weights.
-        set_weights(0.7f, 0.2f, 0.1f);
-
-        // Ambient component.
-        rho_ambient = new Rgb(0.3f, 0.3f, 0.3f);
-        // Diffuse component.
-        rho_diffuse = new Rgb(0.5f, 0.5f, 0.5f);
-        // Specular component.
-        rho_specular = new Rgb(0.2f, 0.2f, 0.2f);
-        exponent = 2.0;
-
-        // Index of refraction.
-        refraction_index = 0.74074;
-        return this;
+    public void set_ambient(float r, float g, float b){
+        rho_ambient = new Rgb(r, g, b);
     }
 
     /**
-     * Set the properties for a black plastic.
-     * @return A black plastic material.
+     * Set the diffuse reflection coefficients.
+     * @param r The red component.
+     * @param g The green component.
+     * @param b The blue component.
      */
-    public Material BlackPlastic(){
-
-        // Color.
-        color = new Rgb(0.0f, 0.0f, 0.0f);
-
-        // Weights.
-        set_weights(0.96f, 0.04f, 0.00f);
-
-        // Ambient component.
-        rho_ambient = new Rgb(0.0f, 0.0f, 0.0f);
-        // Diffuse component.
-        rho_diffuse = new Rgb(0.01f, 0.01f, 0.01f);
-        // Specular component.
-        rho_specular = new Rgb(0.50f, 0.50f, 0.50f);
-        exponent = 32;
-
-        // Index of refraction.
-        refraction_index = 0.71428;
-        return this;
+    public void set_diffuse(float r, float g, float b){
+        rho_diffuse = new Rgb(r, g, b);
     }
 
     /**
-     * Set the properties for a gold material.
-     * @return A gold material.
+     * Set the specular reflection coefficients and the exponent.
+     * @param r The red component.
+     * @param g The green component.
+     * @param b The blue component.
+     * @param exponent The specular exponent.
      */
-    public Material Gold(){
-
-        // Color.
-        color = new Rgb(0.0f, 0.0f, 0.0f);
-
-        // Weights.
-        set_weights(0.6f, 0.4f, 0.0f);
-
-        // Ambient component.
-        rho_ambient = new Rgb(0.24725f, 0.1955f, 0.0745f);
-        // Diffuse component.
-        rho_diffuse = new Rgb(0.75164f, 0.60648f, 0.22648f);
-        // Specular component.
-        rho_specular = new Rgb(0.628281f, 0.555802f, 0.366065f);
-        exponent = 51.2;
-
-        // Index of refraction.
-        refraction_index = 2.12766;
-        return this;
+    public void set_specular(float r, float g, float b, double exponent){
+        rho_specular = new Rgb(r, g, b);
+        this.exponent = exponent;
     }
 
     /**
-     * Set the properties for a polished silver material.
-     * @return A polished silver material.
+     * Set the refraction index.
+     * @param index The index of refraction.
      */
-    public Material PolishedSilver(){
-
-        // Color.
-        color = new Rgb(0.0f, 0.0f, 0.0f);
-
-        // Weights.
-        set_weights(0.6f, 0.4f, 0.00f);
-
-        // Ambient component.
-        rho_ambient = new Rgb(0.23125f, 0.23125f, 0.23125f);
-        // Diffuse component.
-        rho_diffuse = new Rgb(0.2755f, 0.2755f, 0.2755f);
-        // Specular component.
-        rho_specular = new Rgb(0.773911f, 0.773911f, 0.773911f);
-        exponent = 89.6;
-
-        // Index of refraction.
-        refraction_index = 0.74074;
-        return this;
+    public void set_refraction_index(double index){
+        refraction_index = index;
     }
 
     /**
