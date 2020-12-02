@@ -67,14 +67,9 @@ public class RayTracing3DEngine {
                 .setMaterial(Material.Materials.polished_silver);
         Shape sphere2 = new Sphere()
                 .setRadius(0.30)
-                .setLocation(0,4, 0)
-                .setMaterial(Material.Materials.gold);
-        Shape box = new Box()
-                .setMinimum(0.6, 5, 0)
-                .setMaximum(1.2, 5.6, 0.6)
-                .setMaterial(Material.Materials.gold);
+                .setLocation(0,4, 0);
         scene.addShape( sphere1 );
-        scene.addShape( box );
+        scene.addShape( sphere2 );
 
         // Define light sources.
         LightSource source = new LightSource(0, 10, 0)

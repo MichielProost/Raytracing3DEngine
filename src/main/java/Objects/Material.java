@@ -10,21 +10,22 @@ public class Material {
     // Default weights.
     private float [] weights = new float[]{0.7f, 0.3f, 0.0f};
 
-    // Ambient reflection coefficients.
-    private Rgb rho_ambient = new Rgb(0.0f, 0.0f, 0.0f);
+    // Ambient reflection coefficients (default: gold).
+    private Rgb rho_ambient;
 
-    // Diffuse reflection coefficients.
-    private Rgb rho_diffuse = new Rgb(0.0f, 0.0f, 0.0f);
+    // Diffuse reflection coefficients (default: gold).
+    private Rgb rho_diffuse;
 
-    // Specular reflection coefficients.
-    private Rgb rho_specular = new Rgb(0.0f, 0.0f, 0.0f);
-    private double exponent = 1.0;
+    // Specular reflection coefficients (default: gold).
+    private Rgb rho_specular;
+    private double exponent;
 
     // Index of refraction.
-    private double refraction_index = 0.0;
+    private double refraction_index;
 
     // Set of materials.
     public enum Materials{
+        lambertian,
         black_plastic,
         gold,
         polished_silver
@@ -37,6 +38,8 @@ public class Material {
      */
     public Material getMaterial(Materials type){
         switch (type){
+            case lambertian:
+                return new Material().Lambertian();
             case black_plastic:
                 return new Material().BlackPlastic();
             case gold:
@@ -105,11 +108,13 @@ public class Material {
 
     /**
      * Set the color of this material.
-     * @param color The color of this material.
+     * @param r The red component of the required color.
+     * @param g The green component of the required color.
+     * @param b The blue component of the required color.
      * @return This material.
      */
-    public Material setColor(Rgb color){
-        this.color = color;
+    public Material setColor(float r, float g, float b){
+        this.color = new Rgb(r, g, b);
         return this;
     }
 
@@ -123,6 +128,30 @@ public class Material {
         this.weights[0] = light_weight;
         this.weights[1] = reflection_weight;
         this.weights[2] = refraction_weight;
+    }
+
+    /**
+     * Set the properties for a lambertian material.
+     * @return A lambertian material.
+     */
+    public Material Lambertian(){
+        // Color.
+        color = new Rgb(0.0f, 0.0f, 0.0f);
+
+        // Weights.
+        set_weights(0.7f, 0.2f, 0.1f);
+
+        // Ambient component.
+        rho_ambient = new Rgb(0.3f, 0.3f, 0.3f);
+        // Diffuse component.
+        rho_diffuse = new Rgb(0.5f, 0.5f, 0.5f);
+        // Specular component.
+        rho_specular = new Rgb(0.2f, 0.2f, 0.2f);
+        exponent = 2.0;
+
+        // Index of refraction.
+        refraction_index = 0.74074;
+        return this;
     }
 
     /**
@@ -176,8 +205,8 @@ public class Material {
     }
 
     /**
-     * Set the reflection coefficients for a gold material.
-     * @return A gold material.
+     * Set the properties for a polished silver material.
+     * @return A polished silver material.
      */
     public Material PolishedSilver(){
 

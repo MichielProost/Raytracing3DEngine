@@ -16,7 +16,7 @@ public abstract class Shape {
     private Matrix InverseAT = new Identity(4);
 
     // The material of the shape (default: white).
-    public Material material = new Material();
+    public Material material = new Material().Lambertian();
 
     /**
      * Default constructor.
