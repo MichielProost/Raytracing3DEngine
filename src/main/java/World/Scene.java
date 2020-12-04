@@ -293,10 +293,11 @@ public class Scene {
         dir_hit.normalize();
 
         // Dot product between ray and normal.
-        double product = dir_hit.dot(minus_normal);
+        double product = minus_normal.dot(dir_hit);
 
         // Index of refraction.
         double index = info.hitObject.material.getRefraction_index();
+        // double index = 1;
 
         // cos(02)
         double cos = Math.sqrt(1 - (Math.pow(index, 2)) * (1 - Math.pow(product, 2)));
