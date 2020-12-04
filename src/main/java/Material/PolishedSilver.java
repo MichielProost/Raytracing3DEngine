@@ -14,7 +14,7 @@ public class PolishedSilver extends Material {
         // Color.
         setColor(0.0f, 0.0f, 0.0f);
         // Weights.
-        set_weights(0.6f, 0.4f, 0.00f);
+        set_weights(0.6f, 0.2f, 0.2f);
         // Ambient component.
         set_ambient(0.23125f, 0.23125f, 0.23125f);
         // Diffuse component.
@@ -33,7 +33,7 @@ public class PolishedSilver extends Material {
         // Color.
         setColor(0.0f, 0.0f, 0.0f);
         // Weights.
-        set_weights(0.6f, 0.4f, 0.00f);
+        set_weights(0.6f, 0.2f, 0.2f);
         // Ambient component.
         set_ambient(0.23125f, 0.23125f, 0.23125f);
         // Diffuse component.

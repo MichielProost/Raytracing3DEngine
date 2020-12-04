@@ -8,7 +8,7 @@ public class Material {
     private Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
 
     // Default weights.
-    private float [] weights = new float[]{0.7f, 0.3f, 0.0f};
+    private float [] weights = new float[]{0.7f, 0.2f, 0.1f};
 
     // Ambient reflection coefficients.
     private Rgb rho_ambient;

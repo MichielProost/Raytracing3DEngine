@@ -289,12 +289,14 @@ public class Scene {
 
         // Direction of hit ray.
         Vector dir_hit = info.hitRay.dir;
+        dir_hit.normalize();
 
         // Dot product between ray and normal.
         double product = dir_hit.dot(normal);
 
         // Index of refraction.
-        double index = info.hitObject.material.getRefraction_index();
+        // double index = info.hitObject.material.getRefraction_index();
+        double index = 0.54;
 
         // cos(02)
         double cos = Math.sqrt(1 - ((Math.pow(index, 2)) * (1 - Math.pow(product, 2))));
@@ -314,7 +316,7 @@ public class Scene {
         // Go up a level.
         refracted.recurseLevel = info.hitRay.recurseLevel + 1;
 
-        // Reflected component.
+        // Refracted component.
         return this.rayTrace(refracted);
 
     }

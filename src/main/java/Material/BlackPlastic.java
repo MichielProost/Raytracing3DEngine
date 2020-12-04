@@ -14,7 +14,7 @@ public class BlackPlastic extends Material {
         // Color.
         setColor(0.0f, 0.0f, 0.0f);
         // Weights.
-        set_weights(0.96f, 0.04f, 0.0f);
+        set_weights(0.90f, 0.06f, 0.04f);
         // Ambient component.
         set_ambient(0.0f, 0.0f, 0.0f);
         // Diffuse component.
@@ -33,7 +33,7 @@ public class BlackPlastic extends Material {
         // Color.
         setColor(color.r(), color.g(), color.b());
         // Weights.
-        set_weights(0.96f, 0.04f, 0.0f);
+        set_weights(0.90f, 0.06f, 0.04f);
         // Ambient component.
         set_ambient(0.0f, 0.0f, 0.0f);
         // Diffuse component.
