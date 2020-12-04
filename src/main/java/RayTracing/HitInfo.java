@@ -37,7 +37,6 @@ public class HitInfo {
         Double closestTime = null;
 
         // All intersections of ray with objects in the scene.
-        Map<Double, Shape> intersections = new HashMap<>();
         for (Shape object : objects){
 
             // Specific ray for this object.
@@ -53,15 +52,17 @@ public class HitInfo {
                 hitPoint = object.getATMatrix().times( transformed.getPoint( t ));
                 closestTime = t;
                 hitObject = object;
-                hitNormal = object.getNormalVector(hitPoint);
-                hitRay = new Ray( origin, direction );
-                hitRay.recurseLevel = ray.recurseLevel;
             }
         }
 
         // There were no intersections.
         if (hitObject == null) {
             return null;
+        } else {
+            Matrix inverseAT = hitObject.getInverseAT();
+            hitNormal = inverseAT.times(hitObject.getNormalVector(hitPoint));
+            hitRay = new Ray( origin, direction );
+            hitRay.recurseLevel = ray.recurseLevel;
         }
         return this;
     }
