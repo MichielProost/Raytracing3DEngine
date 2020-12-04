@@ -22,7 +22,7 @@ public class BlackPlastic extends Material {
         // Specular component.
         set_specular(0.50f, 0.50f, 0.50f,32);
         // Index of refraction.
-        set_refraction_index(0.71428);
+        set_refraction_index(1.2);
     }
 
     /**
@@ -41,7 +41,7 @@ public class BlackPlastic extends Material {
         // Specular component.
         set_specular(0.50f, 0.50f, 0.50f,32);
         // Index of refraction.
-        set_refraction_index(0.71428);
+        set_refraction_index(1.2);
     }
 
 }

@@ -22,7 +22,7 @@ public class Lambertian extends Material {
         // Specular component.
         set_specular(0.2f, 0.2f, 0.2f,2.0);
         // Index of refraction.
-        set_refraction_index(0.74074);
+        set_refraction_index(1.0);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Lambertian extends Material {
         // Specular component.
         set_specular(0.2f, 0.2f, 0.2f,2.0);
         // Index of refraction.
-        set_refraction_index(0.74074);
+        set_refraction_index(1.0);
     }
 
 }

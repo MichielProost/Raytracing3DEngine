@@ -14,7 +14,7 @@ public class Gold extends Material {
         // Color.
         setColor(0.0f, 0.0f, 0.0f);
         // Weights.
-        set_weights(0.6f, 0.2f, 0.2f);
+        set_weights(0.0f, 0.0f, 1.0f);
         // Ambient component.
         set_ambient(0.24725f, 0.1955f, 0.0745f);
         // Diffuse component.
@@ -22,7 +22,7 @@ public class Gold extends Material {
         // Specular component.
         set_specular(0.628281f, 0.555802f, 0.366065f, 51.2);
         // Index of refraction.
-        set_refraction_index(2.12766);
+        set_refraction_index(1.0);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Gold extends Material {
         // Specular component.
         set_specular(0.628281f, 0.555802f, 0.366065f, 51.2);
         // Index of refraction.
-        set_refraction_index(2.12766);
+        set_refraction_index(1.0);
     }
 
 }

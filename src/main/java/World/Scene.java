@@ -17,7 +17,7 @@ public class Scene {
     public List<Shape> objects;         // Objects in the scene.
     public List<LightSource> sources;   // Light sources in the scene.
     public int maxRecursionLevel;       // Max recursion level.
-    public Rgb background = new Rgb(1.0f, 1.0f, 1.0f);  // Default background is black.
+    public Rgb background = new Rgb(0.0f, 0.0f, 0.0f);  // Default background is black.
 
     /**
      * Default constructor.
@@ -286,20 +286,20 @@ public class Scene {
         // Get the normal vector at the hit point.
         Vector normal = info.hitNormal;
         normal.normalize();
+        Vector minus_normal = new Vector(-normal.getX(), -normal.getY(), -normal.getZ());
 
         // Direction of hit ray.
         Vector dir_hit = info.hitRay.dir;
         dir_hit.normalize();
 
         // Dot product between ray and normal.
-        double product = dir_hit.dot(normal);
+        double product = dir_hit.dot(minus_normal);
 
         // Index of refraction.
-        // double index = info.hitObject.material.getRefraction_index();
-        double index = 0.54;
+        double index = info.hitObject.material.getRefraction_index();
 
         // cos(02)
-        double cos = Math.sqrt(1 - ((Math.pow(index, 2)) * (1 - Math.pow(product, 2))));
+        double cos = Math.sqrt(1 - (Math.pow(index, 2)) * (1 - Math.pow(product, 2)));
 
         // Calculate factor for determining transmitted direction.
         double factor = (index * product) - cos;
