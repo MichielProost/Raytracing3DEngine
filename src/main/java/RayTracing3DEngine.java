@@ -1,6 +1,7 @@
 import Graphics.Screen;
 import Graphics.Rgb;
 import Interfaces.IATFactory;
+import Matrix.Matrix;
 import World.LightSource;
 import Material.Material;
 import Matrix.Point;
@@ -13,6 +14,9 @@ import World.Scene;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import Material.Lambertian;
 
 /**
@@ -57,19 +61,23 @@ public class RayTracing3DEngine {
 
         // Create Affine Transformation Factory.
         IATFactory factory = new ATFactory();
+        Matrix trans1 = factory.getScaling(1, 1, 2);
+        Matrix trans2 = factory.getScaling(3, 1, 1);
 
         // Define a scene.
         Scene scene = new Scene(maxRecursionLevel);
 
         // Define shapes.
         Shape sphere1 = new Sphere()
-                .setRadius(0.30)
-                .setLocation(0, 4, 0)
-                .setMaterial(Material.Materials.gold);
-        Shape sphere2 = new Sphere()
                 .setRadius(0.90)
                 .setLocation(0,0, 0)
-                .setMaterial(Material.Materials.lambertian, new Rgb(1.0f, 0.0f, 0.0f));
+                .setMaterial(Material.Materials.lambertian, new Rgb(1.0f, 0.0f, 0.0f))
+                .setATMatrix(trans1);
+        Shape sphere2 = new Sphere()
+                .setRadius(0.30)
+                .setLocation(0, 4, 0)
+                .setMaterial(Material.Materials.gold)
+                .setATMatrix(trans2);
         scene.addShape( sphere1 );
         scene.addShape( sphere2 );
 

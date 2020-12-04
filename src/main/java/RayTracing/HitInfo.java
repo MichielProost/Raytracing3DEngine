@@ -29,45 +29,40 @@ public class HitInfo {
      * @return Info about the first hit.
      */
     public HitInfo getFirstHit(Ray ray, List<Shape> objects){
+        // Store original ray.
+        Point origin = ray.start;
+        Vector direction = ray.dir;
+
+        // Initialize
+        Double closestTime = null;
 
         // All intersections of ray with objects in the scene.
         Map<Double, Shape> intersections = new HashMap<>();
         for (Shape object : objects){
 
             // Specific ray for this object.
-            //Matrix inverseAT = object.getInverseAT();
-            //ray.setStart(inverseAT.times(ray.start));
-            //ray.setDir(inverseAT.times(ray.dir));
+            Matrix inverseAT = object.getInverseAT();
+            Ray transformed = new Ray(
+                    inverseAT.times( origin ),
+                    inverseAT.times( direction )
+            );
 
             // Check for collisions.
-            Double t = object.getCollidingT(ray);
-            if (t != null && t >= 0){
-                intersections.put(t, object);
-            }
-        }
-
-        // Identify the intersection that lies closest to, and in front of, the eye.
-        double closestTime = -1;
-        for( Map.Entry<Double, Shape> entry : intersections.entrySet()){
-            if (closestTime == -1 || entry.getKey() < closestTime){
-                closestTime = entry.getKey();
-                hitObject = entry.getValue();
+            Double t = object.getCollidingT( transformed );
+            if ((t != null && t >= 0) && (closestTime == null || t <= closestTime) ){
+                hitPoint = object.getATMatrix().times( transformed.getPoint( t ));
+                closestTime = t;
+                hitObject = object;
+                hitNormal = object.getNormalVector(hitPoint);
+                hitRay = new Ray( origin, direction );
+                hitRay.recurseLevel = ray.recurseLevel;
             }
         }
 
         // There were no intersections.
-        if (hitObject == null){
+        if (hitObject == null) {
             return null;
-        // Compute other hit information.
-        } else {
-            hitPoint = ray.getPoint(closestTime);
-            hitNormal = hitObject.getInverseAT().times(hitObject.getNormalVector(hitPoint));
-            Matrix inverseAT = hitObject.getInverseAT();
-            hitRay = new Ray().setStart(inverseAT.times(ray.start));
-            hitRay.setDir(inverseAT.times(ray.dir));
-            hitRay.recurseLevel = ray.recurseLevel;
         }
-
         return this;
     }
 

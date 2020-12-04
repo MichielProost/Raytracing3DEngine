@@ -14,7 +14,7 @@ public class Gold extends Material {
         // Color.
         setColor(0.0f, 0.0f, 0.0f);
         // Weights.
-        set_weights(0.0f, 0.0f, 1.0f);
+        set_weights(0.6f, 0.2f, 0.2f);
         // Ambient component.
         set_ambient(0.24725f, 0.1955f, 0.0745f);
         // Diffuse component.

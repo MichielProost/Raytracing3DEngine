@@ -13,6 +13,21 @@ public class Ray {
     public int recurseLevel;    // The recursion level.
 
     /**
+     * Default constructor.
+     */
+    public Ray(){}
+
+    /**
+     * Create a ray.
+     * @param start The starting point.
+     * @param dir The ray's direction.
+     */
+    public Ray(Point start, Vector dir){
+        this.start = start;
+        this.dir = dir;
+    }
+
+    /**
      * Set the starting point of the ray.
      * @param start The starting point.
      * @return This ray.

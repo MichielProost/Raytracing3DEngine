@@ -265,8 +265,10 @@ public class Scene {
                 new Vector(2*factor*normal.getX(), 2*factor*normal.getY(), 2*factor*normal.getZ()));
 
         // Build reflected ray.
-        Ray reflected = new Ray().setStart(info.hitPoint);
-        reflected.setDir(dir);
+        Ray reflected = new Ray(
+                info.hitPoint,
+                dir
+        );
 
         // Go up a level.
         reflected.recurseLevel = info.hitRay.recurseLevel + 1;
@@ -311,8 +313,10 @@ public class Scene {
         Vector dir = vector1.plus(vector2);
 
         // Build refracted ray.
-        Ray refracted = new Ray().setStart(info.hitPoint);
-        refracted.setDir(dir);
+        Ray refracted = new Ray(
+                info.hitPoint,
+                dir
+        );
 
         // Go up a level.
         refracted.recurseLevel = info.hitRay.recurseLevel + 1;
