@@ -70,14 +70,12 @@ public class RayTracing3DEngine {
         // Define shapes.
         Shape sphere1 = new Sphere()
                 .setRadius(0.90)
-                .setLocation(0,3, 0)
-                .setMaterial(Material.Materials.polished_silver)
-                .setATMatrix(trans1);
+                .setLocation(0,4, 0)
+                .setMaterial(Material.Materials.mirror);
         Shape sphere2 = new Sphere()
                 .setRadius(0.30)
-                .setLocation(0, 7, 0)
-                .setMaterial(Material.Materials.gold)
-                .setATMatrix(trans2);
+                .setLocation(0, 8, 0)
+                .setMaterial(Material.Materials.gold);
         scene.addShape( sphere1 );
         scene.addShape( sphere2 );
 

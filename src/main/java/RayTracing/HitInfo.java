@@ -41,17 +41,18 @@ public class HitInfo {
 
             // Specific ray for this object.
             Matrix inverseAT = object.getInverseAT();
-            Ray transformed = new Ray(
-                    inverseAT.times( origin ),
-                    inverseAT.times( direction )
-            );
+            //Ray transformed = new Ray(
+                    //inverseAT.times( origin ),
+                    //inverseAT.times( direction )
+            //);
 
             // Check for collisions.
-            Double t = object.getCollidingT( transformed );
+            Double t = object.getCollidingT( ray );
             if ((t != null && t >= 0) && (closestTime == null || t <= closestTime) ){
-                hitPoint = object.getATMatrix().times( transformed.getPoint( t ));
+                hitPoint = object.getATMatrix().times( ray.getPoint( t ));
                 closestTime = t;
                 hitObject = object;
+                hitRay = ray;
             }
         }
 
@@ -61,7 +62,6 @@ public class HitInfo {
         } else {
             Matrix inverseAT = hitObject.getInverseAT();
             hitNormal = inverseAT.times(hitObject.getNormalVector(hitPoint));
-            hitRay = new Ray( origin, direction );
             hitRay.recurseLevel = ray.recurseLevel;
         }
         return this;
