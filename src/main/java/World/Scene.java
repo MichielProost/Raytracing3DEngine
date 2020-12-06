@@ -1,7 +1,8 @@
 package World;
 
 import Graphics.Rgb;
-import RayTracing.HitInfo;
+import RayTracing.FirstHit;
+import RayTracing.Hit;
 import RayTracing.Ray;
 import Matrix.Point;
 import Matrix.Vector;
@@ -52,35 +53,35 @@ public class Scene {
     public Rgb rayTrace(Ray ray){
 
         // Get info about the first hit if there is one.
-        HitInfo info = new HitInfo().getFirstHit(ray, objects);
+        FirstHit firstHit = new FirstHit(ray, objects);
 
         // No intersections.
-        if(info == null) {
+        if(!firstHit.exists()) {
             return background;
         }
 
         // Get the weights of the appropriate material.
-        float[] weights = info.hitObject.material.get_weights();
+        float[] weights = firstHit.hitObject.material.get_weights();
 
         // The color of the hit object.
-        Rgb color = info.hitObject.material.getColor();
+        Rgb color = firstHit.hitObject.material.getColor();
 
         // Get ambient component.
-        Rgb light = getAmbientComponent( info );
+        Rgb light = getAmbientComponent( firstHit );
 
         // Loop over every light source (for shading purposes).
         for (LightSource L: sources){
 
              // Check for shadow.
-            if ( isInShadow( getShadowRay( L, info ) ) ){
+            if ( isInShadow( getShadowRay( L, firstHit ) ) ){
                 continue;
             }
 
             // Get and add diffuse component.
-            light = light.add( getDiffuseComponent( L, info ) );
+            light = light.add( getDiffuseComponent( L, firstHit ) );
 
             // Get and add specular component.
-            light = light.add( getSpecularComponent( L, info ) );
+            light = light.add( getSpecularComponent( L, firstHit ) );
 
         }
 
@@ -93,17 +94,17 @@ public class Scene {
         }
 
         // Add reflected light if object is shiny enough.
-        if (info.hitObject.material.isShinyEnough()){
+        if (firstHit.hitObject.material.isShinyEnough()){
 
-            Rgb reflected = getReflectedLight( info );
+            Rgb reflected = getReflectedLight( firstHit );
             color = color.add( reflected.multiply( weights[1]) );
 
         }
 
         // Add refracted light if the object is transparent enough.
-        if (info.hitObject.material.isTransparentEnough()){
+        if (firstHit.hitObject.material.isTransparentEnough()){
 
-            Rgb refracted = getTransmittedLight( info );
+            Rgb refracted = getTransmittedLight( firstHit );
             color = color.add( refracted.multiply( weights[2] ) );
 
         }
@@ -121,8 +122,8 @@ public class Scene {
         // All intersections of ray with objects in the scene.
         for (Shape object : objects){
             // Check for collisions.
-            Double t = object.getCollidingT(ray);
-            if (t != null && t >= 0){
+            Hit closestHit = object.getClosestHit( ray );
+            if (closestHit != null && closestHit.time >= 0){
                 return true;
             }
         }
@@ -133,20 +134,20 @@ public class Scene {
     /**
      * Calculates a shadow feeler ray.
      * @param L The light source.
-     * @param info Info about the first hit.
+     * @param firstHit Info about the first hit.
      * @return The shadow feeler ray.
      */
-    public Ray getShadowRay(LightSource L, HitInfo info){
+    public Ray getShadowRay(LightSource L, FirstHit firstHit){
 
         // Create shadow feeler ray.
         Ray feeler = new Ray();
 
         // The direction of the hit ray.
-        Vector hitRayDir = info.hitRay.dir;
+        Vector hitRayDir = firstHit.hitRay.dir;
 
         // Calculate the starting point of the shadow feeler ray.
         double epsilon = 0.01;  // A small positive number.
-        Point start = info.hitPoint.minus(
+        Point start = firstHit.hitPoint.minus(
                 new Vector(epsilon * hitRayDir.getX(),
                         epsilon * hitRayDir.getY(),
                         epsilon * hitRayDir.getZ())
@@ -155,7 +156,7 @@ public class Scene {
         // Set the starting point of the shadow feeler ray.
         feeler.setStart(start);
         // Set the direction of the shadow feeler ray.
-        feeler.setDir(L.location.minus(info.hitPoint));
+        feeler.setDir(L.location.minus(firstHit.hitPoint));
 
         return feeler;
 
@@ -163,33 +164,33 @@ public class Scene {
 
     /**
      * Compute the ambient component.
-     * @param info Info about the first hit.
+     * @param firstHit Info about the first hit.
      * @return The color that represents the ambient component.
      */
-    public Rgb getAmbientComponent(HitInfo info){
+    public Rgb getAmbientComponent(FirstHit firstHit){
 
         // Get the reflective coefficients.
-        return info.hitObject.material.ambient_coefficients();
+        return firstHit.hitObject.material.ambient_coefficients();
 
     }
 
     /**
      * Compute the diffuse component.
      * @param L The light source.
-     * @param info Info about the first hit.
+     * @param firstHit Info about the first hit.
      * @return The color that represents the diffuse component.
      */
-    public Rgb getDiffuseComponent(LightSource L, HitInfo info){
+    public Rgb getDiffuseComponent(LightSource L, FirstHit firstHit){
 
         // Get the reflective coefficients.
-        Rgb coefficients = info.hitObject.material.diffuse_coefficients();
+        Rgb coefficients = firstHit.hitObject.material.diffuse_coefficients();
 
         // Get the normal vector at the hit point.
-        Vector normal = info.hitNormal;
+        Vector normal = firstHit.hitNormal;
         normal.normalize();
 
         // Vector from hit point to source.
-        Vector s = L.location.minus(info.hitPoint);
+        Vector s = L.location.minus(firstHit.hitPoint);
         // Normalize this vector.
         s.normalize();
 
@@ -209,24 +210,24 @@ public class Scene {
     /**
      * Compute the specular component.
      * @param L The light source.
-     * @param info Info about the first hit.
+     * @param firstHit Info about the first hit.
      * @return The color that represents the specular component.
      */
-    public Rgb getSpecularComponent(LightSource L, HitInfo info){
+    public Rgb getSpecularComponent(LightSource L, FirstHit firstHit){
 
         // Get the reflective coefficients.
-        Rgb coefficients = info.hitObject.material.specular_coefficients();
-        double exponent = info.hitObject.material.getExponent();
+        Rgb coefficients = firstHit.hitObject.material.specular_coefficients();
+        double exponent = firstHit.hitObject.material.getExponent();
 
         // Get the normal vector at the hit point.
-        Vector normal = info.hitNormal;
+        Vector normal = firstHit.hitNormal;
         normal.normalize();
 
         // Negative of the ray's direction. Points to the viewer.
-        Vector v = new Vector(-info.hitRay.dir.getX(), -info.hitRay.dir.getY(), -info.hitRay.dir.getZ());
+        Vector v = new Vector(-firstHit.hitRay.dir.getX(), -firstHit.hitRay.dir.getY(), -firstHit.hitRay.dir.getZ());
 
         // Vector from hit point to source.
-        Vector s = L.location.minus(info.hitPoint);
+        Vector s = L.location.minus(firstHit.hitPoint);
         // Normalize this vector.
         s.normalize();
 
@@ -248,30 +249,30 @@ public class Scene {
 
     /**
      * Get the reflected light component.
-     * @param info Info about the first hit.
+     * @param firstHit Info about the first hit.
      * @return The color that represents the reflected light component.
      */
-    public Rgb getReflectedLight(HitInfo info){
+    public Rgb getReflectedLight(FirstHit firstHit){
 
         // Get the normal vector at the hit point.
-        Vector normal = info.hitNormal;
+        Vector normal = firstHit.hitNormal;
         normal.normalize();
 
         // Dot product between ray and normal.
-        double factor = info.hitRay.dir.dot(normal);
+        double factor = firstHit.hitRay.dir.dot(normal);
 
         // Get reflection direction.
-        Vector dir = info.hitRay.dir.minus(
+        Vector dir = firstHit.hitRay.dir.minus(
                 new Vector(2*factor*normal.getX(), 2*factor*normal.getY(), 2*factor*normal.getZ()));
 
         // Build reflected ray.
         Ray reflected = new Ray(
-                info.hitPoint,
+                firstHit.hitPoint,
                 dir
         );
 
         // Go up a level.
-        reflected.recurseLevel = info.hitRay.recurseLevel + 1;
+        reflected.recurseLevel = firstHit.hitRay.recurseLevel + 1;
 
         // Reflected component.
         return this.rayTrace(reflected);
@@ -280,25 +281,25 @@ public class Scene {
 
     /**
      * Get the refracted light component.
-     * @param info Info about the first hit.
+     * @param firstHit Info about the first hit.
      * @return The color that represents the refracted light component.
      */
-    public Rgb getTransmittedLight(HitInfo info){
+    public Rgb getTransmittedLight(FirstHit firstHit){
 
         // Get the normal vector at the hit point.
-        Vector normal = info.hitNormal;
+        Vector normal = firstHit.hitNormal;
         normal.normalize();
         Vector minus_normal = new Vector(-normal.getX(), -normal.getY(), -normal.getZ());
 
         // Direction of hit ray.
-        Vector dir_hit = info.hitRay.dir;
+        Vector dir_hit = firstHit.hitRay.dir;
         dir_hit.normalize();
 
         // Dot product between ray and normal.
         double product = minus_normal.dot(dir_hit);
 
         // Index of refraction.
-        double index = info.hitObject.material.getRefraction_index();
+        double index = firstHit.hitObject.material.getRefraction_index();
         // double index = 1;
 
         // cos(02)
@@ -314,12 +315,12 @@ public class Scene {
 
         // Build refracted ray.
         Ray refracted = new Ray(
-                info.hitPoint,
+                firstHit.hitPoint,
                 dir
         );
 
         // Go up a level.
-        refracted.recurseLevel = info.hitRay.recurseLevel + 1;
+        refracted.recurseLevel = firstHit.hitRay.recurseLevel + 1;
 
         // Refracted component.
         return this.rayTrace(refracted);

@@ -2,120 +2,89 @@ package Objects;
 
 import Matrix.Point;
 import Matrix.Vector;
+import RayTracing.Hit;
 import RayTracing.Ray;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * A generic box with a minimum and maximum point.
+ * A generic box with a given size.
  */
 public class Box extends Shape {
 
-    private Point minimum = new Point(0, 0, 0);     // The minimum extend of the bounding box.
-    private Point maximum = new Point(1, 1,1);      // the maximum extend of the bounding box.
-
-    /**
-     * Default constructor.
-     */
-    public Box(){
-        super();
-    }
-
-    /**
-     * Set the minimum extend of the bounding box.
-     * @param x The location on the x-axis.
-     * @param y The location on the y-axis.
-     * @param z The location on the z-axis.
-     * @return This box.
-     */
-    public Box setMinimum(double x, double y, double z){
-        this.minimum = new Point(x, y, z);
-        return this;
-    }
-
-    /**
-     * Set the maximum extend of the bounding box.
-     * @param x The location on the x-axis.
-     * @param y The location on the y-axis.
-     * @param z The location on the z-axis.
-     * @return This box.
-     */
-    public Box setMaximum(double x, double y, double z){
-        this.maximum = new Point(x, y, z);
-        return this;
-    }
+    // The size of the box.
+    static final Double size = 1.0;
 
     @Override
-    public Vector getNormalVector(Point hit) {
-
-        // Calculate the centre point C.
-        Point C = new Point((minimum.getX() + maximum.getX()) * 0.5,
-                            (minimum.getY() + maximum.getY()) * 0.5,
-                            (minimum.getZ() + maximum.getZ()) * 0.5);
-
-        // Calculate the vector that points from the centre point to the hit point.
-        Vector p = hit.minus(C);
-
-        // Calculate divisor values for each dimension.
-        double dx = Math.abs(minimum.getX() - maximum.getX()) * 0.5;
-        double dy = Math.abs(minimum.getY() - maximum.getY()) * 0.5;
-        double dz = Math.abs(minimum.getZ() - maximum.getZ()) * 0.5;
-
-        double bias = 1.000001;
-
-        return new Vector((int) (p.getX() / dx * bias), (int) (p.getY() / dy * bias), (int) (p.getZ() / dz * bias));
-
-    }
-
-    @Override
-    public Double getCollidingT(Ray ray) {
-
-        // The direction of the ray.
-        Vector D = ray.dir;
+    public Hit getClosestHit(Ray ray) {
         // The starting point of the ray.
-        Vector S = ray.start.minus(new Point(0, 0, 0));
+        Point origin = ray.start;
+        // The direction of the ray.
+        Vector direction = ray.dir;
 
-        Vector invDir = new Vector(1 / D.getX(), 1 / D.getY(), 1 / D.getZ());
+        // Hold all hits with object.
+        Map<Double, Vector> hits = new HashMap<>();
 
-        boolean signDirX = invDir.getX() < 0;
-        boolean signDirY = invDir.getY() < 0;
-        boolean signDirZ = invDir.getZ() < 0;
+        double t;
+        Point location;
 
-        Point bbox = signDirX ? maximum : minimum;
-        double tmin = (bbox.getX() - S.getX()) * invDir.getX();
-        bbox = signDirX? minimum : maximum;
-        double tmax = (bbox.getX() - S.getX()) * invDir.getX();
-        bbox = signDirY ? maximum : minimum;
-        double tymin = (bbox.getY() - S.getY()) * invDir.getY();
-        bbox = signDirY ? minimum : maximum;
-        double tymax = (bbox.getY() - S.getY()) * invDir.getY();
+        // PLANE X = 1
+        t = (size - origin.getX()) / direction.getX();
+        location = ray.getPoint(t);
+        if (t >= 0 && Math.abs(location.getY()) <= size && Math.abs(location.getZ()) <= size){
+            hits.put( t, new Vector(0, 0, 1) );
+        }
 
-        if ((tmin > tymax) || (tymin > tmax)) {
+        // PLANE X = -1
+        t = (-size - origin.getX()) / direction.getX();
+        location = ray.getPoint(t);
+        if (t >= 0 && Math.abs(location.getY()) <= size && Math.abs(location.getZ()) <= size)
+            hits.put(t, new Vector(-1, 0, 0));
+
+        // PLANE Y = 1
+        t = (size - origin.getY()) / direction.getY();
+        location = ray.getPoint(t);
+        if (t >= 0 && Math.abs(location.getX()) <= size && Math.abs(location.getZ()) <= size)
+            hits.put(t, new Vector(0, 1, 0));
+
+        // PLANE Y = -1
+        t = (-size - origin.getY()) / direction.getY();
+        location = ray.getPoint(t);
+        if (t >= 0 && Math.abs(location.getX()) <= size && Math.abs(location.getZ()) <= size)
+            hits.put(t, new Vector(0, -1, 0));
+
+        // PLANE Z = 1
+        t = (size - origin.getZ()) / direction.getZ();
+        location = ray.getPoint(t);
+        if (t >= 0 && Math.abs(location.getX()) <= size && Math.abs(location.getY()) <= size)
+            hits.put(t, new Vector(0, 0, 1));
+
+        // PLANE Z = -1
+        t = (-size - origin.getZ()) / direction.getZ();
+        location = ray.getPoint(t);
+        if (t >= 0 && Math.abs(location.getX()) <= size && Math.abs(location.getY()) <= size)
+            hits.put(t, new Vector(0, 0, -1));
+
+        // Find the closest hit.
+        Double lowestT = null;
+        for (Map.Entry<Double, Vector> hit : hits.entrySet()) {
+            if (lowestT == null || hit.getKey() < lowestT)
+            {
+                lowestT = hit.getKey();
+            }
+        }
+
+        // Return closest hit.
+        if (lowestT != null){
+            return new Hit(
+                    lowestT,
+                    ray.getPoint(lowestT),
+                    hits.get(lowestT)
+            );
+        // Return null if no hits were found.
+        } else {
             return null;
         }
-        if (tymin > tmin) {
-            tmin = tymin;
-        }
-        if (tymax < tmax) {
-            tmax = tymax;
-        }
-
-        bbox = signDirZ ? maximum : minimum;
-        double tzmin = (bbox.getZ() - S.getZ()) * invDir.getZ();
-        bbox = signDirZ ? minimum : maximum;
-        double tzmax = (bbox.getZ() - S.getZ()) * invDir.getZ();
-
-        if ((tmin > tzmax) || (tzmin > tmax)){
-            return null;
-        }
-        if (tzmax < tmin) {
-            tmin = tzmin;
-        }
-        if (tzmax < tmax) {
-            tmax = tzmax;
-        }
-        if ((tmin < 1) && (tmax > 0)) {
-            return tmin;
-        }
-        return null;
 
     }
 }

@@ -4,6 +4,7 @@ import Graphics.Rgb;
 import Material.Material;
 import Material.Lambertian;
 import Matrix.*;
+import RayTracing.Hit;
 import RayTracing.Ray;
 import java.util.List;
 
@@ -27,18 +28,11 @@ public abstract class Shape {
     public Shape(){}
 
     /**
-     * Get the normal vector at the hit spot.
-     * @param hit The hit spot.
-     * @return The normal vector at the hit spot.
-     */
-    public abstract Vector getNormalVector(Point hit);
-
-    /**
-     * Get the hit time between this object and a given ray.
+     * Gather information about the hit between this object and a given ray.
      * @param ray The given ray.
-     * @return The closest value of t. Returns null if no hit points are found.
+     * @return Information about the hit. Returns null if no hit was found.
      */
-    public abstract Double getCollidingT(Ray ray);
+    public abstract Hit getClosestHit(Ray ray);
 
     /**
      * Return the Affine Transformation matrix.

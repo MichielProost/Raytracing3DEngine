@@ -61,27 +61,30 @@ public class RayTracing3DEngine {
 
         // Create Affine Transformation Factory.
         IATFactory factory = new ATFactory();
-        Matrix trans1 = factory.getScaling(1, 1, 2);
-        Matrix trans2 = factory.getScaling(3, 1, 1);
 
         // Define a scene.
-        Scene scene = new Scene(maxRecursionLevel);
+        Scene scene = new Scene( maxRecursionLevel );
 
         // Define shapes.
+        Shape room = new Box()
+                .setMaterial( Material.Materials.lambertian, new Rgb(0.0f, 0.0f, 0.5f) )
+                .setATMatrix( factory.getScaling(5, 10, 3) )
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Z, 50));
         Shape sphere1 = new Sphere()
-                .setRadius(0.90)
-                .setLocation(0,4, 0)
-                .setMaterial(Material.Materials.mirror);
+                .setMaterial( Material.Materials.mirror )
+                .setATMatrix( factory.getScaling(2, 2, 2) )
+                .setATMatrix( factory.getTranslation(0, 4, 0));
         Shape sphere2 = new Sphere()
-                .setRadius(0.30)
-                .setLocation(0, 8, 0)
-                .setMaterial(Material.Materials.gold);
-        scene.addShape( sphere1 );
-        scene.addShape( sphere2 );
+                .setMaterial( Material.Materials.gold )
+                .setATMatrix( factory.getScaling( 0.75, 0.75, 0.75 ))
+                .setATMatrix( factory.getTranslation(0.25, 9, 0));
+        scene.addShape( room );
+        //scene.addShape( sphere1 );
+        //scene.addShape( sphere2 );
 
         // Define light sources.
         LightSource source = new LightSource(0, 10, 0)
-                .setColor(new Rgb(1.0f, 1.0f, 1.0f));
+                .setColor(new Rgb(0.7f, 0.7f, 0.7f));
         scene.addSource( source );
 
         // Measure time in milliseconds.
