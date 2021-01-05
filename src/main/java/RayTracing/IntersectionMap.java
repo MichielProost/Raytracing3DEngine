@@ -18,7 +18,7 @@ public class IntersectionMap {
     private Intersection closestIntersection;
 
     /**
-     * Create a new handler.
+     * Create a new intersection map.
      */
     public IntersectionMap(){
         intersections = new HashMap<>();
@@ -26,7 +26,7 @@ public class IntersectionMap {
 
     /**
      * Return the closest intersection.
-     * @return The closest intersection. Returns null if there are no intersections in this handler.
+     * @return The closest intersection. Returns null if there are no intersections in this map.
      */
     public Intersection getClosestIntersection(){
         return closestIntersection;
@@ -51,8 +51,9 @@ public class IntersectionMap {
         // Put intersection in map.
         intersections.put(time, intersection);
 
+        double epsilon = 0.00001;
         // Check if this is the closest intersection.
-        if (lowestTime == null || time < lowestTime){
+        if ((time >= epsilon) && (lowestTime == null || time < lowestTime)){
             // Time of closest intersection.
             lowestTime = time;
             // The closest intersection.

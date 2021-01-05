@@ -63,7 +63,7 @@ public class Scene {
      */
     public Rgb rayTrace(Ray ray){
 
-        // Get closest intersection.
+        // Get the closest intersection.
         Intersection intersection = getClosestIntersection( ray );
 
         // No intersections.
@@ -123,6 +123,11 @@ public class Scene {
         return color;
     }
 
+    /**
+     * Get the closest intersection between this scene and a given ray.
+     * @param ray The given ray.
+     * @return The closest intersection.
+     */
     public Intersection getClosestIntersection(Ray ray){
         // Create intersection map.
         IntersectionMap intersectionMap = new IntersectionMap();
@@ -152,8 +157,9 @@ public class Scene {
 
             // If intersection exists.
             if (intersection != null){
+                intersection.setRay( ray );
                 intersection.setObject( object );
-                intersection.setLocation( object.getATMatrix().times( intersection.getLocation() ));
+                intersection.setLocation( object.getATMatrix().times( transformed.getPoint( intersection.getTime() )));
                 intersection.setNormal( object.getATMatrix().times( intersection.getNormal() ));
                 intersection.setTransformedRay( transformed );
                 intersectionMap.addIntersection( intersection );
@@ -385,5 +391,4 @@ public class Scene {
         return this.rayTrace(refracted);
 
     }
-
 }

@@ -8,6 +8,9 @@ import Objects.Shape;
  * Intersection between ray and object.
  */
 public class Intersection {
+    // The ray.
+    private Ray ray;
+
     // The object.
     private Shape object;
 
@@ -36,6 +39,14 @@ public class Intersection {
     }
 
     /**
+     * Get the ray.
+     * @return The ray.
+     */
+    public Ray getRay(){
+        return ray;
+    }
+
+    /**
      * Get the object.
      * @return The object.
      */
@@ -52,16 +63,16 @@ public class Intersection {
     }
 
     /**
-     * Get the location at which the closest intersection occurs.
-     * @return The location at which the closest intersection occurs.
+     * Get the location at which the intersection occurs.
+     * @return The location at which the intersection occurs.
      */
     public Point getLocation(){
         return location;
     }
 
     /**
-     * Get the normal vector.
-     * @return The normal vector.
+     * Get the normal vector at this intersection.
+     * @return The normal vector at this intersection.
      */
     public Vector getNormal(){
         return normal;
@@ -76,8 +87,16 @@ public class Intersection {
     }
 
     /**
-     * Set the object of this intersection.
-     * @param object The object of this intersection.
+     * Set the ray.
+     * @param ray The ray.
+     */
+    public void setRay(Ray ray){
+        this.ray = ray;
+    }
+
+    /**
+     * Set the object.
+     * @param object The object.
      */
     public void setObject(Shape object){
         this.object = object;
