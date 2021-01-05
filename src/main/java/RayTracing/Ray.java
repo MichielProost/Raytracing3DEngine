@@ -8,9 +8,14 @@ import Matrix.*;
  */
 public class Ray {
 
-    public Point start;         // The starting point of the ray.
-    public Vector dir;          // The direction of the ray.
-    public int recurseLevel;    // The recursion level.
+    // The starting point of the ray.
+    public Point start;
+
+    // The direction of the ray.
+    public Vector dir;
+
+    // The recursion level.
+    public int recurseLevel;
 
     /**
      * Default constructor.
@@ -50,7 +55,7 @@ public class Ray {
      * @param screen The screen.
      * @param r The row of the rc-th pixel.
      * @param c The column of the rc-th pixel.
-     * @return The vector representation of the direction.
+     * @return The ray's direction.
      */
     public Vector computeDirection(Screen screen, int r, int c){
         double W = screen.getW();
@@ -58,10 +63,10 @@ public class Ray {
         double W_half = W / 2;
         double H_half = H / 2;
 
-        final double ux = -W_half + (W * r) / screen.getWidth();
-        final double uy = -H_half + (H * c) / screen.getHeight();
+        final double ux = -W_half + (2 * W_half * c) / screen.getWidth();
+        final double uy = -H_half + (2 * H_half * r) / screen.getHeight();
 
-        return new Vector(-ux, -uy, -screen.getN());
+        return new Vector( -ux, -uy, -screen.getN() );
     }
 
     /**

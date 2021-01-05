@@ -15,17 +15,27 @@ import java.util.List;
  */
 public class Scene {
 
-    public List<Shape> objects;         // Objects in the scene.
-    public List<LightSource> sources;   // Light sources in the scene.
-    public int maxRecursionLevel;       // Max recursion level.
-    public Rgb background = new Rgb(0.0f, 0.0f, 0.0f);  // Default background is black.
+    // Objects in the scene.
+    public List<Shape> objects;
+
+    // Light sources in the scene.
+    public List<LightSource> sources;
+
+    // Max recursion level.
+    public int maxRecursionLevel;
+
+    // Default background is black.
+    public Rgb background = new Rgb(0.0f, 0.0f, 0.0f);
 
     /**
-     * Default constructor.
+     * Create a new scene.
      */
-    public Scene(int maxRecursionLevel){
+    public Scene( int maxRecursionLevel ){
+        // Create a list of objects and light sources.
         objects = new ArrayList<>();
         sources = new ArrayList<>();
+
+        // Set the maximum recursion level.
         this.maxRecursionLevel = maxRecursionLevel;
     }
 

@@ -141,10 +141,10 @@ public class Cam {
     public void render(Screen screen, Scene scene){
 
         // Ray starts at the eye.
-        Ray ray = new Ray().setStart(eye);
+        Ray ray = new Ray().setStart( eye );
 
-        for (int r = 0; r < screen.getWidth(); r++){
-            for (int c = 0; c < screen.getHeight(); c++)
+        for (int r = 0; r < screen.getHeight(); r++){
+            for (int c = 0; c < screen.getWidth(); c++)
             {
                 // Compute the ray's direction.
                 Vector dir = ray.computeDirection(screen, r, c);
@@ -162,7 +162,7 @@ public class Cam {
                 Rgb color = scene.rayTrace(ray);
 
                 // Place the color in the rc-th pixel.
-                screen.drawPoint(r, c, color);
+                screen.drawPoint(c, r, color);
             }
         }
     }

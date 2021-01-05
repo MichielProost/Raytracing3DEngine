@@ -80,7 +80,7 @@ public class RayTracing3DEngine {
         long end, elapsedTime;
 
         // Render the screen.
-        cam.render(screen, scene);
+        cam.render( screen, scene );
         screen.forceUpdate();
 
         while(true) {

@@ -8,11 +8,14 @@ import Matrix.*;
  */
 public class LightSource {
 
-    public Point location;  // The location of the light source.
-    public Rgb color = new Rgb(1.0f, 1.0f, 1.0f);   // The (default) color of the light source.
+    // The location of the light source.
+    public Point location;
+
+    // The (default) color of the light source.
+    public Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
 
     /**
-     * Default constructor.
+     * Constructor.
      * @param x The location on the x axis.
      * @param y The location on the y axis.
      * @param z The location on the z axis.
