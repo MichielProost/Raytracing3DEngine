@@ -174,7 +174,7 @@ public class Screen extends JFrame {
                 cam.slide(-0.1, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL){
                 // Roll the camera to the left.
-                cam.roll(-1.0);
+                cam.roll(1.0);
             }
         }
 
@@ -185,7 +185,7 @@ public class Screen extends JFrame {
                 cam.slide(0.1, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL) {
                 // Roll the camera to the right.
-                cam.roll(1.0);
+                cam.roll(-1.0);
             }
         }
 

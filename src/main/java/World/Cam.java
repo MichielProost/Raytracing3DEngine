@@ -45,32 +45,12 @@ public class Cam {
     public ControlState controlState;
 
     /**
-     * Default constructor
-     */
-    public Cam(){
-        eye = new Point();
-        look = new Point();
-        up = new Vector();
-        u = new Vector(); v = new Vector(); n = new Vector();
-        this.modelView = new Matrix(4,4);
-        controlState = ControlState.TRANSLATION;
-    }
-
-    /**
-     * Switch this camera to the next control state.
-     */
-    public void nextControlState(){
-        controlState = controlState.next();
-    }
-
-    /**
-     * Initialize the camera's parameters.
+     * Create a new camera.
      * @param eye The location of the eye.
      * @param look The point at which the eye is looking.
      * @param up The camera's upward direction.
-     * @return This camera.
      */
-    public Cam set(Point eye, Point look, Vector up){
+    public Cam(Point eye, Point look, Vector up){
         this.eye = eye;
         this.look = look;
         this.up = up;
@@ -84,7 +64,15 @@ public class Cam {
         // Set the model view matrix.
         setModelViewMatrix();
 
-        return this;
+        // Set the camera's control state.
+        this.controlState = ControlState.TRANSLATION;
+    }
+
+    /**
+     * Switch this camera to the next control state.
+     */
+    public void nextControlState(){
+        controlState = controlState.next();
     }
 
     /**

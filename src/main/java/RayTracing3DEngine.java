@@ -1,7 +1,6 @@
 import Graphics.Screen;
 import Graphics.Rgb;
 import Interfaces.IATFactory;
-import Matrix.Matrix;
 import World.LightSource;
 import Material.Material;
 import Matrix.Point;
@@ -14,10 +13,6 @@ import World.Scene;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import Material.Lambertian;
 
 /**
  * A 3D engine using the ray tracing principle.
@@ -47,17 +42,17 @@ public class RayTracing3DEngine {
         double aspectRatio = (double) screenSize.width / (double) screenSize.height;
 
         // View angle.
-        double view_angle = Math.PI / 3;
+        double viewAngle = Math.PI / 3;
 
         // Create screen.
         Screen screen =
-                new Screen(screenSize.width, screenSize.height, aspectRatio, view_angle, camDistance);
+                new Screen(screenSize.width, screenSize.height, aspectRatio, viewAngle, camDistance);
 
-        // Create an initialize camera.
+        // Create and initialize camera.
         Point eye = new Point(0, camDistance, 0);
         Point look = new Point(0, 0,0);     // Eye looks at the origin.
         Vector up = new Vector(0, 0, 1);
-        Cam cam = new Cam().set(eye, look, up);
+        Cam cam = new Cam(eye, look, up);
 
         // Create Affine Transformation Factory.
         IATFactory factory = new ATFactory();
@@ -66,25 +61,15 @@ public class RayTracing3DEngine {
         Scene scene = new Scene( maxRecursionLevel );
 
         // Define shapes.
-        Shape room = new Box()
-                .setMaterial( Material.Materials.lambertian, new Rgb(0.0f, 0.0f, 0.5f) )
-                .setATMatrix( factory.getScaling(5, 10, 3) )
-                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Z, 50));
-        Shape sphere1 = new Sphere()
-                .setMaterial( Material.Materials.mirror )
-                .setATMatrix( factory.getScaling(2, 2, 2) )
-                .setATMatrix( factory.getTranslation(0, 4, 0));
-        Shape sphere2 = new Sphere()
-                .setMaterial( Material.Materials.gold )
-                .setATMatrix( factory.getScaling( 0.75, 0.75, 0.75 ))
-                .setATMatrix( factory.getTranslation(0.25, 9, 0));
-        scene.addShape( room );
-        //scene.addShape( sphere1 );
-        //scene.addShape( sphere2 );
+        Shape box = new Box()
+                .setMaterial( Material.Materials.polished_silver, new Rgb(0.0f, 0.0f, 0.5f) )
+                .setATMatrix( factory.getScaling(1.5, 1, 0.75) )
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Z, 50))
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.X, 100));
+        scene.addShape( box );
 
         // Define light sources.
-        LightSource source = new LightSource(0, 10, 0)
-                .setColor(new Rgb(0.7f, 0.7f, 0.7f));
+        LightSource source = new LightSource(0, 10, 0);
         scene.addSource( source );
 
         // Measure time in milliseconds.
