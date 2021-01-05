@@ -110,10 +110,9 @@ public class Cam {
 
     /**
      * Slide the camera along one of its axis.
-     * TODO. Movements down below are not accurate.
-     * @param delU Slide forward or back.
+     * @param delU Slide left or right.
      * @param delV Slide up or down.
-     * @param delN Slide left or right.
+     * @param delN Slide forward or back.
      */
     public void slide(double delU, double delV, double delN){
         // New x, y and z.
@@ -126,8 +125,8 @@ public class Cam {
         eye = new Point(x, y, z);
 
         // Calculate and set the new point at which the eye is looking.
-        x = look.getX() + delU * u.getX() + delV * v.getX() + delN * n.getZ();
-        y = look.getY() + delU * u.getY() + delV * v.getY() + delN * n.getZ();
+        x = look.getX() + delU * u.getX() + delV * v.getX() + delN * n.getX();
+        y = look.getY() + delU * u.getY() + delV * v.getY() + delN * n.getY();
         z = look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ();
         look = new Point(x, y, z);
 

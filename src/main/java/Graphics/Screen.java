@@ -159,6 +159,7 @@ public class Screen extends JFrame {
     public void processInput(Cam cam) {
 
         double vel = cam.getVelocity();
+        double D_angle = 2.0;
 
         // If pressing the down key.
         if (keyboard.keyDown( KeyEvent.VK_DOWN )) {
@@ -183,7 +184,7 @@ public class Screen extends JFrame {
                 cam.slide(-vel, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL){
                 // Roll the camera to the left.
-                cam.roll(1.0);
+                cam.roll( D_angle );
             }
         }
 
@@ -194,7 +195,7 @@ public class Screen extends JFrame {
                 cam.slide(vel, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL) {
                 // Roll the camera to the right.
-                cam.roll(-1.0);
+                cam.roll( -D_angle );
             }
         }
 
@@ -219,7 +220,7 @@ public class Screen extends JFrame {
             // Change the camera's control state.
             cam.nextControlState();
             // Show the new control state to the user.
-            System.out.println(cam.controlState);
+            System.out.println( cam.controlState );
         }
 
         // If pressing escape.
