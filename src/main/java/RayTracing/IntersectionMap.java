@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Handler that stores intersections and provides information about these intersections.
+ * Provides information about a set of intersections.
  */
-public class IntersectionMapHandler {
+public class IntersectionMap {
 
     // A map containing intersections.
     private final Map<Double, Intersection> intersections;
@@ -20,7 +20,7 @@ public class IntersectionMapHandler {
     /**
      * Create a new handler.
      */
-    public IntersectionMapHandler(){
+    public IntersectionMap(){
         intersections = new HashMap<>();
     }
 

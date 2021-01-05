@@ -3,7 +3,7 @@ package Objects;
 import Matrix.Point;
 import Matrix.Vector;
 import RayTracing.Intersection;
-import RayTracing.IntersectionMapHandler;
+import RayTracing.IntersectionMap;
 import RayTracing.Ray;
 
 /**
@@ -16,8 +16,8 @@ public class Box extends Shape {
 
     @Override
     public Intersection getClosestIntersection(Ray ray) {
-        // Create intersection handler.
-        IntersectionMapHandler handler = new IntersectionMapHandler();
+        // Create intersection map.
+        IntersectionMap handler = new IntersectionMap();
 
         // The starting point of the ray.
         Point origin = ray.start;

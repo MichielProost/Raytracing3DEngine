@@ -1,7 +1,9 @@
 package World;
 
 import Graphics.Rgb;
-import RayTracing.FirstHit;
+import Matrix.Matrix;
+import RayTracing.Intersection;
+import RayTracing.IntersectionMap;
 import RayTracing.Ray;
 import Matrix.Point;
 import Matrix.Vector;
@@ -61,36 +63,36 @@ public class Scene {
      */
     public Rgb rayTrace(Ray ray){
 
-        // Get info about the first hit if there is one.
-        FirstHit firstHit = new FirstHit(ray, objects);
+        // Get closest intersection.
+        Intersection intersection = getClosestIntersection( ray );
 
         // No intersections.
-        if(!firstHit.exists()) {
+        if(intersection == null) {
             return background;
         }
 
         // Get the weights of the appropriate material.
-        float[] weights = firstHit.hitObject.material.get_weights();
+        float[] weights = intersection.getObject().material.get_weights();
 
         // The color of the hit object.
-        Rgb color = firstHit.hitObject.material.getColor();
+        Rgb color = intersection.getObject().material.getColor();
 
         // Get ambient component.
-        Rgb light = getAmbientComponent( firstHit );
+        Rgb light = getAmbientComponent( intersection );
 
         // Loop over every light source (for shading purposes).
         for (LightSource L: sources){
 
              // Check for shadow.
-            if ( isInShadow( getShadowRay( L, firstHit ) ) ){
+            if ( isInShadow( getShadowRay( L, intersection ) ) ){
                 continue;
             }
 
             // Get and add diffuse component.
-            light = light.add( getDiffuseComponent( L, firstHit ) );
+            light = light.add( getDiffuseComponent( L, intersection ) );
 
             // Get and add specular component.
-            light = light.add( getSpecularComponent( L, firstHit ) );
+            light = light.add( getSpecularComponent( L, intersection ) );
 
         }
 
@@ -103,22 +105,67 @@ public class Scene {
         }
 
         // Add reflected light if object is shiny enough.
-        if (firstHit.hitObject.material.isShinyEnough()){
+        if (intersection.getObject().material.isShinyEnough()){
 
-            Rgb reflected = getReflectedLight( firstHit );
+            Rgb reflected = getReflectedLight( intersection );
             color = color.add( reflected.multiply( weights[1]) );
 
         }
 
         // Add refracted light if the object is transparent enough.
-        if (firstHit.hitObject.material.isTransparentEnough()){
+        if (intersection.getObject().material.isTransparentEnough()){
 
-            Rgb refracted = getTransmittedLight( firstHit );
+            Rgb refracted = getTransmittedLight( intersection );
             color = color.add( refracted.multiply( weights[2] ) );
 
         }
 
         return color;
+    }
+
+    public Intersection getClosestIntersection(Ray ray){
+        // Create intersection map.
+        IntersectionMap intersectionMap = new IntersectionMap();
+
+        // The starting point of the ray.
+        Point origin = ray.start;
+
+        // The direction of the ray.
+        Vector direction = ray.dir;
+
+        // Build intersection map.
+        for (Shape object : objects){
+
+            // Inverse transformation matrix.
+            Matrix inverseAT = object.getInverseAT();
+
+            // Transformed ray corresponding to object.
+            Ray transformed = new Ray(
+                    inverseAT.times( origin ),
+                    inverseAT.times( direction )
+            );
+            // Both rays have the same recursive level.
+            transformed.recurseLevel = ray.recurseLevel;
+
+            // Get closest intersection between ray and object (if there is any).
+            Intersection intersection = object.getClosestIntersection( transformed );
+
+            // If intersection exists.
+            if (intersection != null){
+                intersection.setObject( object );
+                intersection.setLocation( object.getATMatrix().times( intersection.getLocation() ));
+                intersection.setNormal( object.getATMatrix().times( intersection.getNormal() ));
+                intersection.setTransformedRay( transformed );
+                intersectionMap.addIntersection( intersection );
+            }
+        }
+
+        // Return the closest intersection.
+        if (intersectionMap.isEmpty()){
+            return null;
+        } else {
+            return intersectionMap.getClosestIntersection();
+        }
     }
 
     /**
@@ -131,8 +178,8 @@ public class Scene {
         // All intersections of ray with objects in the scene.
         for (Shape object : objects){
             // Check for collisions.
-            Hit closestHit = object.getClosestHit( ray );
-            if (closestHit != null && closestHit.time >= 0){
+            Intersection closestIntersection = object.getClosestIntersection( ray );
+            if (closestIntersection != null){
                 return true;
             }
         }
@@ -143,20 +190,20 @@ public class Scene {
     /**
      * Calculates a shadow feeler ray.
      * @param L The light source.
-     * @param firstHit Info about the first hit.
+     * @param intersection Info about the first hit.
      * @return The shadow feeler ray.
      */
-    public Ray getShadowRay(LightSource L, FirstHit firstHit){
+    public Ray getShadowRay(LightSource L, Intersection intersection){
 
         // Create shadow feeler ray.
         Ray feeler = new Ray();
 
         // The direction of the hit ray.
-        Vector hitRayDir = firstHit.hitRay.dir;
+        Vector hitRayDir = intersection.getTransformedRay().dir;
 
         // Calculate the starting point of the shadow feeler ray.
         double epsilon = 0.01;  // A small positive number.
-        Point start = firstHit.hitPoint.minus(
+        Point start = intersection.getLocation().minus(
                 new Vector(epsilon * hitRayDir.getX(),
                         epsilon * hitRayDir.getY(),
                         epsilon * hitRayDir.getZ())
@@ -165,7 +212,7 @@ public class Scene {
         // Set the starting point of the shadow feeler ray.
         feeler.setStart(start);
         // Set the direction of the shadow feeler ray.
-        feeler.setDir(L.location.minus(firstHit.hitPoint));
+        feeler.setDir(L.location.minus(intersection.getLocation()));
 
         return feeler;
 
@@ -173,33 +220,33 @@ public class Scene {
 
     /**
      * Compute the ambient component.
-     * @param firstHit Info about the first hit.
+     * @param intersection Info about the first hit.
      * @return The color that represents the ambient component.
      */
-    public Rgb getAmbientComponent(FirstHit firstHit){
+    public Rgb getAmbientComponent(Intersection intersection){
 
         // Get the reflective coefficients.
-        return firstHit.hitObject.material.ambient_coefficients();
+        return intersection.getObject().material.ambient_coefficients();
 
     }
 
     /**
      * Compute the diffuse component.
      * @param L The light source.
-     * @param firstHit Info about the first hit.
+     * @param intersection Info about the first hit.
      * @return The color that represents the diffuse component.
      */
-    public Rgb getDiffuseComponent(LightSource L, FirstHit firstHit){
+    public Rgb getDiffuseComponent(LightSource L, Intersection intersection){
 
         // Get the reflective coefficients.
-        Rgb coefficients = firstHit.hitObject.material.diffuse_coefficients();
+        Rgb coefficients = intersection.getObject().material.diffuse_coefficients();
 
         // Get the normal vector at the hit point.
-        Vector normal = firstHit.hitNormal;
+        Vector normal = intersection.getNormal();
         normal.normalize();
 
         // Vector from hit point to source.
-        Vector s = L.location.minus(firstHit.hitPoint);
+        Vector s = L.location.minus(intersection.getLocation());
         // Normalize this vector.
         s.normalize();
 
@@ -219,24 +266,27 @@ public class Scene {
     /**
      * Compute the specular component.
      * @param L The light source.
-     * @param firstHit Info about the first hit.
+     * @param intersection Info about the first hit.
      * @return The color that represents the specular component.
      */
-    public Rgb getSpecularComponent(LightSource L, FirstHit firstHit){
+    public Rgb getSpecularComponent(LightSource L, Intersection intersection){
 
         // Get the reflective coefficients.
-        Rgb coefficients = firstHit.hitObject.material.specular_coefficients();
-        double exponent = firstHit.hitObject.material.getExponent();
+        Rgb coefficients = intersection.getObject().material.specular_coefficients();
+        double exponent = intersection.getObject().material.getExponent();
 
         // Get the normal vector at the hit point.
-        Vector normal = firstHit.hitNormal;
+        Vector normal = intersection.getNormal();
         normal.normalize();
 
         // Negative of the ray's direction. Points to the viewer.
-        Vector v = new Vector(-firstHit.hitRay.dir.getX(), -firstHit.hitRay.dir.getY(), -firstHit.hitRay.dir.getZ());
+        Vector v = new Vector(
+                -intersection.getTransformedRay().dir.getX(),
+                -intersection.getTransformedRay().dir.getY(),
+                -intersection.getTransformedRay().dir.getZ());
 
         // Vector from hit point to source.
-        Vector s = L.location.minus(firstHit.hitPoint);
+        Vector s = L.location.minus(intersection.getLocation());
         // Normalize this vector.
         s.normalize();
 
@@ -258,30 +308,30 @@ public class Scene {
 
     /**
      * Get the reflected light component.
-     * @param firstHit Info about the first hit.
+     * @param intersection Info about the first hit.
      * @return The color that represents the reflected light component.
      */
-    public Rgb getReflectedLight(FirstHit firstHit){
+    public Rgb getReflectedLight(Intersection intersection){
 
         // Get the normal vector at the hit point.
-        Vector normal = firstHit.hitNormal;
+        Vector normal = intersection.getNormal();
         normal.normalize();
 
         // Dot product between ray and normal.
-        double factor = firstHit.hitRay.dir.dot(normal);
+        double factor = intersection.getTransformedRay().dir.dot(normal);
 
         // Get reflection direction.
-        Vector dir = firstHit.hitRay.dir.minus(
+        Vector dir = intersection.getTransformedRay().dir.minus(
                 new Vector(2*factor*normal.getX(), 2*factor*normal.getY(), 2*factor*normal.getZ()));
 
         // Build reflected ray.
         Ray reflected = new Ray(
-                firstHit.hitPoint,
+                intersection.getLocation(),
                 dir
         );
 
         // Go up a level.
-        reflected.recurseLevel = firstHit.hitRay.recurseLevel + 1;
+        reflected.recurseLevel = intersection.getTransformedRay().recurseLevel + 1;
 
         // Reflected component.
         return this.rayTrace(reflected);
@@ -290,25 +340,25 @@ public class Scene {
 
     /**
      * Get the refracted light component.
-     * @param firstHit Info about the first hit.
+     * @param intersection Info about the first hit.
      * @return The color that represents the refracted light component.
      */
-    public Rgb getTransmittedLight(FirstHit firstHit){
+    public Rgb getTransmittedLight(Intersection intersection){
 
         // Get the normal vector at the hit point.
-        Vector normal = firstHit.hitNormal;
+        Vector normal = intersection.getNormal();
         normal.normalize();
         Vector minus_normal = new Vector(-normal.getX(), -normal.getY(), -normal.getZ());
 
         // Direction of hit ray.
-        Vector dir_hit = firstHit.hitRay.dir;
+        Vector dir_hit = intersection.getTransformedRay().dir;
         dir_hit.normalize();
 
         // Dot product between ray and normal.
         double product = minus_normal.dot(dir_hit);
 
         // Index of refraction.
-        double index = firstHit.hitObject.material.getRefraction_index();
+        double index = intersection.getObject().material.getRefraction_index();
         // double index = 1;
 
         // cos(02)
@@ -324,12 +374,12 @@ public class Scene {
 
         // Build refracted ray.
         Ray refracted = new Ray(
-                firstHit.hitPoint,
+                intersection.getLocation(),
                 dir
         );
 
         // Go up a level.
-        refracted.recurseLevel = firstHit.hitRay.recurseLevel + 1;
+        refracted.recurseLevel = intersection.getTransformedRay().recurseLevel + 1;
 
         // Refracted component.
         return this.rayTrace(refracted);
