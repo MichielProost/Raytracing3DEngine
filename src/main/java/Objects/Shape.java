@@ -4,7 +4,7 @@ import Graphics.Rgb;
 import Material.Material;
 import Material.Lambertian;
 import Matrix.*;
-import RayTracing.Hit;
+import RayTracing.Intersection;
 import RayTracing.Ray;
 import java.util.List;
 
@@ -13,29 +13,29 @@ import java.util.List;
  */
 public abstract class Shape {
 
-    // Transformation matrix.
+    // Affine transformation matrix.
     private Matrix ATMatrix = new Identity(4);
 
     // Inverse transformation matrix.
     private Matrix InverseAT = new Identity(4);
 
-    // The material of the shape (default: white).
+    // The material of the shape.
     public Material material = new Lambertian();
 
     /**
-     * Default constructor.
+     * Create a new shape.
      */
     public Shape(){}
 
     /**
-     * Gather information about the hit between this object and a given ray.
+     * Return the closest intersection between this object and a given ray.
      * @param ray The given ray.
-     * @return Information about the hit. Returns null if no hit was found.
+     * @return The closest intersection. Returns null if there are no intersections.
      */
-    public abstract Hit getClosestHit(Ray ray);
+    public abstract Intersection getClosestIntersection(Ray ray);
 
     /**
-     * Return the Affine Transformation matrix.
+     * Return the affine transformation matrix.
      * @return The AT matrix.
      */
     public Matrix getATMatrix(){
@@ -73,7 +73,7 @@ public abstract class Shape {
     /**
      * Set the material of this shape.
      * @param type The type of material.
-     * @param color The required color of the material.
+     * @param color The color of the material.
      * @return This shape.
      */
     public Shape setMaterial(Material.Materials type, Rgb color){
@@ -82,19 +82,19 @@ public abstract class Shape {
     }
 
     /**
-     * Set the Affine Transformation matrix.
+     * Set the affine transformation matrix.
      * @param matrix The AT matrix.
      * @return This shape.
      */
     public Shape setATMatrix(Matrix matrix){
-        this.ATMatrix = this.ATMatrix.times(matrix);
+        this.ATMatrix = this.ATMatrix.times( matrix );
         this.InverseAT = this.ATMatrix.inverse();
         return this;
     }
 
     /**
-     * Set the Affine Transformation matrix.
-     * @param matrices The individual AT matrices.
+     * Set the affine transformation matrix.
+     * @param matrices The AT matrices.
      * @return This shape.
      */
     public Shape setATMatrices(List<Matrix> matrices){

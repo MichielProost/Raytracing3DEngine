@@ -1,7 +1,6 @@
 package Objects;
 
 import Matrix.*;
-import RayTracing.Hit;
 import RayTracing.Ray;
 
 /**

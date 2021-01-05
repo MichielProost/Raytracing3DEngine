@@ -2,7 +2,6 @@ package World;
 
 import Graphics.Rgb;
 import RayTracing.FirstHit;
-import RayTracing.Hit;
 import RayTracing.Ray;
 import Matrix.Point;
 import Matrix.Vector;
