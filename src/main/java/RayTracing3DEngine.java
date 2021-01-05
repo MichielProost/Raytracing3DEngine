@@ -90,7 +90,7 @@ public class RayTracing3DEngine {
                 start = System.currentTimeMillis();
 
                 // Poll the keyboard.
-                screen.keyboard.poll();
+                screen.getKeyboard().poll();
                 screen.processInput(cam);
 
                 // Refresh the screen.

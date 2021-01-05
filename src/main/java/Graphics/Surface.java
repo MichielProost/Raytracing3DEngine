@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Extended Surface Class that adds an additional image to the panel.
+ * Extended Surface Class that adds an image to the panel.
  */
 public class Surface extends JPanel {
 
@@ -20,7 +20,7 @@ public class Surface extends JPanel {
         super(true);    // Enable double buffering.
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         image.setAccelerationPriority(0);
-        this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+        this.setPreferredSize( new Dimension(image.getWidth(), image.getHeight()) );
     }
 
     /**

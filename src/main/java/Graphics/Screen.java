@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 public class Screen extends JFrame {
 
     // Create a keyboard for handling user input.
-    public KeyboardInput keyboard = new KeyboardInput();
+    private KeyboardInput keyboard = new KeyboardInput();
 
     // The surface - buffer - to be placed on the frame.
     private final Surface surface;
@@ -54,18 +54,24 @@ public class Screen extends JFrame {
         // Create a new surface.
         surface = new Surface( width, height );
 
-        // Settings
-        setTitle("Ray Tracing");
+        // Settings.
+        setTitle("Ray Tracing 3D Engine");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
-        add(surface);
+        add( surface );
         setVisible(true);
 
-        // Hookup keyboard polling
-        addKeyListener(keyboard);
-        surface.addKeyListener(keyboard);
+        // Hookup keyboard polling.
+        addKeyListener( keyboard );
+        surface.addKeyListener( keyboard );
 
     }
+
+    /**
+     * Get the keyboard.
+     * @return The keyboard.
+     */
+    public KeyboardInput getKeyboard() { return this.keyboard; }
 
     /**
      * Get the screen's width.
