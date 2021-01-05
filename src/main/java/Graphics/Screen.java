@@ -39,19 +39,20 @@ public class Screen extends JFrame {
      */
     public Screen(int width, int height, double aspect_ratio, double view_angle, double N){
 
+        // Set the width and height of the buffer.
         this.width = width;
         this.height = height;
 
+        // Set the distance in front of the eye.
         this.N = N;
 
         // W and H are given by the expressions:
-        double W = 2 * N * Math.tan( view_angle / 2 );
-        double H = W / aspect_ratio;
-        this.W = W;
+        double H = 2 * N * Math.tan( view_angle / 2 );
         this.H = H;
+        this.W = H * aspect_ratio;
 
         // Create a new surface.
-        surface = new Surface(width, height);
+        surface = new Surface( width, height );
 
         // Settings
         setTitle("Ray Tracing");

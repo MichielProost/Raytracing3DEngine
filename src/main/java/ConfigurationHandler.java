@@ -10,14 +10,14 @@ public class ConfigurationHandler {
     private Properties prop;
 
     /**
-     * Default constructor.
+     * Create a new configuration handler.
      * @param fileLocation The location of the property file.
      */
     public ConfigurationHandler(String fileLocation){
         this.prop = new Properties();
-        try (FileInputStream ip = new FileInputStream(fileLocation)) {
+        try (FileInputStream ip = new FileInputStream( fileLocation )) {
             // Load the property file.
-            this.prop.load(ip);
+            this.prop.load( ip );
         } catch (IOException e){
             System.out.println("Error: Configuration file does not exist.");
             // Exit Java program.
@@ -31,7 +31,7 @@ public class ConfigurationHandler {
      * @return The value of the matched key if it exists. Returns null otherwise.
      */
     public String getProperty(String key){
-        return prop.getProperty(key);
+        return prop.getProperty( key );
     }
 
     /**
@@ -41,7 +41,7 @@ public class ConfigurationHandler {
      */
     public int getIntProperty(String key){
         try {
-            return Integer.parseInt(prop.getProperty(key));
+            return Integer.parseInt( prop.getProperty( key ) );
         } catch(NumberFormatException nfe) {
             System.out.println("NumberFormatException: " + nfe.getMessage());
         }
@@ -55,7 +55,7 @@ public class ConfigurationHandler {
      */
     public double getDoubleProperty(String key) {
         try {
-            return Double.parseDouble(prop.getProperty(key));
+            return Double.parseDouble( prop.getProperty( key ) );
         } catch(NumberFormatException nfe) {
             System.out.println("NumberFormatException: " + nfe.getMessage());
         }

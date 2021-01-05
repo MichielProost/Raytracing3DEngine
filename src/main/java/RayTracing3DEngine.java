@@ -26,7 +26,7 @@ public class RayTracing3DEngine {
 
         // Create configuration handler.
         Path path = Paths.get(".\\src\\main\\java\\config.properties");
-        ConfigurationHandler configHandler = new ConfigurationHandler(path.toString());
+        ConfigurationHandler configHandler = new ConfigurationHandler( path.toString() );
 
         // Read configuration parameters.
         int width = configHandler.getIntProperty("width");
@@ -36,7 +36,7 @@ public class RayTracing3DEngine {
         double camDistance = configHandler.getDoubleProperty("cam_distance");
 
         // Specify screen dimensions.
-        Dimension screenSize = new Dimension(width, height);
+        Dimension screenSize = new Dimension( width, height );
 
         // Calculate aspect ratio.
         double aspectRatio = (double) screenSize.width / (double) screenSize.height;

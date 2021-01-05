@@ -79,7 +79,7 @@ public class Cam {
      * Build the model view matrix.
      */
     private void setModelViewMatrix(){
-        Vector minus_eye = eye.minus(new Point(0,0,0));
+        Vector minus_eye = new Vector(-eye.getX(), -eye.getY(), -eye.getZ());
         this.modelView = new Identity(4)
                 .put(0,0,u.getX()).put(0,1,u.getY()).put(0,2,u.getZ()).put(0,3,minus_eye.dot(u))
                 .put(1,0,v.getX()).put(1,1,v.getY()).put(1,2,v.getZ()).put(1,3,minus_eye.dot(v))
