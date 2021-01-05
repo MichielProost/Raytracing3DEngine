@@ -13,7 +13,7 @@ import java.util.Map;
 public class Box extends Shape {
 
     // The size of the box.
-    static final Double size = 1.0;
+    static final double size = 1.0;
 
     @Override
     public Hit getClosestHit(Ray ray) {

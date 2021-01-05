@@ -58,6 +58,7 @@ public class Rgb {
 
         // Add colors.
         Rgb new_color = new Rgb(this.r + color.r, this.g + color.g, this.b + color.b);
+
         // Limit RGB components in case of overexposure.
         return checkBoundaries( new_color );
 
@@ -72,6 +73,7 @@ public class Rgb {
 
         // Multiply color with value.
         Rgb new_color = new Rgb( this.r * value, this.g * value, this.b * value);
+
         // Limit RGB components in case of overexposure.
         return checkBoundaries( new_color );
 

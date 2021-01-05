@@ -10,7 +10,7 @@ import RayTracing.Ray;
 public class Sphere extends Shape {
 
     @Override
-    public Hit getClosestHit(Ray ray) {
+    public Hit getIntersections(Ray ray) {
 
         // The starting point of the ray.
         Vector origin = new Vector(ray.start.getX(), ray.start.getY(), ray.start.getZ());
