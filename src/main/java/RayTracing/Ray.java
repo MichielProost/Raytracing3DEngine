@@ -14,8 +14,8 @@ public class Ray {
     // The direction of the ray.
     public Vector dir;
 
-    // The recursion level.
-    public int recurseLevel;
+    // The recursion level starts at 0.
+    public int recurseLevel = 0;
 
     /**
      * Default constructor.
@@ -76,7 +76,7 @@ public class Ray {
      */
     public Point getPoint(double t){
         return new Point(start.getX() + dir.getX() * t,
-                                start.getY() + dir.getY() * t,
+                            start.getY() + dir.getY() * t,
                                 start.getZ() + dir.getZ() * t);
     }
 

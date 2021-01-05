@@ -147,22 +147,19 @@ public class Cam {
             for (int c = 0; c < screen.getWidth(); c++)
             {
                 // Compute the ray's direction.
-                Vector dir = ray.computeDirection(screen, r, c);
+                Vector dir = ray.computeDirection( screen, r, c );
 
                 // Translate to world coordinates.
-                dir = modelView.times(dir);
+                dir = modelView.times( dir );
 
                 // Built the rc-th ray.
                 ray.setDir(dir);
 
-                // Initialize the ray's recursive level.
-                ray.recurseLevel = 0;
-
                 // Ray trace the current scene.
-                Rgb color = scene.rayTrace(ray);
+                Rgb color = scene.rayTrace( ray );
 
                 // Place the color in the rc-th pixel.
-                screen.drawPoint(c, r, color);
+                screen.drawPoint( c, r, color );
             }
         }
     }
