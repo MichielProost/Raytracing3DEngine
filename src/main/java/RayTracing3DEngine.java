@@ -72,8 +72,7 @@ public class RayTracing3DEngine {
         scene.addShape( sphere2 );
 
         // Define light sources.
-        LightSource source = new LightSource(0, 10, 0)
-                .setColor(new Rgb(0.8f, 0.8f, 0.8f));
+        LightSource source = new LightSource(0, 10, 0);
         scene.addSource( source );
 
         // Measure time in milliseconds.

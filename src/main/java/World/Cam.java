@@ -13,14 +13,13 @@ public class Cam {
 
     /**
      * The camera can be controlled in a variety of ways:
-     * Translation and roll.
-     * TODO. pitch and rotation.
+     * Translation.
      * This allows us to use the same keys on the keyboard depending on the state.
      */
     public enum ControlState {
 
-        TRANSLATION,
-        ROLL;
+        TRANSLATION;
+        //TODO. Implement roll, pitch and rotation.
         private static ControlState[] values = values();
 
         /**
@@ -129,25 +128,6 @@ public class Cam {
         y = look.getY() + delU * u.getY() + delV * v.getY() + delN * n.getY();
         z = look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ();
         look = new Point(x, y, z);
-
-        // Set the model view matrix.
-        setModelViewMatrix();
-    }
-
-    /**
-     * Roll the camera.
-     * @param angle The angle to roll the camera with.
-     */
-    public void roll(double angle){
-        double cos = Math.cos((Math.PI/180) * angle);
-        double sin = Math.sin((Math.PI/180) * angle);
-        Vector t = u;
-        u.setX(cos*t.getX() - sin*v.getX());
-        u.setY(cos*t.getY() - sin*v.getY());
-        u.setZ(cos*t.getZ() - sin*v.getZ());
-        v.setX(sin*t.getX() + cos*v.getX());
-        v.setY(sin*t.getY() + cos*v.getY());
-        v.setZ(sin*t.getZ() + cos*v.getZ());
 
         // Set the model view matrix.
         setModelViewMatrix();
