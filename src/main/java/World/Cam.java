@@ -13,7 +13,8 @@ public class Cam {
 
     /**
      * The camera can be controlled in a variety of ways:
-     * Translation, roll, pitch and rotation.
+     * Translation and roll.
+     * TODO. pitch and rotation.
      * This allows us to use the same keys on the keyboard depending on the state.
      */
     public enum ControlState {
@@ -38,11 +39,14 @@ public class Cam {
     // The camera coordinates.
     private Vector u, v, n;
 
-    // A matrix for converting the camera coordinates (u, v, n) to world coordinates (x, y, z).
-    Matrix modelView;
+    // A matrix for converting camera coordinates (u, v, n) to world coordinates (x, y, z).
+    private Matrix modelView;
 
-    // The control state of this camera.
+    // The camera's control state.
     public ControlState controlState;
+
+    // The camera's velocity (speed when it is moving).
+    private double velocity = 0.1;
 
     /**
      * Create a new camera.
@@ -55,7 +59,7 @@ public class Cam {
         this.look = look;
         this.up = up;
 
-        // Set the u,v a n coordinates.
+        // Set the u,v,n coordinates.
         n = eye.minus(look);
         u = up.cross(n);
         n.normalize(); u.normalize();
@@ -69,10 +73,28 @@ public class Cam {
     }
 
     /**
-     * Switch this camera to the next control state.
+     * Go to the next control state.
      */
     public void nextControlState(){
         controlState = controlState.next();
+    }
+
+    /**
+     * Get the camera's velocity.
+     * @return The camera's velocity.
+     */
+    public double getVelocity(){
+        return velocity;
+    }
+
+    /**
+     * Set the camera's velocity.
+     * @param velocity The speed at which the camera will move.
+     * @return This camera.
+     */
+    public Cam setVelocity( double velocity ){
+        this.velocity = velocity;
+        return this;
     }
 
     /**
@@ -87,18 +109,27 @@ public class Cam {
     }
 
     /**
-     * Slide the camera along one of its own axis.
+     * Slide the camera along one of its axis.
+     * TODO. Movements down below are not accurate.
      * @param delU Slide forward or back.
      * @param delV Slide up or down.
      * @param delN Slide left or right.
      */
     public void slide(double delU, double delV, double delN){
-        this.eye.setX(this.eye.getX() + delU * u.getX() + delV * v.getX() + delN * n.getX());
-        this.eye.setY(this.eye.getY() + delU * u.getY() + delV * v.getY() + delN * n.getY());
-        this.eye.setZ(this.eye.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
-        this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
-        this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
-        this.look.setZ(this.look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ());
+        // New x, y and z.
+        double x, y, z;
+
+        // Calculate and set the eye's new position.
+        x = eye.getX() + delU * u.getX() + delV * v.getX() + delN * n.getX();
+        y = eye.getY() + delU * u.getY() + delV * v.getY() + delN * n.getY();
+        z = eye.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ();
+        eye = new Point(x, y, z);
+
+        // Calculate and set the new point at which the eye is looking.
+        x = look.getX() + delU * u.getX() + delV * v.getX() + delN * n.getZ();
+        y = look.getY() + delU * u.getY() + delV * v.getY() + delN * n.getZ();
+        z = look.getZ() + delU * u.getZ() + delV * v.getZ() + delN * n.getZ();
+        look = new Point(x, y, z);
 
         // Set the model view matrix.
         setModelViewMatrix();

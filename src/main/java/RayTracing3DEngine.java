@@ -34,6 +34,7 @@ public class RayTracing3DEngine {
         int refreshRate = configHandler.getIntProperty("refresh_rate");
         int maxRecursionLevel = configHandler.getIntProperty("max_recursion_level");
         double camDistance = configHandler.getDoubleProperty("cam_distance");
+        double camVelocity = configHandler.getDoubleProperty("cam_velocity");
 
         // Specify screen dimensions.
         Dimension screenSize = new Dimension( width, height );
@@ -48,11 +49,11 @@ public class RayTracing3DEngine {
         Screen screen =
                 new Screen(screenSize.width, screenSize.height, aspectRatio, viewAngle, camDistance);
 
-        // Create and initialize camera.
+        // Create camera.
         Point eye = new Point(0, camDistance, 0);
         Point look = new Point(0, 0,0);     // Eye looks at the origin.
         Vector up = new Vector(0, 0, 1);
-        Cam cam = new Cam(eye, look, up);
+        Cam cam = new Cam( eye, look, up ).setVelocity( camVelocity );
 
         // Create Affine Transformation Factory.
         IATFactory factory = new ATFactory();
@@ -61,12 +62,14 @@ public class RayTracing3DEngine {
         Scene scene = new Scene( maxRecursionLevel );
 
         // Define shapes.
-        Shape box = new Box()
-                .setMaterial( Material.Materials.polished_silver, new Rgb(0.0f, 0.0f, 0.5f) )
-                .setATMatrix( factory.getScaling(1.5, 1, 0.75) )
-                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Z, 50))
-                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.X, 100));
-        scene.addShape( box );
+        Shape sphere1 = new Sphere()
+                .setMaterial( Material.Materials.polished_silver );
+        Shape sphere2 = new Sphere()
+                .setMaterial( Material.Materials.gold )
+                .setATMatrix( factory.getTranslation(0, 3, 0))
+                .setATMatrix( factory.getScaling(0.5, 0.5, 0.5));
+        scene.addShape( sphere1 );
+        scene.addShape( sphere2 );
 
         // Define light sources.
         LightSource source = new LightSource(0, 10, 0);
@@ -91,7 +94,7 @@ public class RayTracing3DEngine {
 
                 // Poll the keyboard.
                 screen.getKeyboard().poll();
-                screen.processInput(cam);
+                screen.processInput( cam );
 
                 // Refresh the screen.
                 cam.render(screen, scene);

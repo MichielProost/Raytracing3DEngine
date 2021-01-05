@@ -158,11 +158,13 @@ public class Screen extends JFrame {
      */
     public void processInput(Cam cam) {
 
+        double vel = cam.getVelocity();
+
         // If pressing the down key.
         if (keyboard.keyDown( KeyEvent.VK_DOWN )) {
             if (cam.controlState == Cam.ControlState.TRANSLATION){
                 // Slide the camera downwards.
-                cam.slide(0.0, 0.1, 0.0);
+                cam.slide(0.0, vel, 0.0);
             }
         }
 
@@ -170,7 +172,7 @@ public class Screen extends JFrame {
         if (keyboard.keyDown( KeyEvent.VK_UP )) {
             if (cam.controlState == Cam.ControlState.TRANSLATION){
                 // Slide the camera upwards.
-                cam.slide(0.0, -0.1, 0.0);
+                cam.slide(0.0, -vel, 0.0);
             }
         }
 
@@ -178,7 +180,7 @@ public class Screen extends JFrame {
         if (keyboard.keyDown( KeyEvent.VK_LEFT)) {
             if (cam.controlState == Cam.ControlState.TRANSLATION){
                 // Slide the camera to the left.
-                cam.slide(-0.1, 0.0, 0.0);
+                cam.slide(-vel, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL){
                 // Roll the camera to the left.
                 cam.roll(1.0);
@@ -189,7 +191,7 @@ public class Screen extends JFrame {
         if (keyboard.keyDown( KeyEvent.VK_RIGHT)) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
                 // Slide the camera to the right.
-                cam.slide(0.1, 0.0, 0.0);
+                cam.slide(vel, 0.0, 0.0);
             } else if (cam.controlState == Cam.ControlState.ROLL) {
                 // Roll the camera to the right.
                 cam.roll(-1.0);
@@ -200,7 +202,7 @@ public class Screen extends JFrame {
         if (keyboard.keyDown( KeyEvent.VK_S)) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
                 // Zoom in.
-                cam.slide(0.0,0.0,0.1);
+                cam.slide(0.0,0.0, vel);
             }
         }
 
@@ -208,7 +210,7 @@ public class Screen extends JFrame {
         if (keyboard.keyDown( KeyEvent.VK_W)) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
                 // Zoom out.
-                cam.slide(0.0,0.0,-0.1);
+                cam.slide(0.0,0.0, -vel);
             }
         }
 
