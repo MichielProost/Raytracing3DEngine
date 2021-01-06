@@ -67,7 +67,7 @@ public class RayTracing3DEngine {
         Shape sphere2 = new Sphere()
                 .setMaterial( Material.Materials.gold )
                 .setATMatrix( factory.getTranslation(0, 3, 0))
-                .setATMatrix( factory.getScaling(0.5, 0.5, 0.5));
+                .setATMatrix( factory.getScaling(0.2, 0.2, 0.2));
         scene.addShape( sphere1 );
         scene.addShape( sphere2 );
 

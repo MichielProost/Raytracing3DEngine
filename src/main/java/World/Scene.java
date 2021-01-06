@@ -195,8 +195,29 @@ public class Scene {
      */
     public boolean isInShadow(Ray ray){
 
-        Intersection intersection = getClosestIntersection( ray );
-        return intersection != null;
+        // Check if any object intersects with shadow ray.
+        for (Shape object : objects){
+
+            // Inverse transformation matrix.
+            Matrix inverseAT = object.getInverseAT();
+
+            // Transformed ray corresponding to object.
+            Ray transformed = new Ray(
+                    inverseAT.times( ray.start ),
+                    inverseAT.times( ray.dir )
+            );
+
+            // Get closest intersection between ray and object (if there is any).
+            Intersection intersection = object.getClosestIntersection( transformed );
+
+            // Shadow if an intersection was found.
+            if (intersection != null){
+                return true;
+            }
+        }
+
+        // No shadow of no intersections were found.
+        return false;
 
     }
 
