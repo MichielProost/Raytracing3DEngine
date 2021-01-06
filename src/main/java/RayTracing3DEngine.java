@@ -1,13 +1,10 @@
 import Graphics.Screen;
-import Graphics.Rgb;
 import Interfaces.IATFactory;
+import World.Scenes.EquilateralTriangle;
 import World.LightSource;
-import Material.Material;
 import Matrix.Point;
 import Matrix.Vector;
 import Matrix.ATFactory;
-import Objects.*;
-import Objects.Shape;
 import World.Cam;
 import World.Scene;
 import java.awt.*;
@@ -58,22 +55,8 @@ public class RayTracing3DEngine {
         // Create Affine Transformation Factory.
         IATFactory factory = new ATFactory();
 
-        // Define a scene.
-        Scene scene = new Scene( maxRecursionLevel );
-
-        // Define shapes.
-        Shape sphere1 = new Sphere()
-                .setMaterial( Material.Materials.gold )
-                .setATMatrix( factory.getTranslation(-2, 4, 0));
-        Shape sphere2 = new Sphere()
-                .setMaterial( Material.Materials.polished_silver )
-                .setATMatrix( factory.getTranslation(0, -0.5358983849, 0));
-        Shape sphere3 = new Sphere()
-                .setMaterial( Material.Materials.lambertian, new Rgb(0.0f, 0.0f, 1.0f) )
-                .setATMatrix( factory.getTranslation(2, 4, 0));
-        scene.addShape( sphere1 );
-        scene.addShape( sphere2 );
-        scene.addShape( sphere3 );
+        // Create an equilateral triangle of spheres.
+        Scene scene = new EquilateralTriangle( maxRecursionLevel, 4 , new Point(0, -1, 0));
 
         // Define light sources.
         LightSource source = new LightSource(0, 8, 0);

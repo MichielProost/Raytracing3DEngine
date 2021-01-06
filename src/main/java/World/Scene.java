@@ -33,6 +33,7 @@ public class Scene {
 
     /**
      * Create a new scene.
+     * @param maxRecursionLevel The maximum recursion level.
      */
     public Scene( int maxRecursionLevel ){
         // Create a list of objects and light sources.
