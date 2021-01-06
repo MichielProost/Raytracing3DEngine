@@ -51,6 +51,14 @@ public abstract class Shape {
     }
 
     /**
+     * Return the material of the shape.
+     * @return The material of the shape.
+     */
+    public Material getMaterial(){
+        return material;
+    }
+
+    /**
      * Set the material of this shape.
      * @param material The required material.
      * @return This shape.

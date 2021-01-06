@@ -72,10 +72,10 @@ public class Scene {
         }
 
         // Get the weights of the appropriate material.
-        float[] weights = intersection.getObject().material.get_weights();
+        float[] weights = intersection.getObject().getMaterial().get_weights();
 
-        // The color of the hit object.
-        Rgb color = intersection.getObject().material.getColor();
+        // The color of the object.
+        Rgb color = intersection.getObject().getMaterial().getColor();
 
         // Get ambient component.
         Rgb light = getAmbientComponent( intersection );
@@ -157,20 +157,31 @@ public class Scene {
 
             // If intersection exists.
             if (intersection != null){
-                intersection.setRay( ray );
                 intersection.setObject( object );
-                intersection.setLocation( object.getATMatrix().times( transformed.getPoint( intersection.getTime() )));
-                intersection.setNormal( object.getATMatrix().times( intersection.getNormal() ));
                 intersection.setTransformedRay( transformed );
                 intersectionMap.addIntersection( intersection );
             }
         }
 
-        // Return the closest intersection.
+        // Are there any intersections?
         if (intersectionMap.isEmpty()){
             return null;
         } else {
-            return intersectionMap.getClosestIntersection();
+            // Get the closest intersection.
+            Intersection intersection = intersectionMap.getClosestIntersection();
+
+            // Get information about the intersection.
+            Ray transformed = intersection.getTransformedRay();
+            Matrix ATMatrix = intersection.getObject().getATMatrix();
+
+            // Calculate location of intersection.
+            intersection.setLocation( ATMatrix.times( transformed.getPoint( intersection.getTime() )));
+
+            // Calculate normal of intersection.
+            intersection.setNormal( ATMatrix.times( intersection.getNormal() ));
+
+            // Return the intersection.
+            return intersection;
         }
     }
 

@@ -8,6 +8,9 @@ import java.util.Map;
  */
 public class IntersectionMap {
 
+    // Constants.
+    final double EPSILON = 0.0001;
+
     // A map containing intersections.
     private final Map<Double, Intersection> intersections;
 
@@ -51,9 +54,8 @@ public class IntersectionMap {
         // Put intersection in map.
         intersections.put(time, intersection);
 
-        double epsilon = 0.00001;
         // Check if this is the closest intersection.
-        if ((time >= epsilon) && (lowestTime == null || time < lowestTime)){
+        if ((time >= EPSILON) && (lowestTime == null || time < lowestTime)){
             // Time of closest intersection.
             lowestTime = time;
             // The closest intersection.

@@ -8,9 +8,6 @@ import Objects.Shape;
  * Intersection between ray and object.
  */
 public class Intersection {
-    // The ray.
-    private Ray ray;
-
     // The object.
     private Shape object;
 
@@ -36,14 +33,6 @@ public class Intersection {
         this.time = time;
         this.location = location;
         this.normal = normal;
-    }
-
-    /**
-     * Get the ray.
-     * @return The ray.
-     */
-    public Ray getRay(){
-        return ray;
     }
 
     /**
@@ -84,14 +73,6 @@ public class Intersection {
      */
     public Ray getTransformedRay(){
         return transformedRay;
-    }
-
-    /**
-     * Set the ray.
-     * @param ray The ray.
-     */
-    public void setRay(Ray ray){
-        this.ray = ray;
     }
 
     /**

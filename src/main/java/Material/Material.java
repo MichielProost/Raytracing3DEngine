@@ -2,13 +2,20 @@ package Material;
 
 import Graphics.Rgb;
 
+/**
+ * Every shape is of a specific material with its properties implemented in this class.
+ */
 public class Material {
+
+    // Constants.
+    final float REQUIRED_SHININESS = 0.05f;
+    final float REQUIRED_TRANSPARENCY = 1.0f;
 
     // The color of the material (default white).
     private Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
 
     // Default weights.
-    private float [] weights = new float[]{0.7f, 0.2f, 0.1f};
+    private float [] weights = new float[]{0.8f, 0.2f, 0.0f};
 
     // Ambient reflection coefficients.
     private Rgb rho_ambient;
@@ -18,6 +25,8 @@ public class Material {
 
     // Specular reflection coefficients.
     private Rgb rho_specular;
+
+    // The specular exponent.
     private double exponent;
 
     // Index of refraction.
@@ -35,7 +44,7 @@ public class Material {
     /**
      * Return the requested material.
      * @param type A material from the set of materials.
-     * @return The requested materials.
+     * @return The requested material. Returns null if the material cannot be found.
      */
     public Material getMaterial(Materials type){
         switch (type){
@@ -57,20 +66,20 @@ public class Material {
      * Return the requested material with a specified color.
      * @param type A material from the set of materials.
      * @param color The required color.
-     * @return The requested materials.
+     * @return The requested material. Returns null if the material cannot be found.
      */
     public Material getMaterial(Materials type, Rgb color){
         switch (type){
             case lambertian:
-                return new Lambertian(color);
+                return new Lambertian( color );
             case black_plastic:
-                return new BlackPlastic(color);
+                return new BlackPlastic( color );
             case gold:
-                return new Gold(color);
+                return new Gold( color );
             case polished_silver:
-                return new PolishedSilver(color);
+                return new PolishedSilver( color );
             case mirror:
-                return new Mirror(color);
+                return new Mirror( color );
         }
         return null;
     }
@@ -198,7 +207,7 @@ public class Material {
      * @return True if the material is shiny enough. False otherwise.
      */
     public boolean isShinyEnough(){
-        return weights[1] >= 0.05f;
+        return weights[1] >= REQUIRED_SHININESS;
     }
 
     /**
@@ -206,7 +215,7 @@ public class Material {
      * @return True if the material is transparent enough. False otherwise.
      */
     public boolean isTransparentEnough(){
-        return weights[2] >= 0.05f;
+        return weights[2] >= REQUIRED_TRANSPARENCY;
     }
 
 }
