@@ -5,6 +5,7 @@ import Interfaces.IATFactory;
 import Material.Material;
 import Matrix.ATFactory;
 import Matrix.Point;
+import Objects.Box;
 import Objects.Shape;
 import Objects.Sphere;
 import World.Scene;

@@ -162,6 +162,5 @@ public class Cam {
                 screen.drawPoint( c, r, color );
             }
         }
-        System.out.println("Rendered");
     }
 }

@@ -1,15 +1,20 @@
 import Graphics.Screen;
 import Interfaces.IATFactory;
+import Material.Material;
+import Matrix.ATFactory;
+import Objects.Box;
+import Objects.Shape;
+import Objects.Sphere;
 import World.Scenes.EquilateralTriangle;
 import World.LightSource;
 import Matrix.Point;
 import Matrix.Vector;
-import Matrix.ATFactory;
 import World.Cam;
 import World.Scene;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import Graphics.Rgb;
 
 /**
  * A 3D engine using the ray tracing principle.
@@ -55,11 +60,16 @@ public class RayTracing3DEngine {
         // Create Affine Transformation Factory.
         IATFactory factory = new ATFactory();
 
-        // Create an equilateral triangle of spheres.
-        Scene scene = new EquilateralTriangle( maxRecursionLevel, 4 , new Point(0, -1, 0));
+        // Create a new scene.
+        Scene scene = new Scene( maxRecursionLevel );
+        Shape box = new Box()
+                .setATMatrix( factory.getTranslation(0, 4, 0))
+                .setATMatrix( factory.getScaling(0.1,0.1,0.1));
+        scene.addShape( new Sphere().setMaterial(Material.Materials.gold) );
+        scene.addShape( box );
 
         // Define light sources.
-        LightSource source = new LightSource(0, 8, 0);
+        LightSource source = new LightSource(0, 8, 0).setColor(new Rgb(0.8f, 0.8f, 0.8f));
         scene.addSource( source );
 
         // Measure time in milliseconds.
