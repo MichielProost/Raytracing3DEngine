@@ -87,7 +87,7 @@ public class Scene {
         for (LightSource L: sources){
 
             // Check for shadow.
-            if ( isInShadow( getShadowRay( L, intersection ) ) ){
+            if ( isInShadow( getShadowRay( L, intersection )) || intersection.getTime() > 1){
                 continue;
             }
 
