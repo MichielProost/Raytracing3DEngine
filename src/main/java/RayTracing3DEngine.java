@@ -1,11 +1,11 @@
 import Graphics.Screen;
 import Interfaces.IATFactory;
 import Material.Material;
+import Material.Lambertian;
 import Matrix.ATFactory;
 import Objects.Box;
 import Objects.Shape;
 import Objects.Sphere;
-import World.Scenes.EquilateralTriangle;
 import World.LightSource;
 import Matrix.Point;
 import Matrix.Vector;
@@ -62,11 +62,16 @@ public class RayTracing3DEngine {
 
         // Create a new scene.
         Scene scene = new Scene( maxRecursionLevel );
+        Shape sphere = new Sphere()
+                .setMaterial( Material.Materials.mirror )
+                .setATMatrix( factory.getTranslation(0, 6, 0))
+                .setATMatrix( factory.getScaling(0.5, 0.5, 0.5));
         Shape box = new Box()
-                .setATMatrix( factory.getTranslation(0, 4, 0))
-                .setATMatrix( factory.getScaling(0.1,0.1,0.1));
-        scene.addShape( new Sphere().setMaterial(Material.Materials.gold) );
+                .setMaterial( Material.Materials.lambertian, new Rgb(0.0f, 0.5f, 0.0f) )
+                .setATMatrix( factory.getTranslation(0, 8, 0))
+                .setATMatrix( factory.getScaling(5,5,5));
         scene.addShape( box );
+        scene.addShape( sphere );
 
         // Define light sources.
         LightSource source = new LightSource(0, 8, 0).setColor(new Rgb(0.8f, 0.8f, 0.8f));
