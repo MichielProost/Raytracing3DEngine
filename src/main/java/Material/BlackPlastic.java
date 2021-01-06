@@ -46,7 +46,7 @@ public class BlackPlastic extends Material {
         Random r = new Random();
 
         // Color.
-        setColor(0.0f, 0.0f, 0.0f);
+        setColor(color.r(), color.g(), color.b());
 
         // Weights.
         set_weights(0.95f, 0.03f, 0.02f);

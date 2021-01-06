@@ -13,16 +13,21 @@ public class PolishedSilver extends Material {
     public PolishedSilver(){
         // Color.
         setColor(0.0f, 0.0f, 0.0f);
+
         // Weights.
-        set_weights(0.9f, 0.1f, 0.0f);
+        set_weights(0.75f, 0.2f, 0.05f);
+
         // Ambient component.
         set_ambient(0.23125f, 0.23125f, 0.23125f);
+
         // Diffuse component.
         set_diffuse(0.2755f, 0.2755f, 0.2755f);
+
         // Specular component.
         set_specular(0.773911f, 0.773911f, 0.773911f, 89.6);
+
         // Index of refraction.
-        set_refraction_index(0.74074);
+        set_refraction_index(0.13511);
     }
 
     /**
@@ -31,17 +36,22 @@ public class PolishedSilver extends Material {
      */
     public PolishedSilver(Rgb color){
         // Color.
-        setColor(0.0f, 0.0f, 0.0f);
+        setColor(color.r(), color.g(), color.b());
+
         // Weights.
-        set_weights(0.6f, 0.2f, 0.2f);
+        set_weights(0.75f, 0.2f, 0.05f);
+
         // Ambient component.
         set_ambient(0.23125f, 0.23125f, 0.23125f);
+
         // Diffuse component.
         set_diffuse(0.2755f, 0.2755f, 0.2755f);
+
         // Specular component.
         set_specular(0.773911f, 0.773911f, 0.773911f, 89.6);
+
         // Index of refraction.
-        set_refraction_index(0.74074);
+        set_refraction_index(0.13511);
     }
 
 }

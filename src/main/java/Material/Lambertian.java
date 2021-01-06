@@ -13,14 +13,19 @@ public class Lambertian extends Material {
     public Lambertian(){
         // Color.
         setColor(0.0f, 0.0f, 0.0f);
+
         // Weights.
-        set_weights(0.7f, 0.2f, 0.1f);
+        set_weights(0.8f, 0.2f, 0.0f);
+
         // Ambient component.
         set_ambient(0.3f, 0.3f, 0.3f);
+
         // Diffuse component.
         set_diffuse(0.5f, 0.5f, 0.5f);
+
         // Specular component.
         set_specular(0.2f, 0.2f, 0.2f,2.0);
+
         // Index of refraction.
         set_refraction_index(1.0);
     }
@@ -32,14 +37,19 @@ public class Lambertian extends Material {
     public Lambertian(Rgb color){
         // Color.
         setColor(color.r(), color.g(), color.b());
+
         // Weights.
-        set_weights(0.7f, 0.2f, 0.1f);
+        set_weights(0.8f, 0.2f, 0.0f);
+
         // Ambient component.
         set_ambient(0.3f, 0.3f, 0.3f);
+
         // Diffuse component.
         set_diffuse(0.5f, 0.5f, 0.5f);
+
         // Specular component.
         set_specular(0.2f, 0.2f, 0.2f,2.0);
+
         // Index of refraction.
         set_refraction_index(1.0);
     }
