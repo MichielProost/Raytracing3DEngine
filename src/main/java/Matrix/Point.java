@@ -81,7 +81,7 @@ public class Point extends Matrix{
      */
     public void setZ(double z){
         this.z = z;
-        put(1,0, z);
+        put(2,0, z);
     }
 
     /**

@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class Scene {
 
+    // Constants.
+    final double EPSILON = 0.000001;
+
     // Objects in the scene.
     public List<Shape> objects;
 
@@ -83,7 +86,7 @@ public class Scene {
         // Loop over every light source (for shading purposes).
         for (LightSource L: sources){
 
-             // Check for shadow.
+            // Check for shadow.
             if ( isInShadow( getShadowRay( L, intersection ) ) ){
                 continue;
             }
@@ -186,52 +189,46 @@ public class Scene {
     }
 
     /**
-     * Returns true if in shadow. Returns false otherwise.
-     * @param ray The sent out ray.
+     * Returns true if the intersection is in shadow. Returns false otherwise.
+     * @param ray The shadow ray.
      * @return True if in shadow. Returns false otherwise.
      */
     public boolean isInShadow(Ray ray){
 
-        // All intersections of ray with objects in the scene.
-        for (Shape object : objects){
-            // Check for collisions.
-            Intersection closestIntersection = object.getClosestIntersection( ray );
-            if (closestIntersection != null){
-                return true;
-            }
-        }
-        return false;
+        Intersection intersection = getClosestIntersection( ray );
+        return intersection != null;
 
     }
 
     /**
-     * Calculates a shadow feeler ray.
+     * Create a shadow ray (from intersection to light source).
      * @param L The light source.
-     * @param intersection Info about the first hit.
-     * @return The shadow feeler ray.
+     * @param intersection The intersection.
+     * @return The shadow ray.
      */
     public Ray getShadowRay(LightSource L, Intersection intersection){
 
-        // Create shadow feeler ray.
-        Ray feeler = new Ray();
+        // Create shadow ray.
+        Ray shadowRay = new Ray();
 
-        // The direction of the hit ray.
-        Vector hitRayDir = intersection.getTransformedRay().dir;
+        // The direction from the intersection to the light source.
+        Vector dir = L.getLocation().minus( intersection.getLocation() );
+        dir.normalize();
 
-        // Calculate the starting point of the shadow feeler ray.
-        double epsilon = 0.01;  // A small positive number.
+        // Calculate the starting point of the shadow ray.
         Point start = intersection.getLocation().minus(
-                new Vector(epsilon * hitRayDir.getX(),
-                        epsilon * hitRayDir.getY(),
-                        epsilon * hitRayDir.getZ())
+                new Vector(EPSILON * dir.getX(),
+                        EPSILON * dir.getY(),
+                        EPSILON * dir.getZ())
         );
 
-        // Set the starting point of the shadow feeler ray.
-        feeler.setStart(start);
-        // Set the direction of the shadow feeler ray.
-        feeler.setDir(L.location.minus(intersection.getLocation()));
+        // Set the starting point of the shadow ray.
+        shadowRay.setStart( start );
 
-        return feeler;
+        // Set the direction of the shadow ray.
+        shadowRay.setDir( dir );
+
+        return shadowRay;
 
     }
 
@@ -263,7 +260,7 @@ public class Scene {
         normal.normalize();
 
         // Vector from hit point to source.
-        Vector s = L.location.minus(intersection.getLocation());
+        Vector s = L.getLocation().minus(intersection.getLocation());
         // Normalize this vector.
         s.normalize();
 
@@ -303,7 +300,7 @@ public class Scene {
                 -intersection.getTransformedRay().dir.getZ());
 
         // Vector from hit point to source.
-        Vector s = L.location.minus(intersection.getLocation());
+        Vector s = L.getLocation().minus(intersection.getLocation());
         // Normalize this vector.
         s.normalize();
 

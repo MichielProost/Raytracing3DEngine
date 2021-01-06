@@ -9,7 +9,7 @@ import Matrix.*;
 public class LightSource {
 
     // The location of the light source.
-    public Point location;
+    private Point location;
 
     // The (default) color of the light source.
     public Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
@@ -22,6 +22,14 @@ public class LightSource {
      */
     public LightSource(double x, double y, double z){
         this.location = new Point(x, y, z);
+    }
+
+    /**
+     * Get the location of the light source.
+     * @return The location of the light source.
+     */
+    public Point getLocation(){
+        return location;
     }
 
     /**
