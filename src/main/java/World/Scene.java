@@ -313,10 +313,10 @@ public class Scene {
     public Rgb getSpecularComponent(LightSource L, Intersection intersection){
 
         // Get the reflective coefficients.
-        Rgb coefficients = intersection.getObject().material.specular_coefficients();
-        double exponent = intersection.getObject().material.getExponent();
+        Rgb coefficients = intersection.getObject().getMaterial().specular_coefficients();
+        double exponent = intersection.getObject().getMaterial().getExponent();
 
-        // Get the normal vector at the hit point.
+        // Get the normal vector at the intersection.
         Vector normal = intersection.getNormal();
         normal.normalize();
 
@@ -327,20 +327,20 @@ public class Scene {
                 -intersection.getTransformedRay().dir.getZ());
 
         // Vector from hit point to source.
-        Vector s = L.getLocation().minus(intersection.getLocation());
+        Vector s = L.getLocation().minus( intersection.getLocation() );
         // Normalize this vector.
         s.normalize();
 
         // The halfway vector.
-        Vector h = v.plus(s);
+        Vector h = v.plus( s );
         // Normalize this vector.
         h.normalize();
 
-        // Part of phong term.
-        double part = h.dot(normal);
-        if(part <= 0)  // No specular distribution.
+        // Dot product between halfway vector and normal.
+        double product = h.dot( normal );
+        if(product <= 0)  // No specular distribution.
             return background;
-        double phong = Math.pow(part, exponent);
+        double phong = Math.pow( product, exponent );
         return new Rgb( (float) phong * coefficients.r() * L.color.r(),
                 (float) phong * coefficients.g() * L.color.g(),
                 (float) phong * coefficients.b() * L.color.b());

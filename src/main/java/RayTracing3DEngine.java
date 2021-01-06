@@ -63,7 +63,7 @@ public class RayTracing3DEngine {
 
         // Define shapes.
         Shape sphere1 = new Sphere()
-                .setMaterial( Material.Materials.polished_silver )
+                .setMaterial( Material.Materials.lambertian, new Rgb(0.0f, 0.0f, 1.0f) )
                 .setATMatrix( factory.getTranslation(0, 4, 0));
         Shape sphere2 = new Sphere()
                 .setMaterial( Material.Materials.gold )
