@@ -3,13 +3,16 @@ package Graphics;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
 
 /**
  * Extended Surface Class that adds an image to the panel.
  */
 public class Surface extends JPanel {
 
-    private final BufferedImage image;
+    private BufferedImage image;
 
     /**
      * Initialize the surface.
@@ -33,6 +36,21 @@ public class Surface extends JPanel {
      */
     public void drawPoint(int x, int y, float r, float g, float b){
         image.setRGB(x, y, new Color(r, g, b).getRGB());
+    }
+
+    /**
+     * Blur the buffered image.
+     */
+    public void blur(){
+        // Construct a Kernel object from an array of floats.
+        Kernel kernel = new Kernel(3, 3,
+                new float[] { 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f });
+
+        // Execute a convolution.
+        BufferedImageOp op = new ConvolveOp( kernel );
+
+        // Set the appropriate image.
+        image = op.filter(image, null);
     }
 
     @Override

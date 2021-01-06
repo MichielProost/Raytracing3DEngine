@@ -29,6 +29,9 @@ public class Screen extends JFrame {
     private int width;
     private int height;
 
+    // Determines if the screen is blurred or not.
+    boolean isBlurred = false;
+
     /**
      * Create a new JFrame and add a surface - buffer - to it.
      * @param width The width of the surface (pixels).
@@ -145,10 +148,15 @@ public class Screen extends JFrame {
     }
 
     /**
-     * Force an update of the screen.
+     * Update of the screen.
      */
-    public void forceUpdate()
+    public void update()
     {
+        // Blur the screen if required.
+        if ( isBlurred ){
+            surface.blur();
+        }
+        // Repaint the surface.
         surface.repaint();
     }
 
@@ -159,7 +167,6 @@ public class Screen extends JFrame {
     public void processInput(Cam cam) {
 
         double vel = cam.getVelocity();
-        double D_angle = 2.0;
 
         // If pressing the down key.
         if (keyboard.keyDown( KeyEvent.VK_DOWN )) {
@@ -178,7 +185,7 @@ public class Screen extends JFrame {
         }
 
         // If pressing the left key.
-        if (keyboard.keyDown( KeyEvent.VK_LEFT)) {
+        if (keyboard.keyDown( KeyEvent.VK_LEFT )) {
             if (cam.controlState == Cam.ControlState.TRANSLATION){
                 // Slide the camera to the left.
                 cam.slide(-vel, 0.0, 0.0);
@@ -186,7 +193,7 @@ public class Screen extends JFrame {
         }
 
         // If pressing the right key.
-        if (keyboard.keyDown( KeyEvent.VK_RIGHT)) {
+        if (keyboard.keyDown( KeyEvent.VK_RIGHT )) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
                 // Slide the camera to the right.
                 cam.slide(vel, 0.0, 0.0);
@@ -194,7 +201,7 @@ public class Screen extends JFrame {
         }
 
         // If pressing S.
-        if (keyboard.keyDown( KeyEvent.VK_S)) {
+        if (keyboard.keyDown( KeyEvent.VK_S )) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
                 // Zoom in.
                 cam.slide(0.0,0.0, vel);
@@ -202,11 +209,15 @@ public class Screen extends JFrame {
         }
 
         // If pressing W.
-        if (keyboard.keyDown( KeyEvent.VK_W)) {
+        if (keyboard.keyDown( KeyEvent.VK_W )) {
             if (cam.controlState == Cam.ControlState.TRANSLATION) {
                 // Zoom out.
                 cam.slide(0.0,0.0, -vel);
             }
+        }
+
+        if (keyboard.keyDown( KeyEvent.VK_B )) {
+            isBlurred = !isBlurred;
         }
 
         // If pressing space.

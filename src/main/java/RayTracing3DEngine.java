@@ -63,14 +63,14 @@ public class RayTracing3DEngine {
 
         // Define shapes.
         Shape sphere1 = new Sphere()
-                .setMaterial( Material.Materials.lambertian, new Rgb(0.0f, 0.0f, 1.0f) )
+                .setMaterial( Material.Materials.polished_silver )
                 .setATMatrix( factory.getTranslation(0, 4, 0));
         Shape sphere2 = new Sphere()
                 .setMaterial( Material.Materials.gold )
                 .setATMatrix( factory.getTranslation(0, 6, 0))
                 .setATMatrix( factory.getScaling(0.4, 0.4, 0.4));
         scene.addShape( sphere1 );
-        //scene.addShape( sphere2 );
+        scene.addShape( sphere2 );
 
         // Define light sources.
         LightSource source = new LightSource(10, 10, 10);
@@ -82,7 +82,7 @@ public class RayTracing3DEngine {
 
         // Render the screen.
         cam.render( screen, scene );
-        screen.forceUpdate();
+        screen.update();
 
         while(true) {
             // Update every few milliseconds.
@@ -99,7 +99,7 @@ public class RayTracing3DEngine {
 
                 // Refresh the screen.
                 cam.render(screen, scene);
-                screen.forceUpdate();
+                screen.update();
             }
         }
     }
