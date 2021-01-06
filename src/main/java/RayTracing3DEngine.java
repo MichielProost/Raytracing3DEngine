@@ -70,10 +70,10 @@ public class RayTracing3DEngine {
                 .setATMatrix( factory.getTranslation(0, 6, 0))
                 .setATMatrix( factory.getScaling(0.4, 0.4, 0.4));
         scene.addShape( sphere1 );
-        scene.addShape( sphere2 );
+        //scene.addShape( sphere2 );
 
         // Define light sources.
-        LightSource source = new LightSource(0, 10, 0);
+        LightSource source = new LightSource(10, 10, 10);
         scene.addSource( source );
 
         // Measure time in milliseconds.

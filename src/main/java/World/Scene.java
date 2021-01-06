@@ -87,6 +87,7 @@ public class Scene {
         for (LightSource L: sources){
 
             // Check for shadow.
+            // TODO. Investigate object behind light source.
             if ( isInShadow( getShadowRay( L, intersection )) || intersection.getTime() > 1){
                 continue;
             }
@@ -274,21 +275,26 @@ public class Scene {
     public Rgb getDiffuseComponent(LightSource L, Intersection intersection){
 
         // Get the reflective coefficients.
-        Rgb coefficients = intersection.getObject().material.diffuse_coefficients();
+        Rgb coefficients = intersection.getObject().getMaterial().diffuse_coefficients();
 
-        // Get the normal vector at the hit point.
+        // Get the normal vector at the intersection.
         Vector normal = intersection.getNormal();
+        // Normalize this vector.
         normal.normalize();
 
         // Vector from hit point to source.
-        Vector s = L.getLocation().minus(intersection.getLocation());
+        Vector s = L.getLocation().minus( intersection.getLocation() );
         // Normalize this vector.
         s.normalize();
 
         // The lambert term.
-        double lambert = s.dot(normal);
+        double lambert = s.dot( normal );
+
+        // TODO. Why not this lambert formula?
+        //  double lambert = s.dot( normal ) / Math.abs( normal.getMagnitude() * s.getMagnitude());
+
         // Hit point is turned towards the light.
-        if (lambert > 0.0){
+        if ( lambert > 0.0 ){
             // Diffuse component.
             return new Rgb((float) lambert * coefficients.r() * L.color.r(),
                     (float) lambert * coefficients.g() * L.color.g(),
