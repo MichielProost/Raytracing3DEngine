@@ -5,14 +5,12 @@ import Matrix.Vector;
 import RayTracing.Intersection;
 import RayTracing.IntersectionMap;
 import RayTracing.Ray;
+import static Utils.Constants.BOX_SIZE;
 
 /**
- * A generic box with a given size.
+ * A generic box with a given BOX_SIZE.
  */
 public class Box extends Shape {
-
-    // The size of the box.
-    static final double size = 1.0;
 
     @Override
     public Intersection getClosestIntersection(Ray ray) {
@@ -33,9 +31,9 @@ public class Box extends Shape {
 
         // PLANE X = 1
         // -----------
-        t = (size - origin.getX()) / direction.getX();
+        t = (BOX_SIZE - origin.getX()) / direction.getX();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getY()) <= size && Math.abs(location.getZ()) <= size){
+        if (t >= 0 && Math.abs(location.getY()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE){
             handler.addIntersection(
                     new Intersection(t, location, new Vector(1, 0, 0))
             );
@@ -43,45 +41,45 @@ public class Box extends Shape {
 
         // PLANE X = -1
         // ------------
-        t = (-size - origin.getX()) / direction.getX();
+        t = (-BOX_SIZE - origin.getX()) / direction.getX();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getY()) <= size && Math.abs(location.getZ()) <= size)
+        if (t >= 0 && Math.abs(location.getY()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(-1, 0, 0))
             );
 
         // PLANE Y = 1
         // -----------
-        t = (size - origin.getY()) / direction.getY();
+        t = (BOX_SIZE - origin.getY()) / direction.getY();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getX()) <= size && Math.abs(location.getZ()) <= size)
+        if (t >= 0 && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(0, 1, 0))
             );
 
         // PLANE Y = -1
         // ------------
-        t = (-size - origin.getY()) / direction.getY();
+        t = (-BOX_SIZE - origin.getY()) / direction.getY();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getX()) <= size && Math.abs(location.getZ()) <= size)
+        if (t >= 0 && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(0, -1, 0))
             );
 
         // PLANE Z = 1
         // -----------
-        t = (size - origin.getZ()) / direction.getZ();
+        t = (BOX_SIZE - origin.getZ()) / direction.getZ();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getX()) <= size && Math.abs(location.getY()) <= size)
+        if (t >= 0 && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getY()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(0, 0, 1))
             );
 
         // PLANE Z = -1
         // ------------
-        t = (-size - origin.getZ()) / direction.getZ();
+        t = (-BOX_SIZE - origin.getZ()) / direction.getZ();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getX()) <= size && Math.abs(location.getY()) <= size)
+        if (t >= 0 && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getY()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(0, 0, -1))
             );

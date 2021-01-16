@@ -1,6 +1,7 @@
 package Material;
 
 import Graphics.Rgb;
+import static Utils.Constants.BLACK;
 
 /**
  * Class that represents a lambertian material.
@@ -12,7 +13,7 @@ public class Lambertian extends Material {
      */
     public Lambertian(){
         // Color.
-        setColor(0.0f, 0.0f, 0.0f);
+        setColor( BLACK );
 
         // Weights.
         set_weights(0.8f, 0.2f, 0.0f);

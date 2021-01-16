@@ -1,6 +1,7 @@
 package Material;
 
 import Graphics.Rgb;
+import static Utils.Constants.BLACK;
 
 /**
  * Class that represents a gold material.
@@ -12,7 +13,7 @@ public class Gold extends Material {
      */
     public Gold(){
         // Color.
-        setColor(0.0f, 0.0f, 0.0f);
+        setColor( BLACK );
 
         // Weights.
         set_weights(0.6f, 0.35f, 0.05f);

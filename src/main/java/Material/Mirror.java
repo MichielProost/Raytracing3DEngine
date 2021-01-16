@@ -1,6 +1,7 @@
 package Material;
 
 import Graphics.Rgb;
+import static Utils.Constants.BLACK;
 
 /**
  * Class that represents a mirror material.
@@ -12,7 +13,7 @@ public class Mirror extends Material {
      */
     public Mirror(){
         // Color.
-        setColor(0.0f, 0.0f, 0.0f);
+        setColor( BLACK );
 
         // Weights.
         set_weights(0.30f, 0.70f, 0.0f);

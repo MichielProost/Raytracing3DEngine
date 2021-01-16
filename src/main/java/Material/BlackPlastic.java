@@ -1,7 +1,7 @@
 package Material;
 
 import Graphics.Rgb;
-
+import static Utils.Constants.BLACK;
 import java.util.Random;
 
 /**
@@ -17,7 +17,7 @@ public class BlackPlastic extends Material {
         Random r = new Random();
 
         // Color.
-        setColor(0.0f, 0.0f, 0.0f);
+        setColor( BLACK );
 
         // Weights.
         set_weights(0.95f, 0.03f, 0.02f);

@@ -5,10 +5,13 @@ import Interfaces.IATFactory;
 import Material.Material;
 import Matrix.ATFactory;
 import Matrix.Point;
+import Matrix.Vector;
 import Objects.Box;
+import Objects.Plane;
 import Objects.Shape;
 import Objects.Sphere;
 import World.Scene;
+import static Utils.Constants.*;
 
 /**
  * Scene: Three spheres at the corners of an equilateral triangle.
@@ -40,11 +43,14 @@ public class EquilateralTriangle extends Scene {
                 .setMaterial( Material.Materials.polished_silver )
                 .setATMatrix( factory.getTranslation(top.getX(), top.getY(), top.getZ()));
         Shape sphere3 = new Sphere()
-                .setMaterial( Material.Materials.lambertian, new Rgb(0.0f, 0.0f, 1.0f) )
+                .setMaterial( Material.Materials.lambertian, BLUE )
                 .setATMatrix( factory.getTranslation(top.getX() + size/2, top.getY() + h, top.getZ()));
+        Shape plane = new Plane( new Vector(0, 0, 1), new Point(0, 0, 1 ))
+                .setMaterial( Material.Materials.lambertian, DARK_BROWN );
         addShape( sphere1 );
         addShape( sphere2 );
         addShape( sphere3 );
+        addShape( plane );
     }
 
 }

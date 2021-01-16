@@ -2,14 +2,12 @@ package RayTracing;
 
 import java.util.HashMap;
 import java.util.Map;
+import static Utils.Constants.EPSILON;
 
 /**
  * Provides information about a set of intersections.
  */
 public class IntersectionMap {
-
-    // Constants.
-    final double EPSILON = 0.0001;
 
     // A map containing intersections.
     private final Map<Double, Intersection> intersections;

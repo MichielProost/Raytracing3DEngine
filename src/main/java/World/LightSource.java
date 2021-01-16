@@ -2,6 +2,7 @@ package World;
 
 import Graphics.Rgb;
 import Matrix.*;
+import static Utils.Constants.WHITE;
 
 /**
  * Implements a light source in our scene: light-emitting.
@@ -12,7 +13,7 @@ public class LightSource {
     private Point location;
 
     // The (default) color of the light source.
-    public Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
+    public Rgb color = WHITE;
 
     /**
      * Constructor.

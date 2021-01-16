@@ -10,14 +10,13 @@ import Matrix.Vector;
 import Objects.Shape;
 import java.util.ArrayList;
 import java.util.List;
+import static Utils.Constants.EPSILON;
+import static Utils.Constants.AIR;
 
 /**
  * Describes our 3D world.
  */
 public class Scene {
-
-    // Constants.
-    final double EPSILON = 0.000001;
 
     // Objects in the scene.
     public List<Shape> objects;
@@ -29,7 +28,7 @@ public class Scene {
     public int maxRecursionLevel;
 
     // Default background is black.
-    public Rgb background = new Rgb(0.0f, 0.0f, 0.0f);
+    public Rgb background = AIR;
 
     /**
      * Create a new scene.

@@ -2,13 +2,12 @@ package Input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import static Utils.Constants.KEY_COUNT;
 
 /**
  * A class for polling keyboard input.
  */
 public class KeyboardInput implements KeyListener {
-
-    private static final int KEY_COUNT = 256;
 
     private enum KeyState {
         RELEASED,   // Not down.

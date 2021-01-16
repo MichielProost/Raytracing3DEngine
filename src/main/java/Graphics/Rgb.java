@@ -23,6 +23,19 @@ public class Rgb {
     }
 
     /**
+     * Create a new color.
+     * @param r Red component. Range [0 255].
+     * @param g Green component. Range [0 255].
+     * @param b Blue component. Range [0 255].
+     */
+    public Rgb(int r, int g, int b)
+    {
+        this.r = (float) r / 255;
+        this.g = (float) g / 255;
+        this.b = (float) b / 255;
+    }
+
+    /**
      * Return the red component.
      * @return The red component of this color.
      */

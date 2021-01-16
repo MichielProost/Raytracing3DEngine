@@ -1,18 +1,17 @@
 package Material;
 
 import Graphics.Rgb;
+import static Utils.Constants.REQUIRED_SHININESS;
+import static Utils.Constants.REQUIRED_TRANSPARENCY;
+import static Utils.Constants.WHITE;
 
 /**
  * Every shape is of a specific material with its properties implemented in this class.
  */
 public class Material {
 
-    // Constants.
-    final float REQUIRED_SHININESS = 0.05f;
-    final float REQUIRED_TRANSPARENCY = 1.0f;
-
     // The color of the material (default white).
-    private Rgb color = new Rgb(1.0f, 1.0f, 1.0f);
+    private Rgb color = WHITE;
 
     // Default weights.
     private float [] weights = new float[]{0.8f, 0.2f, 0.0f};
@@ -138,6 +137,14 @@ public class Material {
      */
     public double getRefraction_index(){
         return refraction_index;
+    }
+
+    /**
+     * Set the color of this material.
+     * @param color The required color.
+     */
+    public void setColor(Rgb color){
+        this.color = color;
     }
 
     /**

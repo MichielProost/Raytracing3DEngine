@@ -4,6 +4,7 @@ import Material.Material;
 import Material.Lambertian;
 import Matrix.ATFactory;
 import Objects.Box;
+import Objects.Plane;
 import Objects.Shape;
 import Objects.Sphere;
 import World.LightSource;
