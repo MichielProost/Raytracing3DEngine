@@ -43,7 +43,7 @@ public class Plane extends Shape {
         double product1 = w.dot( normal );
         double product2 = direction.dot( normal );
         double t = product1 / product2;
-        if (t >= 0 && t < 1.5 ){
+        if (t >= 0 && t < 1){
             return new Intersection(t, ray.getPoint( t ), normal);
         } else {
             return null;

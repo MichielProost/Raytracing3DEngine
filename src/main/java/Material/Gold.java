@@ -16,7 +16,7 @@ public class Gold extends Material {
         setColor( BLACK );
 
         // Weights.
-        set_weights(0.6f, 0.35f, 0.05f);
+        set_weights(0.8f, 0.15f, 0.05f);
 
         // Ambient component.
         set_ambient(0.24725f, 0.1955f, 0.0745f);
