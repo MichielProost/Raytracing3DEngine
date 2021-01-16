@@ -15,6 +15,7 @@ import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import Graphics.Rgb;
+import World.Scenes.EquilateralTriangle;
 
 /**
  * A 3D engine using the ray tracing principle.
@@ -61,17 +62,7 @@ public class RayTracing3DEngine {
         IATFactory factory = new ATFactory();
 
         // Create a new scene.
-        Scene scene = new Scene( maxRecursionLevel );
-        Shape sphere = new Sphere()
-                .setMaterial( Material.Materials.mirror )
-                .setATMatrix( factory.getTranslation(0, 6, 0))
-                .setATMatrix( factory.getScaling(0.5, 0.5, 0.5));
-        Shape box = new Box()
-                .setMaterial( Material.Materials.lambertian, new Rgb(0.0f, 0.5f, 0.0f) )
-                .setATMatrix( factory.getTranslation(0, 8, 0))
-                .setATMatrix( factory.getScaling(5,5,5));
-        scene.addShape( box );
-        scene.addShape( sphere );
+        Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, -1, 0));
 
         // Define light sources.
         LightSource source = new LightSource(0, 8, 0).setColor(new Rgb(0.8f, 0.8f, 0.8f));
