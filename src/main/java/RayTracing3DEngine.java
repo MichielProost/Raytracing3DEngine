@@ -66,7 +66,7 @@ public class RayTracing3DEngine {
         Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, -1, 0));
 
         // Define light sources.
-        LightSource source = new LightSource(0, 8, 0).setColor(new Rgb(0.8f, 0.8f, 0.8f));
+        LightSource source = new LightSource(0, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
         scene.addSource( source );
 
         // Measure time in milliseconds.

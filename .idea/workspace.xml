@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d37922cf-94ee-4f43-9fa0-0da2fa26b736" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Utils/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Graphics/Rgb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Graphics/Rgb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Input/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Input/KeyboardInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Material/BlackPlastic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Material/BlackPlastic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Material/Gold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Material/Gold.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Material/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Material/Material.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Objects/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Objects/Box.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Objects/Plane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Objects/Plane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RayTracing/IntersectionMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RayTracing/IntersectionMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/World/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/World/Scene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/World/Scenes/EquilateralTriangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/World/Scenes/EquilateralTriangle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,29 +115,29 @@
       <screen x="0" y="0" width="1280" height="690" />
     </state>
     <state x="422" y="100" key="FileChooserDialogImpl/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1603633733053" />
-    <state width="1877" height="337" key="GridCell.Tab.0.bottom" timestamp="1610789898119">
+    <state width="1877" height="337" key="GridCell.Tab.0.bottom" timestamp="1610790401388">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state width="1237" height="85" key="GridCell.Tab.0.bottom/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1607192191007" />
-    <state width="1877" height="337" key="GridCell.Tab.0.bottom/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1610789898119" />
+    <state width="1877" height="337" key="GridCell.Tab.0.bottom/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1610790401388" />
     <state width="1237" height="85" key="GridCell.Tab.0.bottom/0.0.1280.690@0.0.1280.690" timestamp="1609955757517" />
-    <state width="1877" height="337" key="GridCell.Tab.0.center" timestamp="1610789898119">
+    <state width="1877" height="337" key="GridCell.Tab.0.center" timestamp="1610790401388">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state width="1237" height="85" key="GridCell.Tab.0.center/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1607192191006" />
-    <state width="1877" height="337" key="GridCell.Tab.0.center/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1610789898119" />
+    <state width="1877" height="337" key="GridCell.Tab.0.center/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1610790401388" />
     <state width="1237" height="85" key="GridCell.Tab.0.center/0.0.1280.690@0.0.1280.690" timestamp="1609955757517" />
-    <state width="1877" height="337" key="GridCell.Tab.0.left" timestamp="1610789898119">
+    <state width="1877" height="337" key="GridCell.Tab.0.left" timestamp="1610790401388">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state width="1237" height="85" key="GridCell.Tab.0.left/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1607192191006" />
-    <state width="1877" height="337" key="GridCell.Tab.0.left/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1610789898119" />
+    <state width="1877" height="337" key="GridCell.Tab.0.left/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1610790401388" />
     <state width="1237" height="85" key="GridCell.Tab.0.left/0.0.1280.690@0.0.1280.690" timestamp="1609955757517" />
-    <state width="1877" height="337" key="GridCell.Tab.0.right" timestamp="1610789898119">
+    <state width="1877" height="337" key="GridCell.Tab.0.right" timestamp="1610790401388">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state width="1237" height="85" key="GridCell.Tab.0.right/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1607192191006" />
-    <state width="1877" height="337" key="GridCell.Tab.0.right/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1610789898119" />
+    <state width="1877" height="337" key="GridCell.Tab.0.right/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1610790401388" />
     <state width="1237" height="85" key="GridCell.Tab.0.right/0.0.1280.690@0.0.1280.690" timestamp="1609955757517" />
     <state width="1237" height="85" key="GridCell.Tab.1.bottom" timestamp="1609955757517">
       <screen x="0" y="0" width="1280" height="690" />
