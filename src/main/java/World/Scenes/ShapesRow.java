@@ -40,7 +40,7 @@ public class ShapesRow extends Scene {
                 .setATMatrix( factory.getTranslation(2, 3, 0.25) )
                 .setATMatrix( factory.getScaling( 0.60, 0.60, 0.60 ))
                 .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Y, -50));
-        Shape ground = new Plane( new Vector(0, 0, 1), new Point(0, 0, 1 ))
+        Shape ground = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
                 .setMaterial( Material.Materials.lambertian, DARK_BROWN );
         addShape( cylinder );
         addShape( sphere );

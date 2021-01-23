@@ -282,6 +282,12 @@ public class Scene {
         // Normalize this vector.
         normal.normalize();
 
+        // Invert the normal if located on  other side of object.
+        Ray transformed = intersection.getTransformedRay();
+        if( transformed.dir.dot(normal) > 0){
+            normal = new Vector( -normal.getX(), -normal.getY(), -normal.getZ() );
+        }
+
         // Vector from hit point to source.
         Vector s = L.getLocation().minus( intersection.getLocation() );
         // Normalize this vector.
@@ -320,11 +326,17 @@ public class Scene {
         Vector normal = intersection.getNormal();
         normal.normalize();
 
+        // Invert the normal if located on  other side of object.
+        Ray transformed = intersection.getTransformedRay();
+        if( transformed.dir.dot(normal) > 0){
+            normal = new Vector( -normal.getX(), -normal.getY(), -normal.getZ() );
+        }
+
         // Negative of the ray's direction. Points to the viewer.
         Vector v = new Vector(
-                -intersection.getTransformedRay().dir.getX(),
-                -intersection.getTransformedRay().dir.getY(),
-                -intersection.getTransformedRay().dir.getZ());
+                -transformed.dir.getX(),
+                -transformed.dir.getY(),
+                -transformed.dir.getZ());
 
         // Vector from hit point to source.
         Vector s = L.getLocation().minus( intersection.getLocation() );

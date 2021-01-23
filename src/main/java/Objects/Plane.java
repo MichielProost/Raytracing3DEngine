@@ -37,7 +37,7 @@ public class Plane extends Shape {
         Vector direction = ray.dir;
 
         // The vector between the origin of the ray and the point on the plane.
-        Vector w = origin.minus( point );
+        Vector w = point.minus( origin );
 
         // Determine the time at which the intersection occurs.
         double product1 = w.dot( normal );
