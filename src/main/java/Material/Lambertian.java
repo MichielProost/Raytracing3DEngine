@@ -16,7 +16,7 @@ public class Lambertian extends Material {
         setColor( BLACK );
 
         // Weights.
-        set_weights(0.8f, 0.2f, 0.0f);
+        set_weights(0.95f, 0.05f, 0.0f);
 
         // Ambient component.
         set_ambient(0.3f, 0.3f, 0.3f);

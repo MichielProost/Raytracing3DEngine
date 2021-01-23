@@ -36,6 +36,7 @@ public class Material {
         lambertian,
         black_plastic,
         gold,
+        bronze,
         polished_silver,
         mirror
     }
@@ -53,6 +54,8 @@ public class Material {
                 return new BlackPlastic();
             case gold:
                 return new Gold();
+            case bronze:
+                return new Bronze();
             case polished_silver:
                 return new PolishedSilver();
             case mirror:
@@ -75,6 +78,8 @@ public class Material {
                 return new BlackPlastic( color );
             case gold:
                 return new Gold( color );
+            case bronze:
+                return new Bronze( color );
             case polished_silver:
                 return new PolishedSilver( color );
             case mirror:

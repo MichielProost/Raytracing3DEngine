@@ -4,55 +4,55 @@ import Graphics.Rgb;
 import static Utils.Constants.BLACK;
 
 /**
- * Class that represents a gold material.
+ * Class that represents a bronze material.
  */
-public class Gold extends Material {
+public class Bronze extends Material{
+
 
     /**
-     * Create a gold material.
+     * Create a bronze material.
      */
-    public Gold(){
+    public Bronze(){
         // Color.
         setColor( BLACK );
 
         // Weights.
-        set_weights(0.8f, 0.15f, 0.05f);
+        set_weights(0.85f, 0.10f, 0.05f);
 
         // Ambient component.
-        set_ambient(0.24725f, 0.1955f, 0.0745f);
+        set_ambient(0.2125f, 0.1275f, 0.054f);
 
         // Diffuse component.
-        set_diffuse(0.75164f, 0.60648f, 0.22648f);
+        set_diffuse(0.714f, 0.4284f, 0.18144f);
 
         // Specular component.
-        set_specular(0.628281f, 0.555802f, 0.366065f, 51.2);
+        set_specular(0.393548f, 0.271906f, 0.166271f, 25.6);
 
         // Index of refraction.
         set_refraction_index(0.18104);
     }
 
     /**
-     * Create a gold material with a specified color.
+     * Create a bronze material with a specified color.
      * @param color The required color.
      */
-    public Gold(Rgb color){
+    public Bronze(Rgb color){
         // Color.
         setColor(color.r(), color.g(), color.b());
 
         // Weights.
-        set_weights(0.8f, 0.15f, 0.05f);
+        set_weights(0.85f, 0.10f, 0.05f);
 
         // Ambient component.
-        set_ambient(0.24725f, 0.1955f, 0.0745f);
+        set_ambient(0.2125f, 0.1275f, 0.054f);
 
         // Diffuse component.
-        set_diffuse(0.75164f, 0.60648f, 0.22648f);
+        set_diffuse(0.714f, 0.4284f, 0.18144f);
 
         // Specular component.
-        set_specular(0.628281f, 0.555802f, 0.366065f, 51.2);
+        set_specular(0.393548f, 0.271906f, 0.166271f, 25.6);
 
         // Index of refraction.
         set_refraction_index(0.18104);
     }
-
 }
