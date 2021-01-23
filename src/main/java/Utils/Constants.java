@@ -27,6 +27,7 @@ public final class Constants {
 
     // Shapes.
     public static final int BOX_SIZE = 1;
+    public static final double BOX_EPS = 0.00001;
     public static final double CYLINDER_EPS = 0.00001;
 
     // Intersection.

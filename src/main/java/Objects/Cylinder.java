@@ -58,14 +58,14 @@ public class Cylinder extends Shape{
         double t4 = (-1 - origin.getZ()) / direction.getZ();
 
         // Plane Y = 1.
-        if ( t3 >= 0 && betweenWalls(ray, t3) ){
+        if ( t3 >= CYLINDER_EPS && betweenWalls(ray, t3) ){
             Point location = ray.getPoint( t3 );
             handler.addIntersection(
                     new Intersection( t3, location, new Vector(0, 0, 1) )
             );
         }
         // Plane Y = -1.
-        if ( t4 >= 0 && betweenWalls(ray, t4) ){
+        if ( t4 >= CYLINDER_EPS && betweenWalls(ray, t4) ){
             Point location = ray.getPoint( t4 );
             handler.addIntersection(
                     new Intersection( t4, location, new Vector(0, 0, -1) )

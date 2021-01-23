@@ -26,7 +26,7 @@ public class EquilateralTriangle extends Scene {
      * @param size Length of the sides.
      * @param top The location of the top sphere.
      */
-    public EquilateralTriangle(int maxRecursionLevel, double size, Point top ){
+    public EquilateralTriangle( int maxRecursionLevel, double size, Point top ){
         // Create a new scene.
         super( maxRecursionLevel );
 

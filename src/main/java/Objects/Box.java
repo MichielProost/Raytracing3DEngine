@@ -6,6 +6,7 @@ import RayTracing.Intersection;
 import RayTracing.IntersectionMap;
 import RayTracing.Ray;
 import static Utils.Constants.BOX_SIZE;
+import static Utils.Constants.BOX_EPS;
 
 /**
  * A generic box with a given BOX_SIZE.
@@ -33,7 +34,7 @@ public class Box extends Shape {
         // -----------
         t = (BOX_SIZE - origin.getX()) / direction.getX();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getY()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE){
+        if (t >= BOX_EPS && Math.abs(location.getY()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE){
             handler.addIntersection(
                     new Intersection(t, location, new Vector(1, 0, 0))
             );
@@ -43,7 +44,7 @@ public class Box extends Shape {
         // ------------
         t = (-BOX_SIZE - origin.getX()) / direction.getX();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getY()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
+        if (t >= BOX_EPS && Math.abs(location.getY()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(-1, 0, 0))
             );
@@ -52,7 +53,7 @@ public class Box extends Shape {
         // -----------
         t = (BOX_SIZE - origin.getY()) / direction.getY();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
+        if (t >= BOX_EPS && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(0, 1, 0))
             );
@@ -61,7 +62,7 @@ public class Box extends Shape {
         // ------------
         t = (-BOX_SIZE - origin.getY()) / direction.getY();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
+        if (t >= BOX_EPS && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getZ()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(0, -1, 0))
             );
@@ -70,7 +71,7 @@ public class Box extends Shape {
         // -----------
         t = (BOX_SIZE - origin.getZ()) / direction.getZ();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getY()) <= BOX_SIZE)
+        if (t >= BOX_EPS && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getY()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(0, 0, 1))
             );
@@ -79,7 +80,7 @@ public class Box extends Shape {
         // ------------
         t = (-BOX_SIZE - origin.getZ()) / direction.getZ();
         location = ray.getPoint( t );
-        if (t >= 0 && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getY()) <= BOX_SIZE)
+        if (t >= BOX_EPS && Math.abs(location.getX()) <= BOX_SIZE && Math.abs(location.getY()) <= BOX_SIZE)
             handler.addIntersection(
                     new Intersection(t, location, new Vector(0, 0, -1))
             );
