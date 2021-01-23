@@ -2,8 +2,10 @@ import Graphics.Screen;
 import Interfaces.IATFactory;
 import Material.Material;
 import Matrix.ATFactory;
+import Objects.Cylinder;
 import Objects.Plane;
 import Objects.Shape;
+import Objects.Sphere;
 import World.LightSource;
 import Matrix.Point;
 import Matrix.Vector;
@@ -61,7 +63,11 @@ public class RayTracing3DEngine {
         IATFactory factory = new ATFactory();
 
         // Create a new scene.
-        Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, 0, 0));
+        // Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, 0, 0));
+        Scene scene = new Scene( maxRecursionLevel );
+        Shape cylinder = new Cylinder()
+                .setMaterial( Material.Materials.polished_silver );
+        scene.addShape( cylinder );
 
         // Define light sources.
         LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));

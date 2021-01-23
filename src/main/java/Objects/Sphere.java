@@ -6,7 +6,7 @@ import RayTracing.IntersectionMap;
 import RayTracing.Ray;
 
 /**
- * A generic sphere with a certain radius.
+ * A generic sphere.
  */
 public class Sphere extends Shape {
 
