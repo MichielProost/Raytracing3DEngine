@@ -2,6 +2,7 @@ import Graphics.Screen;
 import Interfaces.IATFactory;
 import Material.Material;
 import Matrix.ATFactory;
+import Objects.Box;
 import Objects.Plane;
 import Objects.Shape;
 import Objects.Sphere;
