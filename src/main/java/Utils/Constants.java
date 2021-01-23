@@ -25,7 +25,7 @@ public final class Constants {
 
     // Material.
     public static final float REQUIRED_SHININESS = 0.05f;
-    public static final float REQUIRED_TRANSPARENCY = 0.01f;
+    public static final float REQUIRED_TRANSPARENCY = 0.05f;
 
     // Shapes.
     public static final int BOX_SIZE = 1;

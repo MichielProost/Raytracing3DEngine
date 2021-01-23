@@ -28,7 +28,7 @@ public class ShapesRow extends Scene {
 
         // Define shapes.
         Shape cylinder = new Cylinder()
-                .setMaterial( Material.Materials.bronze)
+                .setMaterial( Material.Materials.glass)
                 .setATMatrix( factory.getTranslation(-2, 3, 0.25) )
                 .setATMatrix( factory.getScaling( 0.60, 0.60, 0.60 ))
                 .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Y, 50));
