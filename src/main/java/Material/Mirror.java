@@ -16,7 +16,7 @@ public class Mirror extends Material {
         setColor( BLACK );
 
         // Weights.
-        set_weights(0.30f, 0.70f, 0.0f);
+        set_weights(0.3f, 0.7f, 0.0f);
 
         // Ambient component.
         set_ambient(0.35f, 0.35f, 0.35f);

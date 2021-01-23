@@ -18,6 +18,7 @@ public final class Constants {
     public static final Rgb RED = new Rgb(1.0f, 0.0f, 0.0f);
     public static final Rgb GREEN = new Rgb(0.0f, 1.0f, 0.0f);
     public static final Rgb BLUE = new Rgb(0.0f, 0.0f, 1.0f);
+    public static final Rgb YELLOW = new Rgb(255, 255, 0);
     public static final Rgb LIGHT_BROWN = new Rgb(202, 164, 114);
     public static final Rgb DARK_BROWN = new Rgb(93, 67, 44);
 
