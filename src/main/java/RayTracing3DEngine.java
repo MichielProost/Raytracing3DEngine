@@ -2,7 +2,6 @@ import Graphics.Screen;
 import Interfaces.IATFactory;
 import Material.Material;
 import Matrix.ATFactory;
-import Objects.Cylinder;
 import Objects.Plane;
 import Objects.Shape;
 import Objects.Sphere;
@@ -16,8 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import Graphics.Rgb;
 import World.Scenes.EquilateralTriangle;
-import World.Scenes.ShapesRow;
-
 import static Utils.Constants.*;
 
 /**
@@ -65,7 +62,7 @@ public class RayTracing3DEngine {
         IATFactory factory = new ATFactory();
 
         // Create a new scene.
-        Scene scene = new ShapesRow( maxRecursionLevel );
+        Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, 0, 0));
 
         // Define light sources.
         LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));

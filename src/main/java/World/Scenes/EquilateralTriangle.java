@@ -44,7 +44,7 @@ public class EquilateralTriangle extends Scene {
                 .setMaterial( Material.Materials.polished_silver )
                 .setATMatrix( factory.getTranslation(top.getX(), top.getY(), top.getZ()));
         Shape sphere3 = new Sphere()
-                .setMaterial( Material.Materials.mirror )
+                .setMaterial( Material.Materials.glass )
                 .setATMatrix( factory.getTranslation(top.getX() + size/2, top.getY() + h, top.getZ()));
         Shape ground = new Plane( new Vector(0, 0, 1), new Point(0, 0, 1 ))
                 .setMaterial( Material.Materials.lambertian, DARK_BROWN );

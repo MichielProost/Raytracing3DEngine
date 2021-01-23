@@ -38,7 +38,8 @@ public class Material {
         gold,
         bronze,
         polished_silver,
-        mirror
+        mirror,
+        glass
     }
 
     /**
@@ -60,6 +61,8 @@ public class Material {
                 return new PolishedSilver();
             case mirror:
                 return new Mirror();
+            case glass:
+                return new Glass();
         }
         return null;
     }
@@ -84,6 +87,8 @@ public class Material {
                 return new PolishedSilver( color );
             case mirror:
                 return new Mirror( color );
+            case glass:
+                return new Glass( color );
         }
         return null;
     }
