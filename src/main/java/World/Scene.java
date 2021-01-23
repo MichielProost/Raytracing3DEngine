@@ -27,7 +27,7 @@ public class Scene {
     // Max recursion level.
     public int maxRecursionLevel;
 
-    // Default background is black.
+    // Default background is air.
     public Rgb background = AIR;
 
     /**
@@ -395,6 +395,8 @@ public class Scene {
         Vector dir_hit = intersection.getTransformedRay().dir;
         dir_hit.normalize();
 
+        // System.out.println(intersection.getTransformedRay().dir);
+
         // Dot product between ray and normal.
         double product = minus_normal.dot(dir_hit);
 
@@ -403,7 +405,7 @@ public class Scene {
         // double index = 1;
 
         // cos(02)
-        double cos = Math.sqrt(1 - (Math.pow(index, 2)) * (1 - Math.pow(product, 2)));
+        double cos = Math.sqrt(1 - ((Math.pow(index, 2)) * (1 - Math.pow(product, 2))));
 
         // Calculate factor for determining transmitted direction.
         double factor = (index * product) - cos;
@@ -411,11 +413,14 @@ public class Scene {
         // Get transmitted direction.
         Vector vector1 = new Vector(index * dir_hit.getX(), index * dir_hit.getY(), index * dir_hit.getZ());
         Vector vector2 = new Vector(factor * normal.getX(), factor * normal.getY(), factor * normal.getZ());
-        Vector dir = vector1.plus(vector2);
+        Vector dir = vector1.plus( vector2 );
+        dir.normalize();
+
+        // System.out.println(dir);
 
         // Build refracted ray.
         Ray refracted = new Ray(
-                intersection.getLocation(),
+                intersection.getLocation().plus( new Vector(dir.getX() * 0.001, dir.getY() * 0.001, dir.getZ() * 0.001)),
                 dir
         );
 
@@ -423,7 +428,7 @@ public class Scene {
         refracted.recurseLevel = intersection.getTransformedRay().recurseLevel + 1;
 
         // Refracted component.
-        return this.rayTrace(refracted);
+        return this.rayTrace( refracted );
 
     }
 }

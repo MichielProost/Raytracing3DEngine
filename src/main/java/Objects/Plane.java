@@ -3,8 +3,8 @@ package Objects;
 import Matrix.Point;
 import Matrix.Vector;
 import RayTracing.Intersection;
-import RayTracing.IntersectionMap;
 import RayTracing.Ray;
+import static Utils.Constants.PLANE_EPS;
 
 /**
  * A generic plane that is defined by a normal vector and a point.
@@ -43,7 +43,7 @@ public class Plane extends Shape {
         double product1 = w.dot( normal );
         double product2 = direction.dot( normal );
         double t = product1 / product2;
-        if (t >= 0 && t < 1){
+        if (t >= PLANE_EPS && t < 1){
             return new Intersection(t, ray.getPoint( t ), normal);
         } else {
             return null;
