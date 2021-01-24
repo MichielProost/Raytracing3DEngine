@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d37922cf-94ee-4f43-9fa0-0da2fa26b736" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Material/Texture/SmoothColors.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Material/Texture/Checkerboard2D.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Material/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Material/Material.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Material/Texture/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Material/Texture/Texture.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Objects/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Objects/Shape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/World/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/World/Scene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RayTracing3DEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/World/Scenes/ShapesRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/World/Scenes/ShapesRow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/World/Scenes/TexturesRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/World/Scenes/TexturesRow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,19 +92,20 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1297" y="-1010" key="#com.intellij.ide.util.MemberChooser" timestamp="1611502239813">
+    <state x="1297" y="-1010" key="#com.intellij.ide.util.MemberChooser" timestamp="1611508913341">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state x="411" y="46" key="#com.intellij.ide.util.MemberChooser/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1604650900106" />
-    <state x="1297" y="-1010" key="#com.intellij.ide.util.MemberChooser/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611502239813" />
+    <state x="1297" y="-1010" key="#com.intellij.ide.util.MemberChooser/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611508913341" />
     <state x="411" y="46" key="#com.intellij.ide.util.MemberChooser/0.0.1280.690@0.0.1280.690" timestamp="1609858688814" />
     <state x="1371" y="-630" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1611392873996">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state x="1371" y="-630" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611392873996" />
-    <state x="372" y="92" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1609863708982">
-      <screen x="0" y="0" width="1280" height="690" />
+    <state x="1238" y="-940" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1611508758937">
+      <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
+    <state x="1238" y="-940" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611508758937" />
     <state x="372" y="92" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.690@0.0.1280.690" timestamp="1609863708982" />
     <state x="372" y="92" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1607085590227">
       <screen x="0" y="0" width="1280" height="690" />
@@ -120,29 +123,29 @@
       <screen x="0" y="0" width="1280" height="690" />
     </state>
     <state x="422" y="100" key="FileChooserDialogImpl/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1603633733053" />
-    <state width="1877" height="181" key="GridCell.Tab.0.bottom" timestamp="1611507216914">
+    <state width="1877" height="181" key="GridCell.Tab.0.bottom" timestamp="1611509910098">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state width="1237" height="100" key="GridCell.Tab.0.bottom/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1611484498545" />
-    <state width="1877" height="181" key="GridCell.Tab.0.bottom/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611507216914" />
+    <state width="1877" height="181" key="GridCell.Tab.0.bottom/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611509910098" />
     <state width="1237" height="71" key="GridCell.Tab.0.bottom/0.0.1280.690@0.0.1280.690" timestamp="1611479522501" />
-    <state width="1877" height="181" key="GridCell.Tab.0.center" timestamp="1611507216914">
+    <state width="1877" height="181" key="GridCell.Tab.0.center" timestamp="1611509910098">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state width="1237" height="100" key="GridCell.Tab.0.center/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1611484498529" />
-    <state width="1877" height="181" key="GridCell.Tab.0.center/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611507216914" />
+    <state width="1877" height="181" key="GridCell.Tab.0.center/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611509910098" />
     <state width="1237" height="71" key="GridCell.Tab.0.center/0.0.1280.690@0.0.1280.690" timestamp="1611479522500" />
-    <state width="1877" height="181" key="GridCell.Tab.0.left" timestamp="1611507216914">
+    <state width="1877" height="181" key="GridCell.Tab.0.left" timestamp="1611509910098">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state width="1237" height="100" key="GridCell.Tab.0.left/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1611484498529" />
-    <state width="1877" height="181" key="GridCell.Tab.0.left/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611507216914" />
+    <state width="1877" height="181" key="GridCell.Tab.0.left/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611509910098" />
     <state width="1237" height="71" key="GridCell.Tab.0.left/0.0.1280.690@0.0.1280.690" timestamp="1611479522500" />
-    <state width="1877" height="181" key="GridCell.Tab.0.right" timestamp="1611507216914">
+    <state width="1877" height="181" key="GridCell.Tab.0.right" timestamp="1611509910098">
       <screen x="680" y="-1080" width="1920" height="1050" />
     </state>
     <state width="1237" height="100" key="GridCell.Tab.0.right/0.0.1280.690/680.-1080.1920.1050@0.0.1280.690" timestamp="1611484498545" />
-    <state width="1877" height="181" key="GridCell.Tab.0.right/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611507216914" />
+    <state width="1877" height="181" key="GridCell.Tab.0.right/0.0.1280.690/680.-1080.1920.1050@680.-1080.1920.1050" timestamp="1611509910098" />
     <state width="1237" height="71" key="GridCell.Tab.0.right/0.0.1280.690@0.0.1280.690" timestamp="1611479522501" />
     <state width="1877" height="152" key="GridCell.Tab.1.bottom" timestamp="1611502888112">
       <screen x="680" y="-1080" width="1920" height="1050" />

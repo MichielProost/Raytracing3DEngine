@@ -6,10 +6,7 @@ import Material.Texture.Texture;
 import Matrix.ATFactory;
 import Matrix.Point;
 import Matrix.Vector;
-import Objects.Cylinder;
-import Objects.Plane;
-import Objects.Shape;
-import Objects.Sphere;
+import Objects.*;
 import World.Scene;
 import static Utils.Constants.*;
 
@@ -42,7 +39,8 @@ public class TexturesRow extends Scene {
                 .setATMatrix( factory.getTranslation(0, 2, 0));
         Shape ground = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
                 .setFinite()
-                .setMaterial( Material.Materials.lambertian, DARK_BROWN );
+                .setMaterial( Material.Materials.lambertian, DARK_BROWN )
+                .setTexture( Texture.Textures.checkerboard2D );
         addShape( smoothColors );
         addShape( stripes );
         addShape( ground );

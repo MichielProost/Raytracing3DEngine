@@ -3,6 +3,7 @@ package Objects;
 import Graphics.Rgb;
 import Material.Material;
 import Material.Materials.Lambertian;
+import Material.Texture.Checkerboard2D;
 import Material.Texture.SmoothColors;
 import Material.Texture.Stripes;
 import Material.Texture.Texture;
@@ -139,6 +140,9 @@ public abstract class Shape {
                 break;
             case smoothColors:
                 texture = new SmoothColors();
+                break;
+            case checkerboard2D:
+                texture = new Checkerboard2D();
                 break;
         }
         return this;

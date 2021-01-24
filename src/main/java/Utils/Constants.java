@@ -22,6 +22,8 @@ public final class Constants {
     public static final Rgb PURPLE = new Rgb(139, 49, 225);
     public static final Rgb LIGHT_BROWN = new Rgb(202, 164, 114);
     public static final Rgb DARK_BROWN = new Rgb(93, 67, 44);
+    public static final Rgb CHESS_DARK = new Rgb(184, 139, 74);
+    public static final Rgb CHESS_LIGHT = new Rgb(227, 193, 111);
 
     // Material.
     public static final float REQUIRED_SHININESS = 0.05f;
@@ -38,5 +40,7 @@ public final class Constants {
 
     // Textures.
     public static final double STRIPE_WIDTH = 0.1;
+    public static final double CHECKER_SQUARE_X = 0.4;
+    public static final double CHECKER_SQUARE_Y = 0.4;
 
 }
