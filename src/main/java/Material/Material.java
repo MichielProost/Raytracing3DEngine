@@ -1,6 +1,7 @@
 package Material;
 
 import Graphics.Rgb;
+import Material.Materials.*;
 import Material.Texture.Stripes;
 import Material.Texture.Texture;
 

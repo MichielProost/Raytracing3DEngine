@@ -1,6 +1,8 @@
-package Material;
+package Material.Materials;
 
 import Graphics.Rgb;
+import Material.Material;
+
 import static Utils.Constants.BLACK;
 
 /**

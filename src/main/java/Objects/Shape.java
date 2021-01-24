@@ -2,7 +2,7 @@ package Objects;
 
 import Graphics.Rgb;
 import Material.Material;
-import Material.Lambertian;
+import Material.Materials.Lambertian;
 import Material.Texture.Texture;
 import Matrix.*;
 import RayTracing.Intersection;

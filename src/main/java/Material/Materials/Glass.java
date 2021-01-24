@@ -1,22 +1,24 @@
-package Material;
+package Material.Materials;
 
 import Graphics.Rgb;
+import Material.Material;
+
 import static Utils.Constants.BLACK;
 
 /**
- * Class that represents a mirror material.
+ * Class that represents a glass material.
  */
-public class Mirror extends Material {
+public class Glass extends Material {
 
     /**
-     * Create a mirror material.
+     * Create a glass material.
      */
-    public Mirror(){
+    public Glass(){
         // Color.
         setColor( BLACK );
 
         // Weights.
-        set_weights(0.3f, 0.7f, 0.0f);
+        set_weights(0.0f, 0.0f, 1.0f);
 
         // Ambient component.
         set_ambient(0.35f, 0.35f, 0.35f);
@@ -28,19 +30,19 @@ public class Mirror extends Material {
         set_specular(0.6f, 0.6f, 0.6f, 128.0);
 
         // Index of refraction.
-        set_refraction_index(1.693);
+        set_refraction_index(1);
     }
 
     /**
-     * Create a mirror material with a specified color.
+     * Create a glass material with a specified color.
      * @param color The required color.
      */
-    public Mirror(Rgb color){
+    public Glass(Rgb color){
         // Color.
         setColor(color.r(), color.g(), color.b());
 
         // Weights.
-        set_weights(0.30f, 0.70f, 0.0f);
+        set_weights(0.0f, 0.0f, 1.0f);
 
         // Ambient component.
         set_ambient(0.35f, 0.35f, 0.35f);
@@ -52,6 +54,6 @@ public class Mirror extends Material {
         set_specular(0.6f, 0.6f, 0.6f, 128.0);
 
         // Index of refraction.
-        set_refraction_index(1.693);
+        set_refraction_index(1.5);
     }
 }

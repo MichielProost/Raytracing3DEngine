@@ -1,18 +1,15 @@
 package World.Scenes;
 
-import Graphics.Rgb;
 import Interfaces.IATFactory;
 import Material.Material;
 import Matrix.ATFactory;
 import Matrix.Point;
 import Matrix.Vector;
-import Objects.Box;
 import Objects.Plane;
 import Objects.Shape;
 import Objects.Sphere;
 import World.Scene;
 import static Utils.Constants.*;
-import Material.Lambertian;
 
 /**
  * Scene: Three spheres at the corners of an equilateral triangle.
