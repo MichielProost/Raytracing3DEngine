@@ -17,6 +17,9 @@ public class Plane extends Shape {
     // A point in the plane.
     Point point;
 
+    // Whether the plane is infinite or not.
+    boolean infinite = true;
+
     /**
      * Create a new plane.
      * @param normal The normal vector of the plane.
@@ -26,6 +29,15 @@ public class Plane extends Shape {
         super();
         this.normal = normal;
         this.point = point;
+    }
+
+    /**
+     * Make the plane finite.
+     * @return This plane.
+     */
+    public Plane setFinite(){
+        infinite = false;
+        return this;
     }
 
     @Override
@@ -43,10 +55,19 @@ public class Plane extends Shape {
         double product1 = w.dot( normal );
         double product2 = direction.dot( normal );
         double t = product1 / product2;
-        if (t >= PLANE_EPS && t < 1){
+
+        // Create condition based on finite or infinite ray.
+        boolean condition = (t >= PLANE_EPS);
+        if (!infinite){
+            condition = condition && (t < 1.0);
+        }
+
+        // Return intersection if it exists.
+        if (condition){
             return new Intersection(t, ray.getPoint( t ), normal);
         } else {
             return null;
         }
+
     }
 }

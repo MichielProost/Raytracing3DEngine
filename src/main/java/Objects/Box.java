@@ -18,6 +18,94 @@ public class Box extends Shape {
         // Create intersection map.
         IntersectionMap handler = new IntersectionMap();
 
+        // The plane.
+        Plane plane;
+
+        // The intersection.
+        Intersection intersection;
+
+        // The normal vector.
+        Vector normal;
+
+        // PLANE X = 1
+        // -----------
+        normal = new Vector(1, 0, 0);
+        plane = new Plane( normal, new Point(BOX_SIZE, 0, 0));
+        intersection = plane.getClosestIntersection( ray );
+        if ((intersection != null) && (Math.abs(intersection.getLocation().getY()) <= BOX_SIZE && Math.abs(intersection.getLocation().getZ()) <= BOX_SIZE)){
+            handler.addIntersection(
+                    new Intersection(intersection.getTime(), intersection.getLocation(), normal)
+            );
+        }
+
+        // PLANE X = -1
+        // ------------
+        normal = new Vector(-1, 0, 0);
+        plane = new Plane( normal, new Point(-BOX_SIZE, 0, 0));
+        intersection = plane.getClosestIntersection( ray );
+        if ((intersection != null) && (Math.abs(intersection.getLocation().getY()) <= BOX_SIZE && Math.abs(intersection.getLocation().getZ()) <= BOX_SIZE)){
+            handler.addIntersection(
+                    new Intersection(intersection.getTime(), intersection.getLocation(), normal)
+            );
+        }
+
+        // PLANE Y = 1
+        // -----------
+        normal = new Vector(0, 1, 0);
+        plane = new Plane( normal, new Point(0, BOX_SIZE, 0));
+        intersection = plane.getClosestIntersection( ray );
+        if ((intersection != null) && (Math.abs(intersection.getLocation().getX()) <= BOX_SIZE && Math.abs(intersection.getLocation().getZ()) <= BOX_SIZE)){
+            handler.addIntersection(
+                    new Intersection(intersection.getTime(), intersection.getLocation(), normal)
+            );
+        }
+
+        // PLANE Y = -1
+        // ------------
+        normal = new Vector(0, -1, 0);
+        plane = new Plane( normal, new Point(0, -BOX_SIZE, 0));
+        intersection = plane.getClosestIntersection( ray );
+        if ((intersection != null) && (Math.abs(intersection.getLocation().getX()) <= BOX_SIZE && Math.abs(intersection.getLocation().getZ()) <= BOX_SIZE)){
+            handler.addIntersection(
+                    new Intersection(intersection.getTime(), intersection.getLocation(), normal)
+            );
+        }
+
+        // PLANE Z = 1
+        // -----------
+        normal = new Vector(0, 0, 1);
+        plane = new Plane( normal, new Point(0, 0, BOX_SIZE));
+        intersection = plane.getClosestIntersection( ray );
+        if ((intersection != null) && (Math.abs(intersection.getLocation().getX()) <= BOX_SIZE && Math.abs(intersection.getLocation().getY()) <= BOX_SIZE)){
+            handler.addIntersection(
+                    new Intersection(intersection.getTime(), intersection.getLocation(), normal)
+            );
+        }
+
+        // PLANE Z = -1
+        // ------------
+        normal = new Vector(0, 0, -1);
+        plane = new Plane( normal, new Point(0, 0, -BOX_SIZE));
+        intersection = plane.getClosestIntersection( ray );
+        if ((intersection != null) && (Math.abs(intersection.getLocation().getX()) <= BOX_SIZE && Math.abs(intersection.getLocation().getY()) <= BOX_SIZE)){
+            handler.addIntersection(
+                    new Intersection(intersection.getTime(), intersection.getLocation(), normal)
+            );
+        }
+
+        // Return the closest intersection.
+        if (handler.isEmpty()){
+            return null;
+        } else {
+            return handler.getClosestIntersection();
+        }
+    }
+
+    @Deprecated
+    public Intersection getClosestIntersection(Ray ray, double parameter) {
+        // Create intersection map.
+        IntersectionMap handler = new IntersectionMap();
+
         // The starting point of the ray.
         Point origin = ray.start;
 

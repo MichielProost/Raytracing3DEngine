@@ -47,12 +47,16 @@ public class EquilateralTriangle extends Scene {
                 .setMaterial( Material.Materials.mirror )
                 .setATMatrix( factory.getTranslation(top.getX() + size/2, top.getY() + h, top.getZ()));
         Shape ground = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
+                .setFinite()
                 .setMaterial( Material.Materials.lambertian, DARK_BROWN );
         Shape ceiling = new Plane( new Vector(0, 0, 1), new Point(0, 0, 3))
+                .setFinite()
                 .setMaterial( Material.Materials.lambertian, GREEN );
         Shape left_wall = new Plane( new Vector(-1, 0, 0), new Point(-5, 0, 0))
+                .setFinite()
                 .setMaterial( Material.Materials.lambertian, BLUE );
         Shape right_wall = new Plane( new Vector(1, 0, 0), new Point(5, 0, 0))
+                .setFinite()
                 .setMaterial( Material.Materials.lambertian, RED );
         addShape( sphere1 );
         addShape( sphere2 );
