@@ -16,7 +16,7 @@ public class Glass extends Material {
         setColor( BLACK );
 
         // Weights.
-        set_weights(0.2f, 0.0f, 0.8f);
+        set_weights(0.0f, 0.0f, 1.0f);
 
         // Ambient component.
         set_ambient(0.35f, 0.35f, 0.35f);
@@ -28,7 +28,7 @@ public class Glass extends Material {
         set_specular(0.6f, 0.6f, 0.6f, 128.0);
 
         // Index of refraction.
-        set_refraction_index(1.5);
+        set_refraction_index(1);
     }
 
     /**
@@ -40,7 +40,7 @@ public class Glass extends Material {
         setColor(color.r(), color.g(), color.b());
 
         // Weights.
-        set_weights(0.2f, 0.0f, 0.8f);
+        set_weights(0.0f, 0.0f, 1.0f);
 
         // Ambient component.
         set_ambient(0.35f, 0.35f, 0.35f);

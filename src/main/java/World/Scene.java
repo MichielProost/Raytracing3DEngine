@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static Utils.Constants.EPSILON;
 import static Utils.Constants.AIR;
+import static Utils.Constants.BLACK;
 
 /**
  * Describes our 3D world.
@@ -177,12 +178,16 @@ public class Scene {
             // Get information about the intersection.
             Ray transformed = intersection.getTransformedRay();
             Matrix ATMatrix = intersection.getObject().getATMatrix();
+            Matrix IATMatrix = intersection.getObject().getInverseAT();
 
             // Calculate location of intersection.
             intersection.setLocation( ATMatrix.times( transformed.getPoint( intersection.getTime() )));
 
             // Calculate normal of intersection.
-            intersection.setNormal( ATMatrix.times( intersection.getNormal() ));
+            Point stdPoint = IATMatrix.times( intersection.getLocation() );
+            Point stdEndPoint =stdPoint.plus( intersection.getNormal() );
+            Point endPoint = ATMatrix.times( stdEndPoint );
+            intersection.setNormal( endPoint.minus( intersection.getLocation() ));
 
             // Return the intersection.
             return intersection;
@@ -401,46 +406,45 @@ public class Scene {
         // Get the normal vector at the hit point.
         Vector normal = intersection.getNormal();
         normal.normalize();
-        Vector minus_normal = new Vector(-normal.getX(), -normal.getY(), -normal.getZ());
 
         // Direction of hit ray.
         Vector dir_hit = intersection.getTransformedRay().dir;
         dir_hit.normalize();
 
-        // System.out.println(intersection.getTransformedRay().dir);
-
         // Dot product between ray and normal.
-        double product = minus_normal.dot(dir_hit);
+        double product = normal.dot(dir_hit);
 
         // Index of refraction.
         double index = intersection.getObject().material.getRefraction_index();
-        // double index = 1;
 
         // cos(02)
         double cos = Math.sqrt(1 - ((Math.pow(index, 2)) * (1 - Math.pow(product, 2))));
 
-        // Calculate factor for determining transmitted direction.
-        double factor = (index * product) - cos;
+        // Refraction.
+        if (cos > 0) {
+            // Calculate factor for determining transmitted direction.
+            double factor = (index * product) - cos;
 
-        // Get transmitted direction.
-        Vector vector1 = new Vector(index * dir_hit.getX(), index * dir_hit.getY(), index * dir_hit.getZ());
-        Vector vector2 = new Vector(factor * normal.getX(), factor * normal.getY(), factor * normal.getZ());
-        Vector dir = vector1.plus( vector2 );
-        dir.normalize();
+            // Calculate individual vectors.
+            Vector vector1 = new Vector(index * dir_hit.getX(), index * dir_hit.getY(), index * dir_hit.getZ());
+            Vector vector2 = new Vector(factor * normal.getX(), factor * normal.getY(), factor * normal.getZ());
 
-        // System.out.println(dir);
+            // Get transmitted direction.
+            Vector dir = vector1.plus( vector2 );
+            dir.normalize();
 
-        // Build refracted ray.
-        Ray refracted = new Ray(
-                intersection.getLocation().plus( new Vector(dir.getX() * 0.001, dir.getY() * 0.001, dir.getZ() * 0.001)),
-                dir
-        );
+            // Build refracted ray.
+            Ray refracted = new Ray(
+                    intersection.getLocation(),
+                    dir
+            );
 
-        // Go up a level.
-        refracted.recurseLevel = intersection.getTransformedRay().recurseLevel + 1;
+            // Go up a level.
+            refracted.recurseLevel = intersection.getTransformedRay().recurseLevel + 1;
 
-        // Refracted component.
-        return this.rayTrace( refracted );
-
+            // Refracted component.
+            return this.rayTrace( refracted );
+        }
+        return AIR;
     }
 }
