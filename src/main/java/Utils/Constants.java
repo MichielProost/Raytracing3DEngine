@@ -42,5 +42,6 @@ public final class Constants {
     public static final double STRIPE_WIDTH = 0.1;
     public static final double CHECKER_SQUARE_X = 0.4;
     public static final double CHECKER_SQUARE_Y = 0.4;
+    public static final double CHECKER_SQUARE_Z = 0.4;
 
 }

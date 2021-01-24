@@ -65,9 +65,9 @@ public class RayTracing3DEngine {
         IATFactory factory = new ATFactory();
 
         // Create a new scene.
-        Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, 0, 0));
+        //Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, 0, 0));
         //Scene scene = new ShapesRow( maxRecursionLevel );
-        //Scene scene = new TexturesRow( maxRecursionLevel );
+        Scene scene = new TexturesRow( maxRecursionLevel );
 
         // Define light sources.
         LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));

@@ -37,13 +37,20 @@ public class TexturesRow extends Scene {
                 .setMaterial( Material.Materials.lambertian, BLACK )
                 .setTexture( Texture.Textures.smoothColors )
                 .setATMatrix( factory.getTranslation(0, 2, 0));
-        Shape ground = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
+        Shape checkerboard3D = new Box()
+                .setMaterial( Material.Materials.polished_silver )
+                .setTexture( Texture.Textures.checkerboard3D )
+                .setATMatrix( factory.getTranslation(2, 3, 0.25) )
+                .setATMatrix( factory.getScaling( 0.60, 0.60, 0.60 ))
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Y, -50));
+        Shape checkerboard2D = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
                 .setFinite()
                 .setMaterial( Material.Materials.lambertian, DARK_BROWN )
                 .setTexture( Texture.Textures.checkerboard2D );
-        addShape( smoothColors );
         addShape( stripes );
-        addShape( ground );
+        addShape( smoothColors );
+        addShape( checkerboard3D );
+        addShape( checkerboard2D );
     }
 
 }

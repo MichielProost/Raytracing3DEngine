@@ -10,7 +10,8 @@ public abstract class Texture {
     public enum Textures{
         stripes,
         smoothColors,
-        checkerboard2D
+        checkerboard2D,
+        checkerboard3D
     }
 
     /**

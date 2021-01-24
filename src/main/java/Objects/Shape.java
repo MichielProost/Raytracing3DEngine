@@ -3,10 +3,7 @@ package Objects;
 import Graphics.Rgb;
 import Material.Material;
 import Material.Materials.Lambertian;
-import Material.Texture.Checkerboard2D;
-import Material.Texture.SmoothColors;
-import Material.Texture.Stripes;
-import Material.Texture.Texture;
+import Material.Texture.*;
 import Matrix.*;
 import RayTracing.Intersection;
 import RayTracing.Ray;
@@ -143,6 +140,9 @@ public abstract class Shape {
                 break;
             case checkerboard2D:
                 texture = new Checkerboard2D();
+                break;
+            case checkerboard3D:
+                texture = new Checkerboard3D();
                 break;
         }
         return this;
