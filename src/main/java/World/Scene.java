@@ -83,8 +83,16 @@ public class Scene {
         // The color of the object.
         Rgb color = intersection.getObject().getMaterial().getColor();
 
+        // Whether to apply the texture or not.
+        boolean applyTexture = intersection.getObject().getMaterial().hasTexture();
+
         // Get ambient component.
         Rgb light = getAmbientComponent( intersection );
+        if (applyTexture){
+            Point location = intersection.getObject().getInverseAT().times( intersection.getLocation() );
+            Rgb texelValue = intersection.getObject().getMaterial().getTexture().getTexelValue( location );
+            light = light.multiply(texelValue);
+        }
 
         // Loop over every light source (for shading purposes).
         for (LightSource L: sources){
@@ -96,13 +104,10 @@ public class Scene {
 
             // Get and add diffuse component.
             light = light.add( getDiffuseComponent( L, intersection ) );
-
-            Material material = intersection.getObject().getMaterial();
-            if( material.hasTexture() ){
+            if (applyTexture){
                 Point location = intersection.getObject().getInverseAT().times( intersection.getLocation() );
-                System.out.println(location);
-                Rgb texelValue = material.getTexture().getTexelValue( location );
-                light = light.multiply( texelValue );
+                Rgb texelValue = intersection.getObject().getMaterial().getTexture().getTexelValue( location );
+                light = light.multiply(texelValue);
             }
 
             // Get and add specular component.
