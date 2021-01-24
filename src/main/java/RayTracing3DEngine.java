@@ -1,6 +1,7 @@
 import Graphics.Screen;
 import Interfaces.IATFactory;
 import Material.Material;
+import Material.Texture.Texture;
 import Matrix.ATFactory;
 import Objects.*;
 import Objects.Shape;
@@ -64,7 +65,13 @@ public class RayTracing3DEngine {
 
         // Create a new scene.
         //Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, 0, 0));
-        Scene scene = new ShapesRow( maxRecursionLevel );
+        //Scene scene = new ShapesRow( maxRecursionLevel );
+        Scene scene = new Scene( maxRecursionLevel );
+        Shape shape = new Sphere()
+                .setMaterial(Material.Materials.lambertian, BLACK)
+                .setTexture(Texture.Textures.stripes)
+                .setATMatrix(factory.getScaling(3,3,3));
+        scene.addShape(shape);
 
         // Define light sources.
         LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));

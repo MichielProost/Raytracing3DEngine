@@ -93,6 +93,21 @@ public class Rgb {
     }
 
     /**
+     * Multiply this color with another color.
+     * @param color The color to multiply this color with.
+     * @return The resulting color.
+     */
+    public Rgb multiply(Rgb color){
+
+        // Multiply color with value.
+        Rgb new_color = new Rgb( this.r * color.r, this.g * color.g, this.b * color.b);
+
+        // Limit RGB components in case of overexposure.
+        return checkBoundaries( new_color );
+
+    }
+
+    /**
      * RGB components may not exceed their boundaries.
      */
     public Rgb checkBoundaries(Rgb color){

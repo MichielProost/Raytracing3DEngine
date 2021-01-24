@@ -3,6 +3,7 @@ package Objects;
 import Graphics.Rgb;
 import Material.Material;
 import Material.Lambertian;
+import Material.Texture.Texture;
 import Matrix.*;
 import RayTracing.Intersection;
 import RayTracing.Ray;
@@ -110,6 +111,11 @@ public abstract class Shape {
             this.ATMatrix = this.ATMatrix.times(matrix);
         }
         this.InverseAT = this.ATMatrix.inverse();
+        return this;
+    }
+
+    public Shape setTexture(Texture.Textures type){
+        material.setTexture(type);
         return this;
     }
 

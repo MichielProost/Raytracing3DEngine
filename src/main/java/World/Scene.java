@@ -1,6 +1,8 @@
 package World;
 
 import Graphics.Rgb;
+import Material.Material;
+import Material.Texture.Texture;
 import Matrix.Matrix;
 import RayTracing.Intersection;
 import RayTracing.IntersectionMap;
@@ -88,13 +90,20 @@ public class Scene {
         for (LightSource L: sources){
 
             // Check for shadow.
-            // TODO. Investigate object behind light source.
             if ( isInShadow( getShadowRay( L, intersection )) || intersection.getTime() > 1){
                 continue;
             }
 
             // Get and add diffuse component.
             light = light.add( getDiffuseComponent( L, intersection ) );
+
+            Material material = intersection.getObject().getMaterial();
+            if( material.hasTexture() ){
+                Point location = intersection.getObject().getInverseAT().times( intersection.getLocation() );
+                System.out.println(location);
+                Rgb texelValue = material.getTexture().getTexelValue( location );
+                light = light.multiply( texelValue );
+            }
 
             // Get and add specular component.
             light = light.add( getSpecularComponent( L, intersection ) );
