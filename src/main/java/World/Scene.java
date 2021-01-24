@@ -84,13 +84,13 @@ public class Scene {
         Rgb color = intersection.getObject().getMaterial().getColor();
 
         // Whether to apply the texture or not.
-        boolean applyTexture = intersection.getObject().getMaterial().hasTexture();
+        boolean applyTexture = intersection.getObject().hasTexture();
 
         // Get ambient component.
         Rgb light = getAmbientComponent( intersection );
         if (applyTexture){
             Point location = intersection.getObject().getInverseAT().times( intersection.getLocation() );
-            Rgb texelValue = intersection.getObject().getMaterial().getTexture().getTexelValue( location );
+            Rgb texelValue = intersection.getObject().getTexture().getTexelValue( location );
             light = light.multiply(texelValue);
         }
 
@@ -106,7 +106,7 @@ public class Scene {
             light = light.add( getDiffuseComponent( L, intersection ) );
             if (applyTexture){
                 Point location = intersection.getObject().getInverseAT().times( intersection.getLocation() );
-                Rgb texelValue = intersection.getObject().getMaterial().getTexture().getTexelValue( location );
+                Rgb texelValue = intersection.getObject().getTexture().getTexelValue( location );
                 light = light.multiply(texelValue);
             }
 

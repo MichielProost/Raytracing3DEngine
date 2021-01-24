@@ -3,6 +3,8 @@ package Objects;
 import Graphics.Rgb;
 import Material.Material;
 import Material.Materials.Lambertian;
+import Material.Texture.SmoothColors;
+import Material.Texture.Stripes;
 import Material.Texture.Texture;
 import Matrix.*;
 import RayTracing.Intersection;
@@ -22,6 +24,9 @@ public abstract class Shape {
 
     // The material of the shape.
     public Material material = new Lambertian();
+
+    // The texture of the shape.
+    public Texture texture;
 
     /**
      * Create a new shape.
@@ -57,6 +62,14 @@ public abstract class Shape {
      */
     public Material getMaterial(){
         return material;
+    }
+
+    /**
+     * Get the texture of this shape.
+     * @return The texture of this shape.
+     */
+    public Texture getTexture(){
+        return texture;
     }
 
     /**
@@ -114,9 +127,29 @@ public abstract class Shape {
         return this;
     }
 
+    /**
+     * Set the texture of this shape.
+     * @param type The texture type.
+     * @return This shape.
+     */
     public Shape setTexture(Texture.Textures type){
-        material.setTexture(type);
+        switch( type ){
+            case stripes:
+                texture = new Stripes();
+                break;
+            case smoothColors:
+                texture = new SmoothColors();
+                break;
+        }
         return this;
+    }
+
+    /**
+     * Returns whether or not the shape has a texture.
+     * @return Whether or not the shape has a texture.
+     */
+    public boolean hasTexture(){
+        return texture != null;
     }
 
 }

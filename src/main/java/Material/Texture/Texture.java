@@ -8,7 +8,8 @@ public abstract class Texture {
 
     // Set of textures.
     public enum Textures{
-        stripes
+        stripes,
+        smoothColors
     }
 
     /**

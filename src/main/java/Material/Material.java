@@ -2,9 +2,6 @@ package Material;
 
 import Graphics.Rgb;
 import Material.Materials.*;
-import Material.Texture.Stripes;
-import Material.Texture.Texture;
-
 import static Utils.Constants.REQUIRED_SHININESS;
 import static Utils.Constants.REQUIRED_TRANSPARENCY;
 import static Utils.Constants.WHITE;
@@ -34,9 +31,6 @@ public class Material {
 
     // Index of refraction.
     private double refraction_index;
-
-    // The texture.
-    private Texture texture;
 
     // Set of materials.
     public enum Materials{
@@ -157,14 +151,6 @@ public class Material {
     }
 
     /**
-     * Get the texture of this material.
-     * @return The texture of this material.
-     */
-    public Texture getTexture(){
-        return texture;
-    }
-
-    /**
      * Set the color of this material.
      * @param color The required color.
      */
@@ -234,13 +220,6 @@ public class Material {
         refraction_index = index;
     }
 
-    public void setTexture(Texture.Textures type){
-        switch( type ){
-            case stripes:
-                texture = new Stripes();
-        }
-    }
-
     /**
      * Is the material shiny enough?
      * @return True if the material is shiny enough. False otherwise.
@@ -255,10 +234,6 @@ public class Material {
      */
     public boolean isTransparentEnough(){
         return weights[2] >= REQUIRED_TRANSPARENCY;
-    }
-
-    public boolean hasTexture(){
-        return texture != null;
     }
 
 }

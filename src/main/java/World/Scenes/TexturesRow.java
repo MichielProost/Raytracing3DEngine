@@ -6,6 +6,7 @@ import Material.Texture.Texture;
 import Matrix.ATFactory;
 import Matrix.Point;
 import Matrix.Vector;
+import Objects.Cylinder;
 import Objects.Plane;
 import Objects.Shape;
 import Objects.Sphere;
@@ -29,15 +30,21 @@ public class TexturesRow extends Scene {
         IATFactory factory = new ATFactory();
 
         // Define shapes.
-        Shape stripeSphere = new Sphere()
-                .setMaterial( Material.Materials.lambertian, BLACK )
+        Shape stripes = new Cylinder()
+                .setMaterial( Material.Materials.bronze )
                 .setTexture( Texture.Textures.stripes )
-                .setATMatrix( factory.getTranslation(0, 1, 0) )
-                .setATMatrix( factory.getScaling(1.5, 1.5, 1.5) );
+                .setATMatrix( factory.getTranslation(-2, 3, 0.25) )
+                .setATMatrix( factory.getScaling( 0.60, 0.60, 0.60 ))
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Y, 50));
+        Shape smoothColors = new Sphere()
+                .setMaterial( Material.Materials.lambertian, BLACK )
+                .setTexture( Texture.Textures.smoothColors )
+                .setATMatrix( factory.getTranslation(0, 2, 0));
         Shape ground = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
                 .setFinite()
                 .setMaterial( Material.Materials.lambertian, DARK_BROWN );
-        addShape( stripeSphere );
+        addShape( smoothColors );
+        addShape( stripes );
         addShape( ground );
     }
 
