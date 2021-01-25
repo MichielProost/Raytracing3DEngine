@@ -5,6 +5,7 @@ import Matrix.Vector;
 import RayTracing.Intersection;
 import RayTracing.Ray;
 import static Utils.Constants.PLANE_EPS;
+import static Utils.Constants.PLANE_THRESHOLD;
 
 /**
  * A generic plane that is defined by a normal vector and a point.
@@ -74,12 +75,26 @@ public class Plane extends Shape {
     @Override
     public double getPixelX(Point hitLocation) {
         double left = -1; double right = 1;
-        return (hitLocation.getX() - left) / (right - left);
+        if( Math.abs(hitLocation.getX()) > PLANE_THRESHOLD ){
+            return (hitLocation.getZ() - left) / (right - left);
+        } else if( Math.abs(hitLocation.getY()) > PLANE_THRESHOLD){
+            return (hitLocation.getX() - left) / (right - left);
+        } else if( Math.abs(hitLocation.getZ()) > PLANE_THRESHOLD){
+            return (hitLocation.getX() - left) / (right - left);
+        }
+        return 0;
     }
 
     @Override
     public double getPixelY(Point hitLocation) {
         double bottom = -1; double top = 1;
-        return (hitLocation.getY() - bottom) / (top - bottom);
+        if( Math.abs(hitLocation.getX()) > PLANE_THRESHOLD ){
+            return (hitLocation.getY() - bottom) / (top - bottom);
+        } else if( Math.abs(hitLocation.getY()) > PLANE_THRESHOLD){
+            return (hitLocation.getZ() - bottom) / (top - bottom);
+        } else if( Math.abs(hitLocation.getZ()) > PLANE_THRESHOLD){
+            return (hitLocation.getY() - bottom) / (top - bottom);
+        }
+        return 0;
     }
 }

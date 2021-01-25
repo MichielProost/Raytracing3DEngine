@@ -97,14 +97,14 @@ public class Cylinder extends Shape{
         return ( Math.pow(x, 2) + Math.pow(y,2) ) <= 1;
     }
 
-
     @Override
     public double getPixelX(Point hitLocation) {
-        return 0;
+        return Math.atan2( hitLocation.getY(), hitLocation.getX() );
     }
 
     @Override
     public double getPixelY(Point hitLocation) {
-        return 0;
+        return Math.abs(hitLocation.getZ());
     }
+
 }
