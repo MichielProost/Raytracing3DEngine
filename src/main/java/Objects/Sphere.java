@@ -57,13 +57,15 @@ public class Sphere extends Shape {
     }
 
     @Override
-    public double getPixelX(double x, double y, double z) {
-        return 0;
+    public double getPixelX(Point hitLocation) {
+        double angle = Math.atan2(-hitLocation.getZ(), hitLocation.getX());
+        return (angle + Math.PI) / (2 * Math.PI);
     }
 
     @Override
-    public double getPixelY(double x, double y, double z) {
-        return 0;
+    public double getPixelY(Point hitLocation) {
+        double angle = Math.acos(-hitLocation.getY());
+        return angle / Math.PI;
     }
 
 }

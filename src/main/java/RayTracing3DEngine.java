@@ -19,8 +19,7 @@ import World.Scenes.RefractionExhibition;
 import World.Scenes.ShapesRow;
 import World.Scenes.TexturesRow;
 
-import static Utils.Constants.BLACK;
-import static Utils.Constants.DARK_BROWN;
+import static Utils.Constants.*;
 
 /**
  * A 3D engine using the ray tracing principle.
@@ -74,8 +73,20 @@ public class RayTracing3DEngine {
         Scene scene = new Scene(maxRecursionLevel);
         Shape sphere = new Sphere()
                 .setMaterial(Material.Materials.lambertian, BLACK)
-                .setImageTexture(".\\resources\\PathfinderMap.jpg");
+                .setImageTexture(".\\resources\\LargeWorldMap.png")
+                .setATMatrix(factory.getTranslation(0, 3, 0.5))
+                .setATMatrix(factory.getScaling(1.25, 1.25, 1.25));
         scene.addShape(sphere);
+        Shape checkerboard2D = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
+                .setFinite()
+                .setMaterial( Material.Materials.lambertian, DARK_BROWN )
+                .setTexture( Texture.Textures.checkerboard2D );
+        //scene.addShape(checkerboard2D);
+
+        LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
+        LightSource source_right = new LightSource(-2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
+        scene.addSource( source_left );
+        scene.addSource( source_right );
 
         // Measure time in milliseconds.
         long start = System.currentTimeMillis();

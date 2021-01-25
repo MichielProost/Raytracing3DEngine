@@ -99,12 +99,12 @@ public class Cylinder extends Shape{
 
 
     @Override
-    public double getPixelX(double x, double y, double z) {
+    public double getPixelX(Point hitLocation) {
         return 0;
     }
 
     @Override
-    public double getPixelY(double x, double y, double z) {
+    public double getPixelY(Point hitLocation) {
         return 0;
     }
 }

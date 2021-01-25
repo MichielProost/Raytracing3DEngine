@@ -27,12 +27,14 @@ public class ImageTexture {
 
     /**
      * Get the RGB components from the corresponding pixel.
-     * @param x Location of pixel on the x axis.
-     * @param y Location of pixel on the y axis.
+     * @param x Location of pixel on the x axis [0 1].
+     * @param y Location of pixel on the y axis [0 1].
      * @return The color at the corresponding pixel.
      */
-    public Rgb getRgb(int x, int y){
-        int rgb = img.getRGB(x, y);
+    public Rgb getRgb(double x, double y){
+        int u = (int) (x * (width-1));
+        int v = (int) (y * (height-1));
+        int rgb = img.getRGB(u, v);
         float red = (float) (((rgb >> 16 ) & 0x000000FF)/255.0);
         float green = (float) (((rgb >> 8 ) & 0x000000FF)/255.0);
         float blue = (float) (((rgb) & 0x000000FF)/255.0);

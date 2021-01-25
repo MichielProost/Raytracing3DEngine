@@ -80,8 +80,12 @@ public class Scene {
         // The color of the object.
         Rgb color = intersection.getObject().getMaterial().getColor();
 
+        Rgb pixel_color = BLACK;
         if(intersection.getObject().hasImageTexture()){
-            Rgb pixel_color = intersection.getObject().getImageTexture().getRgb(5,5);
+            Point location = intersection.getObject().getInverseAT().times( intersection.getLocation() );
+            double x = intersection.getObject().getPixelX(location);
+            double y = intersection.getObject().getPixelY(location);
+            pixel_color = intersection.getObject().getImageTexture().getRgb(x, y);
         }
 
         // Whether to apply the texture or not.
@@ -93,6 +97,9 @@ public class Scene {
             Point location = intersection.getObject().getInverseAT().times( intersection.getLocation() );
             Rgb texelValue = intersection.getObject().getTexture().getTexelValue( location );
             light = light.multiply(texelValue);
+        }
+        if (intersection.getObject().hasImageTexture()){
+            light = light.multiply(pixel_color);
         }
 
         // Loop over every light source (for shading purposes).
@@ -109,6 +116,9 @@ public class Scene {
                 Point location = intersection.getObject().getInverseAT().times( intersection.getLocation() );
                 Rgb texelValue = intersection.getObject().getTexture().getTexelValue( location );
                 light = light.multiply(texelValue);
+            }
+            if (intersection.getObject().hasImageTexture()){
+                light = light.multiply(pixel_color);
             }
 
             // Get and add specular component.
