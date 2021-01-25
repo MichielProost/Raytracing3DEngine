@@ -40,7 +40,8 @@ public class Material {
         bronze,
         polished_silver,
         mirror,
-        glass
+        glass,
+        wood
     }
 
     /**
@@ -64,6 +65,8 @@ public class Material {
                 return new Mirror();
             case glass:
                 return new Glass();
+            case wood:
+                return new Wood();
         }
         return null;
     }
@@ -90,6 +93,8 @@ public class Material {
                 return new Mirror( color );
             case glass:
                 return new Glass( color );
+            case wood:
+                return new Wood( color );
         }
         return null;
     }

@@ -39,13 +39,20 @@ public class ImageTexturesRow extends Scene {
                 .setImageTexture(".\\resources\\Moon.jpg")
                 .setATMatrix(factory.getTranslation(0.80, 2, 0.25))
                 .setATMatrix(factory.getScaling(0.75, 0.75, 0.75));
-        Shape checkerboard2D = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
+        Shape box = new Box()
+                .setMaterial(Material.Materials.wood)
+                .setImageTexture(".\\resources\\Box.png")
+                .setATMatrix( factory.getTranslation(3, 3,-0.25))
+                .setATMatrix( factory.getScaling(0.75, 0.75, 0.75))
+                .setATMatrix( factory.getRotation(IATFactory.RotationAxis.Z, 15) );
+        Shape floor = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
                 .setFinite()
                 .setMaterial( Material.Materials.lambertian, DARK_BROWN )
                 .setTexture( Texture.Textures.checkerboard2D );
         addShape( world );
         addShape( moon );
-        addShape( checkerboard2D );
+        addShape( box );
+        addShape( floor );
 
         LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
         LightSource source_right = new LightSource(-2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));

@@ -5,8 +5,8 @@ import Matrix.Vector;
 import RayTracing.Intersection;
 import RayTracing.IntersectionMap;
 import RayTracing.Ray;
-import static Utils.Constants.BOX_SIZE;
-import static Utils.Constants.BOX_EPS;
+
+import static Utils.Constants.*;
 
 /**
  * A generic box with a given BOX_SIZE.
@@ -103,11 +103,27 @@ public class Box extends Shape {
 
     @Override
     public double getPixelX(Point hitLocation) {
+        double left = -1; double right = 1;
+        if( Math.abs(hitLocation.getX()) > PLANE_THRESHOLD ){
+            return (hitLocation.getZ() - left) / (right - left);
+        } else if( Math.abs(hitLocation.getY()) > PLANE_THRESHOLD){
+            return (hitLocation.getX() - left) / (right - left);
+        } else if( Math.abs(hitLocation.getZ()) > PLANE_THRESHOLD){
+            return (hitLocation.getX() - left) / (right - left);
+        }
         return 0;
     }
 
     @Override
     public double getPixelY(Point hitLocation) {
+        double bottom = -1; double top = 1;
+        if( Math.abs(hitLocation.getX()) > PLANE_THRESHOLD ){
+            return (hitLocation.getY() - bottom) / (top - bottom);
+        } else if( Math.abs(hitLocation.getY()) > PLANE_THRESHOLD){
+            return (hitLocation.getZ() - bottom) / (top - bottom);
+        } else if( Math.abs(hitLocation.getZ()) > PLANE_THRESHOLD){
+            return (hitLocation.getY() - bottom) / (top - bottom);
+        }
         return 0;
     }
 
