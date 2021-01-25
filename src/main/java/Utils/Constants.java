@@ -37,6 +37,7 @@ public final class Constants {
 
     // Intersection.
     public static final double EPSILON = 0.000001;
+    public static final double ANGLE_THRESHOLD = 0.000001;
 
     // Textures.
     public static final double STRIPE_WIDTH = 0.1;

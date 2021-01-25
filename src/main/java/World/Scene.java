@@ -12,9 +12,8 @@ import Matrix.Vector;
 import Objects.Shape;
 import java.util.ArrayList;
 import java.util.List;
-import static Utils.Constants.EPSILON;
-import static Utils.Constants.AIR;
-import static Utils.Constants.BLACK;
+
+import static Utils.Constants.*;
 
 /**
  * Describes our 3D world.
@@ -438,10 +437,14 @@ public class Scene {
         double index = intersection.getObject().material.getRefraction_index();
 
         // cos(02)
-        double cos = Math.sqrt(1 - ((Math.pow(index, 2)) * (1 - Math.pow(product, 2))));
+        double cos = 1 - ((Math.pow(index, 2)) * (1 - Math.pow(product, 2)));
 
         // Refraction.
-        if (cos > 0.000001) {
+        if (cos > ANGLE_THRESHOLD) {
+
+            // Square root of cos.
+            cos = Math.sqrt( cos );
+
             // Calculate factor for determining transmitted direction.
             double factor = (index * product) - cos;
 
