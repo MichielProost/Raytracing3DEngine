@@ -192,16 +192,9 @@ public class Scene {
             // Get information about the intersection.
             Ray transformed = intersection.getTransformedRay();
             Matrix ATMatrix = intersection.getObject().getATMatrix();
-            Matrix IATMatrix = intersection.getObject().getInverseAT();
 
             // Calculate location of intersection.
             intersection.setLocation( ATMatrix.times( transformed.getPoint( intersection.getTime() )));
-
-            // Calculate normal of intersection.
-            Point stdPoint = IATMatrix.times( intersection.getLocation() );
-            Point stdEndPoint =stdPoint.plus( intersection.getNormal() );
-            Point endPoint = ATMatrix.times( stdEndPoint );
-            intersection.setNormal( endPoint.minus( intersection.getLocation() ));
 
             Ray hitRay = new Ray(origin, direction);
             hitRay.recurseLevel = ray.recurseLevel;
@@ -302,6 +295,8 @@ public class Scene {
 
         // Get the normal vector at the intersection.
         Vector normal = intersection.getNormal();
+        // Multiply with transformation matrix.
+        normal = intersection.getObject().getATMatrix().times(normal);
         // Normalize this vector.
         normal.normalize();
 
@@ -344,6 +339,9 @@ public class Scene {
 
         // Get the normal vector at the intersection.
         Vector normal = intersection.getNormal();
+        // Multiply with transformation matrix.
+        normal = intersection.getObject().getATMatrix().times(normal);
+        // Normalize this vector.
         normal.normalize();
 
         // Invert the normal if located on  other side of object.
@@ -388,7 +386,11 @@ public class Scene {
 
         // Get the normal vector at the hit point.
         Vector normal = intersection.getNormal();
+        normal = intersection.getObject().getInverseAT().transpose().times( normal );
         normal.normalize();
+
+        if (normal.dot( intersection.getHitRay().dir ) < 0)
+            normal = new Vector(-normal.getX(), -normal.getY(), -normal.getZ());
 
         // Dot product between ray and normal.
         double factor = intersection.getHitRay().dir.dot(normal);
@@ -420,7 +422,11 @@ public class Scene {
 
         // Get the normal vector at the hit point.
         Vector normal = intersection.getNormal();
+        normal = intersection.getObject().getInverseAT().transpose().times( normal );
         normal.normalize();
+
+        if (normal.dot( intersection.getHitRay().dir ) < 0)
+            normal = new Vector(-normal.getX(), -normal.getY(), -normal.getZ());
 
         // Direction of hit ray.
         Vector dir_hit = intersection.getHitRay().dir;
@@ -442,7 +448,7 @@ public class Scene {
 
             // Calculate individual vectors.
             Vector vector1 = new Vector(index * dir_hit.getX(), index * dir_hit.getY(), index * dir_hit.getZ());
-            Vector vector2 = new Vector(factor * normal.getX(), factor * normal.getY(), factor * normal.getZ());
+            Vector vector2 = new Vector(-factor * normal.getX(), -factor * normal.getY(), -factor * normal.getZ());
 
             // Get transmitted direction.
             Vector dir = vector1.plus( vector2 );
@@ -460,6 +466,6 @@ public class Scene {
             // Refracted component.
             return this.rayTrace( refracted );
         }
-        return AIR;
+        return BLACK;
     }
 }
