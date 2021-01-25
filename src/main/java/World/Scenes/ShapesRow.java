@@ -28,20 +28,26 @@ public class ShapesRow extends Scene {
         IATFactory factory = new ATFactory();
 
         // Define shapes.
-        Shape cylinder = new Cylinder()
-                .setMaterial( Material.Materials.bronze )
-                .setATMatrix( factory.getTranslation(-2, 3, 0.25) )
+        Shape cylinder = new Sphere()
+                .setMaterial( Material.Materials.glass )
+                .setATMatrix( factory.getTranslation(0, 6, 0.25) )
                 .setATMatrix( factory.getScaling( 0.60, 0.60, 0.60 ))
                 .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Y, 50));
         Shape sphere = new Sphere()
                 .setMaterial( Material.Materials.gold )
                 .setATMatrix( factory.getTranslation(0, 2, 0) );
+        Shape box = new Box()
+                .setMaterial( Material.Materials.polished_silver )
+                .setATMatrix( factory.getTranslation(2, 3, 0.25) )
+                .setATMatrix( factory.getScaling( 0.60, 0.60, 0.60 ))
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Y, -50));
         Shape ground = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
                 .setFinite()
                 .setTexture( Texture.Textures.checkerboard2D )
                 .setMaterial( Material.Materials.lambertian, DARK_BROWN );
         addShape( cylinder );
         addShape( sphere );
+        addShape( box );
         addShape( ground );
     }
 
