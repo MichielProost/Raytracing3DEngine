@@ -430,7 +430,6 @@ public class Scene {
 
         // Direction of hit ray.
         Vector dir_hit = intersection.getHitRay().dir;
-        dir_hit.normalize();
 
         // Dot product between ray and normal.
         double product = normal.dot(dir_hit);
@@ -452,7 +451,6 @@ public class Scene {
 
             // Get transmitted direction.
             Vector dir = vector1.plus( vector2 );
-            dir.normalize();
 
             // Build refracted ray.
             Ray refracted = new Ray(
