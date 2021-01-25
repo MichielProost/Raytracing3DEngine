@@ -4,6 +4,9 @@ import Graphics.Rgb;
 import Matrix.Point;
 import static Utils.Constants.*;
 
+/**
+ * Solid texture: Implements a 2D checkerboard pattern.
+ */
 public class Checkerboard2D extends Texture {
 
     @Override

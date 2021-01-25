@@ -14,10 +14,7 @@ import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import Graphics.Rgb;
-import World.Scenes.EquilateralTriangle;
-import World.Scenes.RefractionExhibition;
-import World.Scenes.ShapesRow;
-import World.Scenes.TexturesRow;
+import World.Scenes.*;
 
 import static Utils.Constants.*;
 
@@ -70,23 +67,7 @@ public class RayTracing3DEngine {
         //Scene scene = new ShapesRow( maxRecursionLevel );
         //Scene scene = new TexturesRow( maxRecursionLevel );
         //Scene scene = new RefractionExhibition( maxRecursionLevel );
-        Scene scene = new Scene(maxRecursionLevel);
-        Shape sphere = new Sphere()
-                .setMaterial(Material.Materials.lambertian, BLACK)
-                .setImageTexture(".\\resources\\LargeWorldMap.png")
-                .setATMatrix(factory.getTranslation(0, 3, 0.5))
-                .setATMatrix(factory.getScaling(1.25, 1.25, 1.25));
-        scene.addShape(sphere);
-        Shape checkerboard2D = new Plane( new Vector(0, 0, -1), new Point(0, 0, -1 ))
-                .setFinite()
-                .setMaterial( Material.Materials.lambertian, DARK_BROWN )
-                .setTexture( Texture.Textures.checkerboard2D );
-        //scene.addShape(checkerboard2D);
-
-        LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
-        LightSource source_right = new LightSource(-2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
-        scene.addSource( source_left );
-        scene.addSource( source_right );
+        Scene scene = new ImageTexturesRow( maxRecursionLevel );
 
         // Measure time in milliseconds.
         long start = System.currentTimeMillis();

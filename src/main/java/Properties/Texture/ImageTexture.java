@@ -6,15 +6,24 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class that implements an image texture.
+ */
 public class ImageTexture {
 
     // The image.
     BufferedImage img;
+
     // The height of the image.
     int height;
+
     // The width of the image.
     int width;
 
+    /**
+     * Create a new image texture.
+     * @param tex The path of the image.
+     */
     public ImageTexture(String tex){
         try {
             img = ImageIO.read(new File(tex));

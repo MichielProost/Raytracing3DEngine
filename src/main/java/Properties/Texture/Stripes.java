@@ -4,6 +4,9 @@ import Graphics.Rgb;
 import Matrix.Point;
 import static Utils.Constants.*;
 
+/**
+ * Solid pattern: Adds a stripe pattern onto the surface.
+ */
 public class Stripes extends Texture {
 
     @Override

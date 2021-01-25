@@ -3,6 +3,9 @@ package Properties.Texture;
 import Graphics.Rgb;
 import Matrix.Point;
 
+/**
+ * Class that implements a solid state texture.
+ */
 public abstract class Texture {
 
     // Set of textures.

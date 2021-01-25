@@ -3,6 +3,9 @@ package Properties.Texture;
 import Graphics.Rgb;
 import Matrix.Point;
 
+/**
+ * solid texture: Adds smooth colors onto surface.
+ */
 public class SmoothColors extends Texture {
 
     @Override

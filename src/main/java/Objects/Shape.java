@@ -41,7 +41,18 @@ public abstract class Shape {
      */
     public abstract Intersection getClosestIntersection(Ray ray);
 
+    /**
+     * Get the x location of the pixel (normalized between 0 and 1) given a hit location.
+     * @param hitlocation The location of the hit.
+     * @return The x location of the pixel [0 1].
+     */
     public abstract double getPixelX(Point hitlocation);
+
+    /**
+     * Get the y location of the pixel (normalized between 0 and 1) given a hit location.
+     * @param hitLocation The location of the hit.
+     * @return The y location of the pixel [0 1].
+     */
     public abstract double getPixelY(Point hitLocation);
 
     /**

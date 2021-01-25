@@ -13,7 +13,7 @@ import World.Scene;
 import static Utils.Constants.*;
 
 /**
- * Scene: Spheres are rendered next to each other and showcase the different textures.
+ * Scene: Shapes are rendered next to each other and showcase the different textures.
  */
 public class TexturesRow extends Scene {
 
