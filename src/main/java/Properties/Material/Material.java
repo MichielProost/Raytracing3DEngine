@@ -1,7 +1,7 @@
-package Material;
+package Properties.Material;
 
 import Graphics.Rgb;
-import Material.Materials.*;
+
 import static Utils.Constants.REQUIRED_SHININESS;
 import static Utils.Constants.REQUIRED_TRANSPARENCY;
 import static Utils.Constants.WHITE;

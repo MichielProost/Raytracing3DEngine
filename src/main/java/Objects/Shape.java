@@ -1,9 +1,9 @@
 package Objects;
 
 import Graphics.Rgb;
-import Material.Material;
-import Material.Materials.Lambertian;
-import Material.Texture.*;
+import Properties.Material.Material;
+import Properties.Material.Lambertian;
+import Properties.Texture.*;
 import Matrix.*;
 import RayTracing.Intersection;
 import RayTracing.Ray;

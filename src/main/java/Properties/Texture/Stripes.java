@@ -1,4 +1,4 @@
-package Material.Texture;
+package Properties.Texture;
 
 import Graphics.Rgb;
 import Matrix.Point;

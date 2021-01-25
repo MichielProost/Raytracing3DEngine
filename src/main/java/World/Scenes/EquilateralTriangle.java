@@ -1,7 +1,7 @@
 package World.Scenes;
 
 import Interfaces.IATFactory;
-import Material.Material;
+import Properties.Material.Material;
 import Matrix.ATFactory;
 import Matrix.Point;
 import Matrix.Vector;

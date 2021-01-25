@@ -1,8 +1,6 @@
 package World;
 
 import Graphics.Rgb;
-import Material.Material;
-import Material.Texture.Texture;
 import Matrix.Matrix;
 import RayTracing.Intersection;
 import RayTracing.IntersectionMap;
