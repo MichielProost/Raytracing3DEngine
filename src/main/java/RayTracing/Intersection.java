@@ -20,8 +20,11 @@ public class Intersection {
     // Normal vector at the intersection.
     private Vector normal;
 
-    // Transformed ray corresponding to object.
+    // The transformed ray corresponding to the object.
     private Ray transformedRay;
+
+    // The hit ray of this intersection.
+    private Ray hitRay;
 
     /**
      * Create a new intersection.
@@ -68,11 +71,19 @@ public class Intersection {
     }
 
     /**
-     * Get the transformed ray.
-     * @return The transformed ray.
+     * Get the transformed ray of this intersection.
+     * @return The transformed ray of this intersection.
      */
     public Ray getTransformedRay(){
         return transformedRay;
+    }
+
+    /**
+     * Get the hit ray of this intersection.
+     * @return The hit ray.
+     */
+    public Ray getHitRay(){
+        return hitRay;
     }
 
     /**
@@ -105,5 +116,13 @@ public class Intersection {
      */
     public void setTransformedRay(Ray transformedRay){
         this.transformedRay = transformedRay;
+    }
+
+    /**
+     * Set the hit ray of this intersection.
+     * @param hitRay The hit ray of this intersection.
+     */
+    public void setHitRay(Ray hitRay){
+        this.hitRay = hitRay;
     }
 }

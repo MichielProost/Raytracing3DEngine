@@ -203,6 +203,10 @@ public class Scene {
             Point endPoint = ATMatrix.times( stdEndPoint );
             intersection.setNormal( endPoint.minus( intersection.getLocation() ));
 
+            Ray hitRay = new Ray(origin, direction);
+            hitRay.recurseLevel = ray.recurseLevel;
+            intersection.setHitRay( hitRay );
+
             // Return the intersection.
             return intersection;
         }
@@ -302,8 +306,8 @@ public class Scene {
         normal.normalize();
 
         // Invert the normal if located on  other side of object.
-        Ray transformed = intersection.getTransformedRay();
-        if( transformed.dir.dot(normal) > 0){
+        Ray hitRay = intersection.getHitRay();
+        if( hitRay.dir.dot(normal) > 0){
             normal = new Vector( -normal.getX(), -normal.getY(), -normal.getZ() );
         }
 
@@ -313,10 +317,7 @@ public class Scene {
         s.normalize();
 
         // The lambert term.
-        double lambert = s.dot( normal );
-
-        // TODO. Why not this lambert formula?
-        //  double lambert = s.dot( normal ) / Math.abs( normal.getMagnitude() * s.getMagnitude());
+        double lambert = s.dot( normal ) / Math.abs(normal.getMagnitude() * s.getMagnitude());
 
         // Hit point is turned towards the light.
         if ( lambert > 0.0 ){
@@ -346,16 +347,16 @@ public class Scene {
         normal.normalize();
 
         // Invert the normal if located on  other side of object.
-        Ray transformed = intersection.getTransformedRay();
-        if( transformed.dir.dot(normal) > 0){
+        Ray hitRay = intersection.getHitRay();
+        if( hitRay.dir.dot(normal) > 0){
             normal = new Vector( -normal.getX(), -normal.getY(), -normal.getZ() );
         }
 
         // Negative of the ray's direction. Points to the viewer.
         Vector v = new Vector(
-                -transformed.dir.getX(),
-                -transformed.dir.getY(),
-                -transformed.dir.getZ());
+                -hitRay.dir.getX(),
+                -hitRay.dir.getY(),
+                -hitRay.dir.getZ());
 
         // Vector from hit point to source.
         Vector s = L.getLocation().minus( intersection.getLocation() );
@@ -390,10 +391,10 @@ public class Scene {
         normal.normalize();
 
         // Dot product between ray and normal.
-        double factor = intersection.getTransformedRay().dir.dot(normal);
+        double factor = intersection.getHitRay().dir.dot(normal);
 
         // Get reflection direction.
-        Vector dir = intersection.getTransformedRay().dir.minus(
+        Vector dir = intersection.getHitRay().dir.minus(
                 new Vector(2*factor*normal.getX(), 2*factor*normal.getY(), 2*factor*normal.getZ()));
 
         // Build reflected ray.
@@ -403,7 +404,7 @@ public class Scene {
         );
 
         // Go up a level.
-        reflected.recurseLevel = intersection.getTransformedRay().recurseLevel + 1;
+        reflected.recurseLevel = intersection.getHitRay().recurseLevel + 1;
 
         // Reflected component.
         return this.rayTrace(reflected);
@@ -422,7 +423,7 @@ public class Scene {
         normal.normalize();
 
         // Direction of hit ray.
-        Vector dir_hit = intersection.getTransformedRay().dir;
+        Vector dir_hit = intersection.getHitRay().dir;
         dir_hit.normalize();
 
         // Dot product between ray and normal.
@@ -454,7 +455,7 @@ public class Scene {
             );
 
             // Go up a level.
-            refracted.recurseLevel = intersection.getTransformedRay().recurseLevel + 1;
+            refracted.recurseLevel = intersection.getHitRay().recurseLevel + 1;
 
             // Refracted component.
             return this.rayTrace( refracted );
