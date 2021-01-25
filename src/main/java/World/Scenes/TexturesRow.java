@@ -1,5 +1,6 @@
 package World.Scenes;
 
+import Graphics.Rgb;
 import Interfaces.IATFactory;
 import Properties.Material.Material;
 import Properties.Texture.Texture;
@@ -7,6 +8,7 @@ import Matrix.ATFactory;
 import Matrix.Point;
 import Matrix.Vector;
 import Objects.*;
+import World.LightSource;
 import World.Scene;
 import static Utils.Constants.*;
 
@@ -51,6 +53,12 @@ public class TexturesRow extends Scene {
         addShape( smoothColors );
         addShape( checkerboard3D );
         addShape( checkerboard2D );
+
+        // Define light sources.
+        LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
+        LightSource source_right = new LightSource(-2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
+        addSource( source_left );
+        addSource( source_right );
     }
 
 }

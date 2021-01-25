@@ -1,6 +1,10 @@
 import Graphics.Screen;
 import Interfaces.IATFactory;
 import Matrix.ATFactory;
+import Objects.*;
+import Objects.Shape;
+import Properties.Material.Material;
+import Properties.Texture.Texture;
 import World.LightSource;
 import Matrix.Point;
 import Matrix.Vector;
@@ -11,8 +15,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import Graphics.Rgb;
 import World.Scenes.EquilateralTriangle;
+import World.Scenes.RefractionExhibition;
 import World.Scenes.ShapesRow;
 import World.Scenes.TexturesRow;
+
+import static Utils.Constants.BLACK;
+import static Utils.Constants.DARK_BROWN;
 
 /**
  * A 3D engine using the ray tracing principle.
@@ -61,13 +69,8 @@ public class RayTracing3DEngine {
         // Create a new scene.
         //Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, 0, 0));
         //Scene scene = new ShapesRow( maxRecursionLevel );
-        Scene scene = new TexturesRow( maxRecursionLevel );
-
-        // Define light sources.
-        LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
-        LightSource source_right = new LightSource(-2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
-        scene.addSource( source_left );
-        scene.addSource( source_right );
+        //Scene scene = new TexturesRow( maxRecursionLevel );
+        Scene scene = new RefractionExhibition( maxRecursionLevel );
 
         // Measure time in milliseconds.
         long start = System.currentTimeMillis();

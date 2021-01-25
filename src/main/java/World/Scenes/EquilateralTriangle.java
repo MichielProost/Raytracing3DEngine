@@ -1,5 +1,6 @@
 package World.Scenes;
 
+import Graphics.Rgb;
 import Interfaces.IATFactory;
 import Properties.Material.Material;
 import Matrix.ATFactory;
@@ -8,6 +9,7 @@ import Matrix.Vector;
 import Objects.Plane;
 import Objects.Shape;
 import Objects.Sphere;
+import World.LightSource;
 import World.Scene;
 import static Utils.Constants.*;
 
@@ -62,6 +64,12 @@ public class EquilateralTriangle extends Scene {
         addShape( ceiling );
         addShape( left_wall );
         addShape( right_wall );
+
+        // Define light sources.
+        LightSource source_left = new LightSource(2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
+        LightSource source_right = new LightSource(-2, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));
+        addSource( source_left );
+        addSource( source_right );
     }
 
 }
