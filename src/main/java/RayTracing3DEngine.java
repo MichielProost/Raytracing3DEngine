@@ -68,9 +68,14 @@ public class RayTracing3DEngine {
 
         // Create a new scene.
         //Scene scene = new EquilateralTriangle( maxRecursionLevel, 4, new Point(0, 0, 0));
-        Scene scene = new ShapesRow( maxRecursionLevel );
+        //Scene scene = new ShapesRow( maxRecursionLevel );
         //Scene scene = new TexturesRow( maxRecursionLevel );
         //Scene scene = new RefractionExhibition( maxRecursionLevel );
+        Scene scene = new Scene(maxRecursionLevel);
+        Shape sphere = new Sphere()
+                .setMaterial(Material.Materials.lambertian, BLACK)
+                .setImageTexture(".\\resources\\PathfinderMap.jpg");
+        scene.addShape(sphere);
 
         // Measure time in milliseconds.
         long start = System.currentTimeMillis();

@@ -80,6 +80,10 @@ public class Scene {
         // The color of the object.
         Rgb color = intersection.getObject().getMaterial().getColor();
 
+        if(intersection.getObject().hasImageTexture()){
+            Rgb pixel_color = intersection.getObject().getImageTexture().getRgb(5,5);
+        }
+
         // Whether to apply the texture or not.
         boolean applyTexture = intersection.getObject().hasTexture();
 

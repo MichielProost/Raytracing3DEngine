@@ -26,6 +26,9 @@ public abstract class Shape {
     // The texture of the shape.
     public Texture texture;
 
+    // The image texture of the shape.
+    public ImageTexture imageTexture;
+
     /**
      * Create a new shape.
      */
@@ -68,6 +71,14 @@ public abstract class Shape {
      */
     public Texture getTexture(){
         return texture;
+    }
+
+    /**
+     * Get the image texture of this shape.
+     * @return The image texture of this shape.
+     */
+    public ImageTexture getImageTexture(){
+        return imageTexture;
     }
 
     /**
@@ -149,11 +160,29 @@ public abstract class Shape {
     }
 
     /**
+     * Set the image texture of this shape.
+     * @param path The path of the image.
+     * @return This shape.
+     */
+    public Shape setImageTexture(String path){
+        imageTexture = new ImageTexture( path );
+        return this;
+    }
+
+    /**
      * Returns whether or not the shape has a texture.
      * @return Whether or not the shape has a texture.
      */
     public boolean hasTexture(){
         return texture != null;
+    }
+
+    /**
+     * Returns whether or not the shape has an image texture.
+     * @return Whether or not the shape has an image texture.
+     */
+    public boolean hasImageTexture(){
+        return imageTexture != null;
     }
 
 }
