@@ -441,7 +441,7 @@ public class Scene {
         double cos = Math.sqrt(1 - ((Math.pow(index, 2)) * (1 - Math.pow(product, 2))));
 
         // Refraction.
-        if (cos > 0) {
+        if (cos > 0.000001) {
             // Calculate factor for determining transmitted direction.
             double factor = (index * product) - cos;
 
