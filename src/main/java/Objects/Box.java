@@ -101,6 +101,16 @@ public class Box extends Shape {
         }
     }
 
+    @Override
+    public double getPixelX(double x, double y, double z) {
+        return 0;
+    }
+
+    @Override
+    public double getPixelY(double x, double y, double z) {
+        return 0;
+    }
+
     @Deprecated
     public Intersection getClosestIntersection(Ray ray, double parameter) {
         // Create intersection map.

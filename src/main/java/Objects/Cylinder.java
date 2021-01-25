@@ -96,4 +96,15 @@ public class Cylinder extends Shape{
         double y = ray.start.getY() + t * ray.dir.getY();
         return ( Math.pow(x, 2) + Math.pow(y,2) ) <= 1;
     }
+
+
+    @Override
+    public double getPixelX(double x, double y, double z) {
+        return 0;
+    }
+
+    @Override
+    public double getPixelY(double x, double y, double z) {
+        return 0;
+    }
 }

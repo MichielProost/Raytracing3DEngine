@@ -41,6 +41,9 @@ public abstract class Shape {
      */
     public abstract Intersection getClosestIntersection(Ray ray);
 
+    public abstract double getPixelX(double x, double y, double z);
+    public abstract double getPixelY(double x, double y, double z);
+
     /**
      * Return the affine transformation matrix.
      * @return The AT matrix.
