@@ -41,6 +41,7 @@ public class ImageTexture {
      * @return The color at the corresponding pixel.
      */
     public Rgb getRgb(double x, double y){
+        x = Math.abs(x); y = Math.abs(y);
         int u = (int) (x * (width-1));
         int v = (int) (y * (height-1));
         int rgb = img.getRGB(u, v);
@@ -49,4 +50,5 @@ public class ImageTexture {
         float blue = (float) (((rgb) & 0x000000FF)/255.0);
         return new Rgb(red, green, blue);
     }
+
 }

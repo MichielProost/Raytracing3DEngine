@@ -99,12 +99,32 @@ public class Cylinder extends Shape{
 
     @Override
     public double getPixelX(Point hitLocation) {
-        return Math.atan2( hitLocation.getY(), hitLocation.getX() );
+
+        double x = hitLocation.getX();
+        double y = hitLocation.getY();
+        double z = hitLocation.getZ();
+
+        if (Math.abs( z ) <= 0.99999 ){
+            double theta = Math.asin(y / ((y * y) + (x * x)));
+            if (theta < 0){
+                theta = 1 + theta;
+            }
+            theta = theta % 1;
+            
+            return theta;
+        } else {
+            return (x + 1) / 2;
+        }
     }
 
     @Override
     public double getPixelY(Point hitLocation) {
-        return Math.abs(hitLocation.getZ());
+
+        double x = hitLocation.getX();
+        double y = hitLocation.getY();
+        double z = hitLocation.getZ();
+
+        return Math.abs( y ) <= 0.99999 ? (z + 1) / 2 : (y + 1) / 2;
     }
 
 }
