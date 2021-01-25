@@ -5,10 +5,7 @@ import Interfaces.IATFactory;
 import Matrix.ATFactory;
 import Matrix.Point;
 import Matrix.Vector;
-import Objects.Cylinder;
-import Objects.Plane;
-import Objects.Shape;
-import Objects.Sphere;
+import Objects.*;
 import Properties.Material.Material;
 import Properties.Texture.Texture;
 import World.LightSource;
@@ -37,7 +34,7 @@ public class RefractionExhibition extends Scene {
                 .setTexture( Texture.Textures.stripes )
                 .setATMatrix( factory.getTranslation(0, 1, 0.25))
                 .setATMatrix( factory.getScaling(0.75, 0.75, 0.75));
-        Shape cylinder = new Cylinder()
+        Shape cylinder = new Box()
                 .setMaterial( Material.Materials.glass )
                 .setATMatrix( factory.getTranslation( 0, 5, 0.25))
                 .setATMatrix( factory.getScaling( 0.7, 0.7, 0.7));
