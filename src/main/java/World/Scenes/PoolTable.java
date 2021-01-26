@@ -29,6 +29,8 @@ public class PoolTable extends Scene {
                 .setFinite()
                 .setMaterial( Material.Materials.wood )
                 .setImageTexture( ".\\resources\\Pool\\WoodenFloor.jpg" );
+        addShape( ground );
+
         Shape thirteen_ball = new Sphere()
                 .setMaterial( Material.Materials.plastic )
                 .setImageTexture( ".\\resources\\Pool\\thirteen_ball.jpg" )
@@ -119,7 +121,6 @@ public class PoolTable extends Scene {
                 .setATMatrix( factory.getTranslation(0, 6.1, -0.6) )
                 .setATMatrix( factory.getScaling( 0.4, 0.4, 0.4) )
                 .setATMatrix( factory.getRotation( IATFactory.RotationAxis.X, 30) );
-        addShape( ground );
         addShape( thirteen_ball );
         addShape( fourteen_ball );
         addShape( twelve_ball );
@@ -136,11 +137,22 @@ public class PoolTable extends Scene {
         addShape( three_ball );
         addShape( one_ball );
 
-        Shape sphere = new Sphere()
+        Shape mirror_sphere = new Sphere()
                 .setMaterial( Material.Materials.mirror )
                 .setATMatrix( factory.getTranslation(0, 0, 2) )
                 .setATMatrix( factory.getScaling(2,2,2) );
-        addShape( sphere );
+        addShape( mirror_sphere );
+
+        Shape left_wall = new Plane( new Vector(-1, 0, 0), new Point(-5, 0, 0))
+                .setFinite()
+                .setMaterial( Material.Materials.lambertian, BLACK )
+                .setImageTexture( ".\\resources\\Pool\\BrickWall.jpg" );
+        Shape right_wall = new Plane( new Vector(1, 0, 0), new Point(5, 0, 0))
+                .setFinite()
+                .setMaterial( Material.Materials.lambertian, BLACK )
+                .setImageTexture( ".\\resources\\Pool\\BrickWall.jpg" );
+        addShape( left_wall );
+        addShape( right_wall );
 
         // Define light sources.
         LightSource source_front = new LightSource(0, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));

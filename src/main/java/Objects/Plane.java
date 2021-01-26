@@ -74,13 +74,45 @@ public class Plane extends Shape {
 
     @Override
     public double getPixelX(Point hitLocation) {
-        double x = Math.abs(hitLocation.getX()) % 2;
-        return x / 2;
+        double x = hitLocation.getX() % 1;
+        double y = hitLocation.getY() % 1;
+        double z = hitLocation.getZ() % 1;
+
+        if (Math.abs( x ) < 0.001) {
+            return Math.abs(((hitLocation.getZ() % 1) + 1) / 2);
+        }
+        else if (Math.abs( y ) < 0.001)
+        {
+            return Math.abs(((hitLocation.getX() % 1) + 1) / 2);
+        }
+        else if (Math.abs( z ) < 0.001)
+        {
+            return Math.abs(((hitLocation.getX() % 1) + 1) / 2);
+        }
+        return 0;
     }
 
     @Override
     public double getPixelY(Point hitLocation) {
-        double y = Math.abs(hitLocation.getY()) % 2;
-        return y / 2;
+        //System.out.println(hitLocation);
+        double x = hitLocation.getX() % 1;
+        double y = hitLocation.getY() % 1;
+        double z = hitLocation.getZ() % 1;
+
+        if (Math.abs( x ) < 0.001) {
+            //System.out.println("X");
+            return Math.abs(((hitLocation.getY() % 1) + 1) / 2);
+        }
+        else if (Math.abs( y ) < 0.001)
+        {
+            //System.out.println("Y");
+            return Math.abs(((hitLocation.getZ() % 1) + 1) / 2);
+        }
+        else if (Math.abs( z ) < 0.001)
+        {
+            //System.out.println("Z");
+            return Math.abs(((hitLocation.getY() % 1) + 1) / 2);
+        }
+        return 0;
     }
 }
