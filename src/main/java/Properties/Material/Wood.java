@@ -43,10 +43,10 @@ public class Wood extends Material {
         set_weights(0.97f, 0.02f, 0.01f);
 
         // Ambient component.
-        set_ambient(0.0f, 0.0f, 0.0f);
+        set_ambient(0.2f, 0.2f, 0.2f);
 
         // Diffuse component.
-        set_diffuse(0.2f, 0.2f, 0.2f);
+        set_diffuse(0.95f, 0.95f, 0.95f);
 
         // Specular component.
         set_specular(0.50f, 0.50f, 0.50f, 32.0);

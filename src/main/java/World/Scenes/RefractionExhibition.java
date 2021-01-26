@@ -34,7 +34,7 @@ public class RefractionExhibition extends Scene {
                 .setTexture( Texture.Textures.stripes )
                 .setATMatrix( factory.getTranslation(0, 1, 0.25))
                 .setATMatrix( factory.getScaling(0.75, 0.75, 0.75));
-        Shape cylinder = new Box()
+        Shape cylinder = new Cylinder()
                 .setMaterial( Material.Materials.glass )
                 .setATMatrix( factory.getTranslation( 0, 5, 0.25))
                 .setATMatrix( factory.getScaling( 0.7, 0.7, 0.7));

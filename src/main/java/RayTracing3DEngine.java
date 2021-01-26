@@ -67,7 +67,8 @@ public class RayTracing3DEngine {
         //Scene scene = new ShapesRow( maxRecursionLevel );
         //Scene scene = new TexturesRow( maxRecursionLevel );
         //Scene scene = new RefractionExhibition( maxRecursionLevel );
-        Scene scene = new ImageTexturesRow( maxRecursionLevel );
+        //Scene scene = new ImageTexturesRow( maxRecursionLevel );
+        Scene scene = new PoolTable( maxRecursionLevel );
 
         // Measure time in milliseconds.
         long start = System.currentTimeMillis();
