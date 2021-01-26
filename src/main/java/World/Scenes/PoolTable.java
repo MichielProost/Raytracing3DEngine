@@ -5,10 +5,7 @@ import Interfaces.IATFactory;
 import Matrix.ATFactory;
 import Matrix.Point;
 import Matrix.Vector;
-import Objects.Box;
-import Objects.Plane;
-import Objects.Shape;
-import Objects.Sphere;
+import Objects.*;
 import Properties.Material.Material;
 import Properties.Texture.Texture;
 import World.LightSource;
@@ -29,7 +26,12 @@ public class PoolTable extends Scene {
                 .setFinite()
                 .setMaterial( Material.Materials.wood )
                 .setImageTexture( ".\\resources\\Pool\\WoodenFloor.jpg" );
+        Shape ceiling = new Plane( new Vector(0, 0, 1), new Point(0, 0, 5))
+                .setFinite()
+                .setMaterial(Material.Materials.wood )
+                .setImageTexture( ".\\resources\\Pool\\CeilingWall.jpg" );
         addShape( ground );
+        addShape( ceiling );
 
         Shape thirteen_ball = new Sphere()
                 .setMaterial( Material.Materials.plastic )
@@ -153,6 +155,30 @@ public class PoolTable extends Scene {
                 .setImageTexture( ".\\resources\\Pool\\BrickWall.jpg" );
         addShape( left_wall );
         addShape( right_wall );
+
+        Shape mirror_front_wall_right = new Plane( new Vector(0, 1, 0), new Point(0, 0, 0))
+                .setFinite()
+                .setMaterial( Material.Materials.mirror )
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Z, (Math.PI / 15)));
+        Shape mirror_front_wall_left = new Plane( new Vector(0, 1, 0), new Point(0, 0, 0))
+                .setFinite()
+                .setMaterial( Material.Materials.mirror )
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Z, (-Math.PI / 15)));
+        addShape( mirror_front_wall_right );
+        addShape( mirror_front_wall_left );
+
+        Shape cylinder = new Cylinder()
+                .setMaterial( Material.Materials.gold )
+                .setATMatrix( factory.getTranslation( -2, 5, -0.7))
+                .setATMatrix( factory.getScaling( 0.3, 0.3, 0.3))
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Z, -15));
+        Shape box = new Box()
+                .setMaterial( Material.Materials.polished_silver )
+                .setATMatrix( factory.getTranslation( 2, 5, -0.7))
+                .setATMatrix( factory.getScaling( 0.3, 0.3, 0.3))
+                .setATMatrix( factory.getRotation( IATFactory.RotationAxis.Z, 15));
+        addShape( cylinder );
+        addShape( box );
 
         // Define light sources.
         LightSource source_front = new LightSource(0, 8, 0).setColor(new Rgb(0.7f, 0.7f, 0.7f));

@@ -24,6 +24,7 @@ public final class Constants {
     public static final Rgb DARK_BROWN = new Rgb(93, 67, 44);
     public static final Rgb CHESS_DARK = new Rgb(184, 139, 74);
     public static final Rgb CHESS_LIGHT = new Rgb(227, 193, 111);
+    public static final Rgb DARK_SKY = new Rgb(28, 0 ,152);
 
     // Material.
     public static final float REQUIRED_SHININESS = 0.05f;
