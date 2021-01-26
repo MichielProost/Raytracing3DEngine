@@ -74,11 +74,13 @@ public class Plane extends Shape {
 
     @Override
     public double getPixelX(Point hitLocation) {
-        return Math.abs(hitLocation.getX()) % 1;
+        double x = Math.abs(hitLocation.getX()) % 2;
+        return x / 2;
     }
 
     @Override
     public double getPixelY(Point hitLocation) {
-        return Math.abs(hitLocation.getY()) % 1;
+        double y = Math.abs(hitLocation.getY()) % 2;
+        return y / 2;
     }
 }
